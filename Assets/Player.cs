@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     int attack;
     Enemy enemy;
     public GameObject damageIndi;
+
     // Start is called before the first frame update
     void Start()
     {

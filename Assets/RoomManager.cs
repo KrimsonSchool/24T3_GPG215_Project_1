@@ -11,6 +11,7 @@ public class RoomManager : MonoBehaviour
     public bool enemyDead;
     GameObject camera;
     Player player;
+    Enemy enemy;
 
     float timer;
 
@@ -19,6 +20,8 @@ public class RoomManager : MonoBehaviour
     private static GameObject instance;
 
     public TMPro.TextMeshProUGUI roomText;
+
+    public int[] enemyToSpawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -73,5 +76,6 @@ public class RoomManager : MonoBehaviour
         camera = FindObjectOfType<Camera>().gameObject;
         player = FindObjectOfType<Player>();
         roomText = GameObject.Find("RoomText").GetComponent<TMPro.TextMeshProUGUI>();
+        enemy = FindObjectOfType<Enemy>();
     }
 }
