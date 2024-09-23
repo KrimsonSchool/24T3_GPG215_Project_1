@@ -12308,6 +12308,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: c323906dcb4ee9c4b90100e8d48a9494, type: 3}
   - {fileID: 2800000, guid: 5dc8595a1e07efc4bba0c9996f5ab917, type: 3}
   difficulty: 0100000002000000
+  amountCoins: 0300000005000000
   hBar: {fileID: 1596398668}
   enemyId: 1
   sudoSelf: {fileID: 1728958483}
