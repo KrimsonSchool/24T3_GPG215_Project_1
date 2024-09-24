@@ -11,18 +11,30 @@ public class Inventory : MonoBehaviour
 
     public int health;
     public int maxHealth;
+
     public RectMask2D healthBar;
+    public Slider xpBar;
+    public TMPro.TextMeshProUGUI xpText;
+    public TMPro.TextMeshProUGUI hpText;
     // Start is called before the first frame update
     void Start()
     {
+        xpMax = 25;
         maxHealth = 100;
         health = maxHealth;
         healthBar = GameObject.Find("HealthBarR2D").GetComponent<RectMask2D>();
+        xpBar = GameObject.Find("XpBar").GetComponent<Slider>();
+        xpText = GameObject.Find("XpText").GetComponent<TMPro.TextMeshProUGUI>();
+        hpText = GameObject.Find("HpText").GetComponent<TMPro.TextMeshProUGUI>();
 
     }
     void OnLevelWasLoaded()
     {
-        healthBar = GameObject.Find("HealthBarR2D").GetComponent<RectMask2D>();
+        healthBar = GameObject.Find("HealthBarR2D").GetComponent<RectMask2D>(); 
+        xpBar = GameObject.Find("XpBar").GetComponent<Slider>();
+        xpText = GameObject.Find("XpText").GetComponent<TMPro.TextMeshProUGUI>();
+        hpText = GameObject.Find("HpText").GetComponent<TMPro.TextMeshProUGUI>();
+
     }
     // Update is called once per frame
     void Update()
@@ -37,5 +49,16 @@ public class Inventory : MonoBehaviour
         
 
         healthBar.padding = new Vector4(0, 0, 1080 - barWidth, 0);
+        xpBar.maxValue = xpMax;
+        xpBar.value = xp;
+
+        xpText.text = "XP: " + xp + "/" + xpMax;
+        hpText.text = "HP: " + health + "/" + maxHealth;
+
+        if (xp >= xpMax)
+        {
+            xp-=xpMax;
+            xpMax = Mathf.RoundToInt(xpMax * 1.25f);
+        }
     }
 }
