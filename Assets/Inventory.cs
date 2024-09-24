@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     public int coins;
+    public int xp;
+    public int xpMax;
+
     public int health;
     public int maxHealth;
     public RectMask2D healthBar;
@@ -14,8 +17,13 @@ public class Inventory : MonoBehaviour
     {
         maxHealth = 100;
         health = maxHealth;
-    }
+        healthBar = GameObject.Find("HealthBarR2D").GetComponent<RectMask2D>();
 
+    }
+    void OnLevelWasLoaded()
+    {
+        healthBar = GameObject.Find("HealthBarR2D").GetComponent<RectMask2D>();
+    }
     // Update is called once per frame
     void Update()
     {

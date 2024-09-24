@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     public Texture2D[] texture;
     public int[] difficulty;
     public int[] amountCoins;
+    public int[] amountXp;
 
     public GameObject hBar;
 
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour
     //V deprecated but perfectly spreads coins
     //public GameObject coinGroup;
     public GameObject coin;
+    public GameObject xp;
 
     bool dead;
     // Start is called before the first frame update
@@ -55,6 +57,11 @@ public class Enemy : MonoBehaviour
             for (int i = 0; i < amountCoins[enemyId]; i++)
             {
                 Instantiate(coin, transform.position - (transform.forward * 2) + (transform.up * (0.25f * (i%2))), coin.transform.rotation);
+            }
+
+            for (int i = 0;i < amountXp[enemyId]; i++)
+            {
+                Instantiate(xp, transform.position - (transform.forward * 2) + (transform.up * (0.25f * (i % 2))), coin.transform.rotation);
             }
             //Instantiate(coinGroup, transform.position + transform.up, Quaternion.identity);
             animator.SetBool("Dead", true);
