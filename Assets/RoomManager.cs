@@ -20,8 +20,11 @@ public class RoomManager : MonoBehaviour
     private static GameObject instance;
 
     public TMPro.TextMeshProUGUI roomText;
+    public TMPro.TextMeshProUGUI currencyText;
 
     public int[] enemyToSpawn;
+
+    Inventory inventory;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +52,7 @@ public class RoomManager : MonoBehaviour
     void Update()
     {
         roomText.text = "Room: " + room;
+        currencyText.text = "Coins: " + inventory.coins;
         if (enemyDead)
         {
             camera.GetComponent<Animator>().enabled = true;
@@ -76,6 +80,8 @@ public class RoomManager : MonoBehaviour
         camera = FindObjectOfType<Camera>().gameObject;
         player = FindObjectOfType<Player>();
         roomText = GameObject.Find("RoomText").GetComponent<TMPro.TextMeshProUGUI>();
+        currencyText = GameObject.Find("CurrencyText").GetComponent<TMPro.TextMeshProUGUI>();
         enemy = FindObjectOfType<Enemy>();
+        inventory = GetComponent<Inventory>();
     }
 }

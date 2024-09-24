@@ -23,7 +23,9 @@ public class Enemy : MonoBehaviour
 
     public GameObject sudoSelf;
 
-    public GameObject coinGroup;
+    //V deprecated but perfectly spreads coins
+    //public GameObject coinGroup;
+    public GameObject coin;
 
     bool dead;
     // Start is called before the first frame update
@@ -50,7 +52,11 @@ public class Enemy : MonoBehaviour
         if (health <= 0 && animator != null && !dead)
         {
             dead = true;
-            Instantiate(coinGroup, transform.position + transform.up, Quaternion.identity);
+            for (int i = 0; i < amountCoins[enemyId]; i++)
+            {
+                Instantiate(coin, transform.position - (transform.forward * 2) + (transform.up * (0.25f * (i%2))), coin.transform.rotation);
+            }
+            //Instantiate(coinGroup, transform.position + transform.up, Quaternion.identity);
             animator.SetBool("Dead", true);
         }
     }
