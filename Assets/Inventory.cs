@@ -20,11 +20,14 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         //not working yet, please hold on...
-        float percentage = (health / maxHealth) * 100;
-        float barWidth = 1080/percentage;
+        float percentage = ((health*1.0f) / maxHealth);
+        float barWidth = 1080*percentage;
+
+        print(percentage);
+        print(barWidth);
 
         
 
-        healthBar.padding = new Vector4(0,barWidth,0,0);
+        healthBar.padding = new Vector4(0, 0, 1080 - barWidth, 0);
     }
 }
