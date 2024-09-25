@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
     {
         level = 1;
         xpMax = 25;
-        maxHealth = 100;
+        maxHealth = 20;
         health = maxHealth;
 
 
@@ -69,6 +69,7 @@ public class Inventory : MonoBehaviour
             xp-=xpMax;
             xpMax = Mathf.RoundToInt(xpMax * 1.25f);
             level++;
+            maxHealth+=5;
         }
     }
 }

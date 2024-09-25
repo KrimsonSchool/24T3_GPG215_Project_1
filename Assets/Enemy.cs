@@ -30,6 +30,8 @@ public class Enemy : MonoBehaviour
     public GameObject xp;
 
     bool dead;
+
+    float attackTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +68,14 @@ public class Enemy : MonoBehaviour
             //Instantiate(coinGroup, transform.position + transform.up, Quaternion.identity);
             animator.SetBool("Dead", true);
         }
+
+        attackTimer += Time.deltaTime;
+        if(attackTimer> (5 - difficulty[enemyId]) && !dead)
+        {
+            FindAnyObjectByType<Inventory>().health-= difficulty[enemyId];
+            animator.SetBool("Attack", true);
+            attackTimer = 0;
+        }
     }
 
     public void SignalDead()
@@ -75,5 +85,10 @@ public class Enemy : MonoBehaviour
         {
             FindObjectOfType<RoomManager>().enemyDead = true;
         }
+    }
+
+    public void AttackEnd()
+    {
+        animator.SetBool("Attack", false);
     }
 }
