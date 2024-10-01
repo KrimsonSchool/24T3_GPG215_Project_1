@@ -51,8 +51,8 @@ public class Inventory : MonoBehaviour
         float percentage = ((health*1.0f) / maxHealth);
         float barWidth = 1080*percentage;
 
-        print(percentage);
-        print(barWidth);
+        //print(percentage);
+        //print(barWidth);
 
         
 
