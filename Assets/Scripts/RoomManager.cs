@@ -25,6 +25,8 @@ public class RoomManager : MonoBehaviour
     public int[] enemyToSpawn;
 
     Inventory inventory;
+
+    public GameObject tta;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +36,7 @@ public class RoomManager : MonoBehaviour
         if (instance == null)
         {
             instance = gameObject;
+            tta.SetActive(true);
         }
         else
         {

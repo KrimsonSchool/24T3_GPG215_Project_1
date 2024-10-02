@@ -14,11 +14,16 @@ public class Inventory : MonoBehaviour
     public int health;
     public int maxHealth;
 
-    public RectMask2D healthBar;
-    public Slider xpBar;
-    public TMPro.TextMeshProUGUI xpText;
-    public TMPro.TextMeshProUGUI hpText;
-    public TMPro.TextMeshProUGUI levelText;
+    public Gear weapon;
+    public Gear armour;
+
+
+    [HideInInspector] public RectMask2D healthBar;
+    [HideInInspector] public Slider xpBar;
+    [HideInInspector] public TMPro.TextMeshProUGUI xpText;
+    [HideInInspector] public TMPro.TextMeshProUGUI hpText;
+    [HideInInspector] public TMPro.TextMeshProUGUI levelText;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
 
     Global global;
 
+
+    public GameObject weaponSlot;
+    public GameObject armourSlot;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +29,11 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            AttackMain();
-            print("Click attack " + attackDamage[attack] + " DMG");
+            if (FindObjectOfType<MenuManager>().openMenus == 0)
+            {
+                AttackMain();
+                print("Click attack " + attackDamage[attack] + " DMG");
+            }
         }
     }
 
