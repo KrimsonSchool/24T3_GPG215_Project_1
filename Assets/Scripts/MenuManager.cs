@@ -6,6 +6,9 @@ public class MenuManager : MonoBehaviour
 {
     [HideInInspector]
     public int openMenus;
+
+    public GameObject weaponInv;
+    public GameObject armourInv;
     // Start is called before the first frame update
     void Start()
     {

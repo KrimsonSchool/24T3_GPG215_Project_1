@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
 
     public Gear weapon;
     public Gear armour;
+    public Ability[] abilities;
 
 
     [HideInInspector] public RectMask2D healthBar;
@@ -23,6 +24,9 @@ public class Inventory : MonoBehaviour
     [HideInInspector] public TMPro.TextMeshProUGUI xpText;
     [HideInInspector] public TMPro.TextMeshProUGUI hpText;
     [HideInInspector] public TMPro.TextMeshProUGUI levelText;
+    [HideInInspector] public GameObject itemPickupUi;
+    [HideInInspector] public Image weaponInv;
+    [HideInInspector] public Image armourInv;
 
     // Start is called before the first frame update
     void Start()
@@ -33,26 +37,16 @@ public class Inventory : MonoBehaviour
         health = maxHealth;
 
 
-        healthBar = GameObject.Find("HealthBarR2D").GetComponent<RectMask2D>();
-        xpBar = GameObject.Find("XpBar").GetComponent<Slider>();
-        xpText = GameObject.Find("XpText").GetComponent<TMPro.TextMeshProUGUI>();
-        hpText = GameObject.Find("HpText").GetComponent<TMPro.TextMeshProUGUI>();
-        levelText = GameObject.Find("LevelText").GetComponent<TMPro.TextMeshProUGUI>();
-
+        LoadDependecies();
     }
     void OnLevelWasLoaded()
     {
-        healthBar = GameObject.Find("HealthBarR2D").GetComponent<RectMask2D>(); 
-        xpBar = GameObject.Find("XpBar").GetComponent<Slider>();
-        xpText = GameObject.Find("XpText").GetComponent<TMPro.TextMeshProUGUI>();
-        hpText = GameObject.Find("HpText").GetComponent<TMPro.TextMeshProUGUI>();
-        levelText = GameObject.Find("LevelText").GetComponent<TMPro.TextMeshProUGUI>();
-
+        LoadDependecies();
     }
     // Update is called once per frame
     void Update()
     {
-        //not working yet, please hold on...
+        //print(itemPickupUi.activeSelf);
         float percentage = ((health*1.0f) / maxHealth);
         float barWidth = 1080*percentage;
 
@@ -76,5 +70,30 @@ public class Inventory : MonoBehaviour
             level++;
             maxHealth+=5;
         }
+
+        if (weaponInv.gameObject.activeSelf && weapon!=null)
+        {
+            weaponInv.sprite = weapon.icon;
+        }
+
+        if (armourInv.gameObject.activeSelf&&armour!=null)
+        {
+            armourInv.sprite = armour.icon;
+        }
+    }
+
+    //these names are case sensitive, if you want to rename a UI element please update it here!
+    public void LoadDependecies()
+    {
+        healthBar = GameObject.Find("HealthBarR2D").GetComponent<RectMask2D>();
+        xpBar = GameObject.Find("XpBar").GetComponent<Slider>();
+        xpText = GameObject.Find("XpText").GetComponent<TMPro.TextMeshProUGUI>();
+        hpText = GameObject.Find("HpText").GetComponent<TMPro.TextMeshProUGUI>();
+        levelText = GameObject.Find("LevelText").GetComponent<TMPro.TextMeshProUGUI>();
+        //The true in the below find obejcts means it will find disabled objects
+        itemPickupUi = FindObjectOfType<ItemPickup>(true).gameObject;
+
+        weaponInv = FindObjectOfType<MenuManager>().weaponInv.GetComponent<Image>();
+        armourInv = FindObjectOfType<MenuManager>().armourInv.GetComponent<Image>();
     }
 }

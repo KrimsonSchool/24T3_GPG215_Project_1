@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Gear : MonoBehaviour
 {
+    //need to implement stats!!
+
     //dropdown - GearType(helmet)
     //Dropdown - Teir(1)
 
@@ -21,6 +23,8 @@ public class Gear : MonoBehaviour
     bool drop = true;
     float timer;
     Player player;
+
+    public Sprite icon;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,14 +62,17 @@ public class Gear : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * 100);
 
             //if within 1 unit of cam camera then
-            if (Vector3.Distance(transform.position, Camera.main.transform.position) < 1)
+            if (Vector3.Distance(transform.position, player.transform.position) < 1)
             {
                 //add to inv, show on cam
                 drop = false;
                 timer = 0;
 
-                transform.position = player.weaponSlot.transform.position;
-                transform.rotation = player.weaponSlot.transform.rotation;
+                FindObjectOfType<Inventory>().itemPickupUi.SetActive(true);
+                FindObjectOfType<Inventory>().itemPickupUi.GetComponent<ItemPickup>().gear = GetComponent<Gear>();
+                gameObject.SetActive(false);
+                //transform.position = player.weaponSlot.transform.position;
+                //transform.rotation = player.weaponSlot.transform.rotation;
             }
         }
     }
