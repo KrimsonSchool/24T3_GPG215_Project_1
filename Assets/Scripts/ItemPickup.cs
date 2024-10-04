@@ -9,25 +9,70 @@ public class ItemPickup : MonoBehaviour
     public TMPro.TextMeshProUGUI itemText;
     public TMPro.TextMeshProUGUI statsText;
     public Image itemImage;
+
+    Inventory inventory;
+
+    int damageOffset;
+    int critOffset;
+    int critAOffset;
+    int pm;
+
+    int defenceOffset;
     // Start is called before the first frame update
     void Start()
     {
         FindObjectOfType<MenuManager>().openMenus ++;
+        inventory = FindObjectOfType<Inventory>();
+
+        if (FindObjectOfType<Inventory>().weapon != null)
+        {
+            damageOffset = gear.damage -= inventory.weapon.damage;
+            critOffset = gear.critChance - inventory.weapon.critChance;
+            critAOffset = gear.critAmount - inventory.weapon.critAmount;
+
+            pm = (damageOffset + critAOffset + critOffset) / 3;
+        }
+        if (inventory.armour != null)
+        {
+            defenceOffset = gear.defence - inventory.armour.defence;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         itemImage.sprite = gear.icon;
-        itemText.text = "Congrats!\nYou picked up ["+gear.name+"]";
+        itemText.text = "Congrats!\nYou picked up [" + gear.name + "]";
 
         if (gear.type == Gear.GearType.Weapon)
         {
-            statsText.text = "+ [" + gear.damage + "] Attack\n+ [" + gear.critChance + "] Crit Chance\n+ [" + gear.critAmount + "] Crit Amount";
+            if (FindObjectOfType<Inventory>().weapon == null)
+            {
+                statsText.text = "+ [" + gear.damage + "] Attack\n+ [" + gear.critChance + "] Crit Chance\n+ [" + gear.critAmount + "] Crit Amount";
+            }
+            else
+            {
+                if (pm < 0)
+                {
+                    statsText.color = Color.red;
+                }
+                statsText.text = "+ [" + (damageOffset) + "] Attack\n+ [" + (critOffset) + "] Crit Chance\n+ [" + (critAOffset) + "] Crit Amount";
+            }
         }
         if (gear.type == Gear.GearType.Armour)
         {
-            statsText.text = "+ [" + gear.defence + "] Defence";
+            if (FindObjectOfType<Inventory>().armour == null)
+            {
+                statsText.text = "+ [" + gear.defence + "] Defence";
+            }
+            else
+            {
+                if (defenceOffset < 0)
+                {
+                    statsText.color = Color.red;
+                }
+                statsText.text = "+ [" + defenceOffset + "] Defence";
+            }
         }
     }
 
