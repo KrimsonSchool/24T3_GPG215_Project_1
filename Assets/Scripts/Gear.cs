@@ -13,18 +13,21 @@ public class Gear : MonoBehaviour
     public int teir = 1;
     public int weight = 1;
 
-    [HideInInspector]
-    public int defence;
 
-    [HideInInspector] public int damage;
-    [HideInInspector] public int critChance;
-    [HideInInspector] public int critAmount;
+    
 
     bool drop = true;
     float timer;
     Player player;
 
     public Sprite icon;
+
+    [Header("Stats")]
+    [HideInInspector]
+    public int defence;
+    [HideInInspector] public int damage;
+    [HideInInspector] public int critChance;
+    [HideInInspector] public int critAmount;
     // Start is called before the first frame update
     void Start()
     {

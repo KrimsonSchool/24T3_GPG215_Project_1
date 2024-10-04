@@ -5,7 +5,7 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     [HideInInspector]
-    public int openMenus;
+    public int openMenus;//<-- broadcast to enemies pls :)
 
     public GameObject weaponInv;
     public GameObject armourInv;

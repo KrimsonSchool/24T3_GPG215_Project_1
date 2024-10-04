@@ -7,11 +7,12 @@ public class ItemPickup : MonoBehaviour
 {
     [HideInInspector] public Gear gear;
     public TMPro.TextMeshProUGUI itemText;
+    public TMPro.TextMeshProUGUI statsText;
     public Image itemImage;
     // Start is called before the first frame update
     void Start()
     {
-        
+        FindObjectOfType<MenuManager>().openMenus ++;
     }
 
     // Update is called once per frame
@@ -19,6 +20,15 @@ public class ItemPickup : MonoBehaviour
     {
         itemImage.sprite = gear.icon;
         itemText.text = "Congrats!\nYou picked up ["+gear.name+"]";
+
+        if (gear.type == Gear.GearType.Weapon)
+        {
+            statsText.text = "+ [" + gear.damage + "] Attack\n+ [" + gear.critChance + "] Crit Chance\n+ [" + gear.critAmount + "] Crit Amount";
+        }
+        if (gear.type == Gear.GearType.Armour)
+        {
+            statsText.text = "+ [" + gear.defence + "] Defence";
+        }
     }
 
     public void Equip()
@@ -32,6 +42,7 @@ public class ItemPickup : MonoBehaviour
             FindObjectOfType<Inventory>().armour = gear;
         }
 
+        FindObjectOfType<MenuManager>().openMenus--;
         gameObject.SetActive(false);
     }
 }
