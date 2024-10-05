@@ -16,17 +16,26 @@ public class Player : MonoBehaviour
 
     public GameObject weaponSlot;
     public GameObject armourSlot;
+
+    int critChance;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         enemy = FindObjectOfType<Enemy>();
         global = FindObjectOfType<Global>();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (FindObjectOfType<Inventory>().weapon!=null)
+        {
+            attackDamage[0] = 1 + FindObjectOfType<Inventory>().weapon.damage;
+            critChance = FindObjectOfType<Inventory>().weapon.critChance;
+        }
+
         if (FindObjectOfType<MenuManager>().openMenus == 0)
         {
             Time.timeScale = 1;
@@ -46,7 +55,7 @@ public class Player : MonoBehaviour
     {
         attack = 0;
         //would be dependent on crit chance
-        if(Random.Range(0, 4) == 0)
+        if(Random.Range(0, 100) <= critChance)
         {
             Instantiate(global.critCircle, FindObjectOfType<Canvas>().transform);
         }

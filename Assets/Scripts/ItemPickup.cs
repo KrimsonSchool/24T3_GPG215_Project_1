@@ -52,7 +52,7 @@ public class ItemPickup : MonoBehaviour
             }
             else
             {
-                if (pm < 0)
+                if (pm <= 0)
                 {
                     statsText.color = Color.red;
                 }
@@ -67,7 +67,7 @@ public class ItemPickup : MonoBehaviour
             }
             else
             {
-                if (defenceOffset < 0)
+                if (defenceOffset <= 0)
                 {
                     statsText.color = Color.red;
                 }
