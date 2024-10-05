@@ -8,16 +8,16 @@ public class PlayerStats : MonoBehaviour
 {
     // Value Changed Events
     public static event Action HealthValueChangedEvent;
-    public static event Action StatValueChangedEvent;
 
     [Header("Health")]
     [SerializeField] private int maxHealth = 10;
     [SerializeField] private int currentHealth = 10;
 
     [Header("Offensive Stats")]
-    [SerializeField] private int baseAttackDamage = 1;
-    [SerializeField] private float attackSpeed = 0.4f;
+    [SerializeField] private int attackDamage = 1;
+    [SerializeField] private float attackSpeed = 0.2f;
     [SerializeField] private float attackRecovery = 0.4f;
+    [SerializeField] private float critMultiplier = 1f;
 
     [Header("Defensive Stats")]
     [SerializeField] private float dodgeWindow = 0.4f;
@@ -53,13 +53,12 @@ public class PlayerStats : MonoBehaviour
     #endregion
 
     #region Offensive Stats Getters & Setters
-    public int BaseAttackDamage
+    public int AttackDamage
     {
-        get { return baseAttackDamage; }
+        get { return attackDamage; }
         set
         {
-            baseAttackDamage = Mathf.Clamp(value, 0, int.MaxValue);
-            StatValueChangedEvent?.Invoke();
+            attackDamage = Mathf.Clamp(value, 0, int.MaxValue);
         }
     }
 
@@ -69,7 +68,6 @@ public class PlayerStats : MonoBehaviour
         set
         {
             attackSpeed = Mathf.Clamp(value, 0f, float.MaxValue);
-            StatValueChangedEvent?.Invoke();
         }
     }
 
@@ -79,7 +77,15 @@ public class PlayerStats : MonoBehaviour
         set
         {
             attackRecovery = Mathf.Clamp(value, 0f, float.MaxValue);
-            StatValueChangedEvent?.Invoke();
+        }
+    }
+
+    public float CritMultiplier
+    {
+        get { return critMultiplier; }
+        set
+        {
+            critMultiplier = Mathf.Clamp(value, 1f, float.MaxValue);
         }
     }
     #endregion
@@ -91,7 +97,6 @@ public class PlayerStats : MonoBehaviour
         set
         {
             dodgeWindow = Mathf.Clamp(value, 0f, float.MaxValue);
-            StatValueChangedEvent?.Invoke();
         }
     }
 
@@ -101,7 +106,6 @@ public class PlayerStats : MonoBehaviour
         set
         {
             dodgeRecovery = Mathf.Clamp(value, 0f, float.MaxValue);
-            StatValueChangedEvent?.Invoke();
         }
     }
 
@@ -111,7 +115,6 @@ public class PlayerStats : MonoBehaviour
         set
         {
             blockWindow = Mathf.Clamp(value, 0f, float.MaxValue);
-            StatValueChangedEvent?.Invoke();
         }
     }
 
@@ -121,7 +124,6 @@ public class PlayerStats : MonoBehaviour
         set
         {
             blockRecovery = Mathf.Clamp(value, 0f, float.MaxValue);
-            StatValueChangedEvent?.Invoke();
         }
     }
 
@@ -131,7 +133,6 @@ public class PlayerStats : MonoBehaviour
         set
         {
             damageResistance = Mathf.Clamp(value, 0f, float.MaxValue);
-            StatValueChangedEvent?.Invoke();
         }
     }
     #endregion
@@ -143,7 +144,6 @@ public class PlayerStats : MonoBehaviour
         set
         {
             abilityDamageMultiplier = Mathf.Clamp(value, 0f, float.MaxValue);
-            StatValueChangedEvent?.Invoke();
         }
     }
 
@@ -153,7 +153,6 @@ public class PlayerStats : MonoBehaviour
         set
         {
             abilityCDRMultiplier = Mathf.Clamp(value, 0f, float.MaxValue);
-            StatValueChangedEvent?.Invoke();
         }
     }
     #endregion

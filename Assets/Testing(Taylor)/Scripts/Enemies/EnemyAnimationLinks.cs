@@ -23,7 +23,7 @@ public class EnemyAnimationLinks : MonoBehaviour
         EnemyCombatHandler.EnemyAttackEvent -= EnemyAttackAnimation;
     }
 
-    private void EnemyAttackAnimation(int damage, PlayerCombatHandler.PlayerStates defenceRequirement)
+    private void EnemyAttackAnimation(int damage, PlayerCombatStates defenceRequirement)
     {
         // can put in different animations depending on attack type
         animator.SetBool("Attack", true);

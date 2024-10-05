@@ -18,6 +18,7 @@ public class InputMotionsHandler : MonoBehaviour
 
     public void RecordDragMotion()
     {
+        StopAllCoroutines();
         tapAllowed = true;
         startPoint = Input.mousePosition;
         StartCoroutine(TapAllowance());
@@ -59,7 +60,7 @@ public class InputMotionsHandler : MonoBehaviour
 
     private IEnumerator TapAllowance()
     {
-        yield return new WaitForSeconds(tapDuration);
+        yield return new WaitForSecondsRealtime(tapDuration);
         tapAllowed = false;
     }
 }

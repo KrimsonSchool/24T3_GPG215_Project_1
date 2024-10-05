@@ -1,18 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+// Declared outside of class for ease of use
+public enum PlayerCombatStates { Idle, Attacking, DodgingRight, DodgingLeft, Blocking, Recovering }
 
 [RequireComponent(typeof(PlayerStats)), DisallowMultipleComponent]
 public class PlayerCombatHandler : MonoBehaviour
 {
     private PlayerStats playerStats;
 
-    public enum PlayerStates { Idle, Attacking, DodgingRight, DodgingLeft, Blocking, Recovering }
-    private PlayerStates currentPlayerState = PlayerStates.Idle;
-    public PlayerStates CurrentPlayerState { get { return currentPlayerState; } }
+    private PlayerCombatStates currentPlayerState = PlayerCombatStates.Idle;
+    public PlayerCombatStates CurrentPlayerState { get { return currentPlayerState; } }
 
-    public delegate void PlayerAttackDelegate(int damage);
-    public static PlayerAttackDelegate PlayerAttackEvent;
+    public static event Action<int> PlayerAttackEvent;
+
+    public static event Action PlayerAttackStart;
+    public static event Action PlayerBlockStart;
+    public static event Action PlayerDodgeRight;
+    public static event Action PlayerDodgeLeft;
 
     private void Awake()
     {
@@ -25,7 +32,7 @@ public class PlayerCombatHandler : MonoBehaviour
         InputMotionsHandler.PlayerDodgeRightInputEvent += DodgeRight;
         InputMotionsHandler.PlayerDodgeLeftInputEvent += DodgeLeft;
         InputMotionsHandler.PlayerBlockInputEvent += Block;
-        EnemyCombatHandler.EnemyAttackEvent += PlayerAttacked;
+        EnemyCombatHandler.EnemyAttackEvent += DamagePlayer;
     }
 
     private void OnDisable()
@@ -34,78 +41,82 @@ public class PlayerCombatHandler : MonoBehaviour
         InputMotionsHandler.PlayerDodgeRightInputEvent -= DodgeRight;
         InputMotionsHandler.PlayerDodgeLeftInputEvent -= DodgeLeft;
         InputMotionsHandler.PlayerBlockInputEvent -= Block;
-        EnemyCombatHandler.EnemyAttackEvent -= PlayerAttacked;
+        EnemyCombatHandler.EnemyAttackEvent -= DamagePlayer;
     }
 
     private void Attack()
     {
-        if (currentPlayerState == PlayerStates.Idle)
+        if (currentPlayerState == PlayerCombatStates.Idle)
         {
-            currentPlayerState = PlayerStates.Attacking;
+            currentPlayerState = PlayerCombatStates.Attacking;
+            PlayerAttackStart?.Invoke();
             StartCoroutine(StartAttackWindup());
-            Debug.Log("Entering attacking state");
+            Debug.Log("ATACKING!");
         }
     }
 
     private IEnumerator StartAttackWindup()
     {
         yield return new WaitForSeconds(playerStats.AttackSpeed);
-        PlayerAttackEvent?.Invoke(playerStats.BaseAttackDamage);
+        PlayerAttackEvent?.Invoke(playerStats.AttackDamage);
         StartCoroutine(Recovery(0f, playerStats.AttackRecovery));
     }
 
     private void DodgeRight()
     {
-        if (currentPlayerState == PlayerStates.Idle)
+        if (currentPlayerState == PlayerCombatStates.Idle)
         {
-            currentPlayerState = PlayerStates.DodgingRight;
+            currentPlayerState = PlayerCombatStates.DodgingRight;
+            PlayerDodgeRight?.Invoke();
             StartCoroutine(Recovery(playerStats.DodgeWindow, playerStats.DodgeRecovery));
-            Debug.Log("Entering right dodge state");
+            Debug.Log("DODGING RIGHT!");
         }
     }
 
     private void DodgeLeft()
     {
-        if (currentPlayerState == PlayerStates.Idle)
+        if (currentPlayerState == PlayerCombatStates.Idle)
         {
-            currentPlayerState = PlayerStates.DodgingLeft;
+            currentPlayerState = PlayerCombatStates.DodgingLeft;
+            PlayerDodgeLeft?.Invoke();
             StartCoroutine(Recovery(playerStats.DodgeWindow, playerStats.DodgeRecovery));
-            Debug.Log("Entering left dodge state");
+            Debug.Log("DODGING LEFT!");
         }
     }
 
     private void Block()
     {
-        if (currentPlayerState == PlayerStates.Idle)
+        if (currentPlayerState == PlayerCombatStates.Idle)
         {
-            currentPlayerState = PlayerStates.Blocking;
+            currentPlayerState = PlayerCombatStates.Blocking;
+            PlayerBlockStart?.Invoke();
             StartCoroutine(Recovery(playerStats.BlockWindow, playerStats.BlockRecovery));
-            Debug.Log("Entering block state");
+            Debug.Log("BLOCKING!");
         }
     }
 
     private IEnumerator Recovery(float stateDuration, float recoveryTime)
     {
         yield return new WaitForSeconds(stateDuration);
-        currentPlayerState = PlayerStates.Recovering;
-        Debug.Log("Enterting recovery state");
+        currentPlayerState = PlayerCombatStates.Recovering;
+        Debug.Log("Recovering...");
 
         yield return new WaitForSeconds(recoveryTime);
-        currentPlayerState = PlayerStates.Idle;
-        Debug.Log("Entering idle state");
+        currentPlayerState = PlayerCombatStates.Idle;
+        Debug.Log("Now idle");
     }
 
-    public void PlayerAttacked(int damage, PlayerStates requiredState)
+    public void DamagePlayer(int damage, PlayerCombatStates requiredState)
     {
         if (currentPlayerState != requiredState)
         {
             int damageAfterResistances = Mathf.RoundToInt(damage / (1 + playerStats.DamageResistance));
             playerStats.CurrentHealth = Mathf.Clamp(playerStats.CurrentHealth - damageAfterResistances, 0, int.MaxValue);
-            Debug.Log($"{damageAfterResistances} damage dealt to player. {playerStats.CurrentHealth}/{playerStats.MaxHealth} health remaining.");
+            Debug.Log($"Player took {damageAfterResistances} damage. [HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}]");
         }
         else
         {
-            Debug.Log("Attacked successfully avoided");
+            Debug.Log("Damage avoided");
         }
     }
 

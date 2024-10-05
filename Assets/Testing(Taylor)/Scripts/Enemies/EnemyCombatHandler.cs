@@ -10,10 +10,10 @@ public class EnemyCombatHandler : MonoBehaviour
     private float attackTimer = 0f;
     private bool isAttacking = false;
     private bool isAlive = true;
-    private PlayerCombatHandler.PlayerStates[] defensivePlayerStates = {PlayerCombatHandler.PlayerStates.DodgingRight, PlayerCombatHandler.PlayerStates.DodgingLeft, PlayerCombatHandler.PlayerStates.Blocking};
+    private PlayerCombatStates[] defensivePlayerStates = {PlayerCombatStates.DodgingRight, PlayerCombatStates.DodgingLeft, PlayerCombatStates.Blocking};
 
-    public delegate void EnemyAttackDelegate(int damage, PlayerCombatHandler.PlayerStates defenceRequirement);
-    public static event EnemyAttackDelegate EnemyAttackEvent;
+    public static event Action<PlayerCombatStates> EnemyWindupEvent; // T1 = Attack type/defence state required from player
+    public static event Action<int, PlayerCombatStates> EnemyAttackEvent; // T1 = Damage dealt, T2 = Attack type/defence state required from player
     public static event Action EnemyDeadEvent;
 
     private void Awake()
@@ -42,7 +42,8 @@ public class EnemyCombatHandler : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        PlayerCombatHandler.PlayerStates randomState = defensivePlayerStates[UnityEngine.Random.Range(0, defensivePlayerStates.Length)];
+        PlayerCombatStates randomState = defensivePlayerStates[UnityEngine.Random.Range(0, defensivePlayerStates.Length)];
+        EnemyWindupEvent?.Invoke(randomState);
         Debug.Log($"Enemy attack winding up. Requires: {randomState}");
         yield return new WaitForSeconds(enemyStats.AttackWindup);
         EnemyAttackEvent?.Invoke(enemyStats.BaseAttackDamage, randomState);
@@ -64,14 +65,17 @@ public class EnemyCombatHandler : MonoBehaviour
         enemyStats.CurrentHealth = Mathf.Clamp(enemyStats.CurrentHealth - damage, 0, int.MaxValue);
         if (enemyStats.CurrentHealth > 0)
         {
-            Debug.Log($"{damage} damage dealt to enemy. {enemyStats.CurrentHealth}/{enemyStats.MaxHealth} enemy health remaining.");
+            Debug.Log($"{gameObject.name} took {damage} damage. [HP: {enemyStats.CurrentHealth}/{enemyStats.MaxHealth}]");
         }
         else
         {
-            Debug.Log("it dieded");
-            isAlive = false;
-            StopAllCoroutines();
-            EnemyDeadEvent?.Invoke();
+            if (isAlive)
+            {
+                isAlive = false;
+                StopAllCoroutines();
+                Debug.Log($"{gameObject.name} died");
+                EnemyDeadEvent?.Invoke();
+            }
         }
     }
 
