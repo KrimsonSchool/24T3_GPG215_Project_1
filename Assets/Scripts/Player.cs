@@ -27,13 +27,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (FindObjectOfType<MenuManager>().openMenus == 0)
         {
-            if (FindObjectOfType<MenuManager>().openMenus == 0)
+            Time.timeScale = 1;
+            if (Input.GetMouseButtonDown(0))
             {
                 AttackMain();
                 print("Click attack " + attackDamage[attack] + " DMG");
             }
+        }
+        else
+        {
+            Time.timeScale = 0;
         }
     }
 

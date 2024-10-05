@@ -90,4 +90,11 @@ public class ItemPickup : MonoBehaviour
         FindObjectOfType<MenuManager>().openMenus--;
         gameObject.SetActive(false);
     }
+
+    public void Discard()
+    {
+        Destroy(gear.gameObject);
+        FindObjectOfType<MenuManager>().openMenus--;
+        gameObject.SetActive(false);
+    }
 }
