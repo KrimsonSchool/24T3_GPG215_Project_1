@@ -27,6 +27,8 @@ public class Inventory : MonoBehaviour
     [HideInInspector] public GameObject itemPickupUi;
     [HideInInspector] public Image weaponInv;
     [HideInInspector] public Image armourInv;
+    [HideInInspector] public TMPro.TextMeshProUGUI weaponStatsText;
+    [HideInInspector] public TMPro.TextMeshProUGUI armourStatsText;
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +76,7 @@ public class Inventory : MonoBehaviour
         if (weaponInv.gameObject.activeSelf && weapon!=null)
         {
             weaponInv.sprite = weapon.icon;
+            weaponStatsText.text = "Attack: " + weapon.damage + "\nCrit Chance: " + weapon.critChance + "%\nCrit Amount: " + weapon.critAmount;
         }
 
         if (armourInv.gameObject.activeSelf&&armour!=null)
@@ -95,5 +98,8 @@ public class Inventory : MonoBehaviour
 
         weaponInv = FindObjectOfType<MenuManager>().weaponInv.GetComponent<Image>();
         armourInv = FindObjectOfType<MenuManager>().armourInv.GetComponent<Image>();
+
+        weaponStatsText = FindObjectOfType<MenuManager>().weaponStatsText;
+        armourStatsText = FindObjectOfType<MenuManager>().armourStatsText;
     }
 }

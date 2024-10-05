@@ -9,6 +9,9 @@ public class MenuManager : MonoBehaviour
 
     public GameObject weaponInv;
     public GameObject armourInv;
+
+    public TMPro.TextMeshProUGUI weaponStatsText;
+    public TMPro.TextMeshProUGUI armourStatsText;
     // Start is called before the first frame update
     void Start()
     {
