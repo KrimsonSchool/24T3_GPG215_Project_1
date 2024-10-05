@@ -39,7 +39,7 @@ public class RoomLevelManager : MonoBehaviour
 
     private void EnemyLootStage()
     {
-        // Do end of room logic here
+        // This is just here to move onto next room while working on a loot stage so that there is a playable game loop
         StartCoroutine(MoveToNextRoom());
     }
 
@@ -48,6 +48,6 @@ public class RoomLevelManager : MonoBehaviour
         RoomLevelChanging?.Invoke();
         yield return new WaitForSeconds(1.5f);
         roomLevel++;
-        SceneManager.LoadScene("DefaultRoomTest");
+        SceneManager.LoadScene("DefaultRoom");
     }
 }

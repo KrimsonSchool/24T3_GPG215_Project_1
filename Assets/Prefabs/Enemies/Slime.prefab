@@ -400,6 +400,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9830b8203bebd4a8f2d0aecff7c4d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyDeadUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &8942865382168142469
 Animator:
   serializedVersion: 5
