@@ -8,11 +8,11 @@ public class RoomLevelManager : MonoBehaviour
 {
     public static GameObject instance;
 
-    private int roomLevel = 1;
+    private  int roomLevel = 1;
 
     public static event Action RoomLevelChanging;
 
-    public int RoomLevel {  get { return roomLevel; } }
+    public int RoomLevel {  get { return roomLevel; } set { roomLevel = value; } }
 
     private void Awake()
     {

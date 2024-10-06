@@ -6,13 +6,6 @@ using UnityEngine.UI;
 public class PlayerInventory : MonoBehaviour
 {
     public int coins;
-    public int xp;
-    public int xpMax;
-
-    public int level;
-
-    public int health;
-    public int maxHealth;
 
     public Gear weapon;
     public Gear armour;
@@ -29,12 +22,6 @@ public class PlayerInventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        level = 1;
-        xpMax = 25;
-        maxHealth = 20;
-        health = maxHealth;
-
-
         LoadDependecies();
     }
     void OnLevelWasLoaded()
