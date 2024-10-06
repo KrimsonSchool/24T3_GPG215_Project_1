@@ -10,7 +10,7 @@ public class ItemPickup : MonoBehaviour
     public TMPro.TextMeshProUGUI statsText;
     public Image itemImage;
 
-    Inventory inventory;
+    PlayerInventory inventory;
 
     int damageOffset;
     int critOffset;
@@ -22,9 +22,9 @@ public class ItemPickup : MonoBehaviour
     void Start()
     {
         FindObjectOfType<MenuManager>().openMenus ++;
-        inventory = FindObjectOfType<Inventory>();
+        inventory = FindObjectOfType<PlayerInventory>();
 
-        if (FindObjectOfType<Inventory>().weapon != null)
+        if (inventory.weapon != null)
         {
             damageOffset = gear.damage -= inventory.weapon.damage;
             critOffset = gear.critChance - inventory.weapon.critChance;
@@ -46,7 +46,7 @@ public class ItemPickup : MonoBehaviour
 
         if (gear.type == Gear.GearType.Weapon)
         {
-            if (FindObjectOfType<Inventory>().weapon == null)
+            if (inventory.weapon == null)
             {
                 statsText.text = "+ [" + gear.damage + "] Attack\n+ [" + gear.critChance + "] Crit Chance\n+ [" + gear.critAmount + "] Crit Amount";
             }
@@ -61,7 +61,7 @@ public class ItemPickup : MonoBehaviour
         }
         if (gear.type == Gear.GearType.Armour)
         {
-            if (FindObjectOfType<Inventory>().armour == null)
+            if (inventory.armour == null)
             {
                 statsText.text = "+ [" + gear.defence + "] Defence";
             }
@@ -80,11 +80,11 @@ public class ItemPickup : MonoBehaviour
     {
         if(gear.type == Gear.GearType.Weapon)
         {
-            FindObjectOfType<Inventory>().weapon = gear;
+            inventory.weapon = gear;
         }
         if (gear.type == Gear.GearType.Armour)
         {
-            FindObjectOfType<Inventory>().armour = gear;
+            inventory.armour = gear;
         }
 
         FindObjectOfType<MenuManager>().openMenus--;

@@ -298,7 +298,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 55591610}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: CloseMenu
         m_Mode: 2
@@ -709,6 +709,7 @@ GameObject:
   - component: {fileID: 55591608}
   - component: {fileID: 55591607}
   - component: {fileID: 55591606}
+  - component: {fileID: 55591610}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -796,10 +797,10 @@ RectTransform:
   - {fileID: 1789768937}
   - {fileID: 817325436}
   - {fileID: 29310485}
-  - {fileID: 1000102261}
   - {fileID: 2034823835}
-  - {fileID: 1762826661}
   - {fileID: 272156354}
+  - {fileID: 1762826661}
+  - {fileID: 1000102261}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -807,6 +808,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &55591610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55591605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1ff7dc659a32840989d311f0ac714f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openMenus: 0
+  weaponInv: {fileID: 376953030}
+  armourInv: {fileID: 1299539406}
+  weaponStatsText: {fileID: 1894323759}
+  armourStatsText: {fileID: 0}
 --- !u!1 &55917926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1669,6 +1687,7 @@ GameObject:
   - component: {fileID: 123562963}
   - component: {fileID: 123562964}
   - component: {fileID: 123562965}
+  - component: {fileID: 123562966}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1774,6 +1793,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5875d4cdee1454c9d27e4226785a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &123562966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123562956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 079d81561b5804245b6406824ad92417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coins: 0
+  xp: 0
+  xpMax: 0
+  level: 0
+  health: 0
+  maxHealth: 0
+  weapon: {fileID: 0}
+  armour: {fileID: 0}
+  abilities: []
+  itemPickupUi: {fileID: 0}
+  weaponInv: {fileID: 0}
+  armourInv: {fileID: 0}
+  weaponStatsText: {fileID: 0}
+  armourStatsText: {fileID: 0}
 --- !u!1 &128429002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1928,7 +1973,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 55591610}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: OpenMenu
         m_Mode: 2
@@ -3113,7 +3158,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 272156356}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 55591610}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1762826660}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &272156356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5133,7 +5190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000011206, y: -45}
+  m_AnchoredPosition: {x: -0.000015258789, y: -45}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &537347153
@@ -6321,7 +6378,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 55591610}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: CloseMenu
         m_Mode: 2
@@ -10775,6 +10832,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4981853204179252, guid: 5f285e9508d4e3f4488b284bb80a0b9b, type: 3}
   m_PrefabInstance: {fileID: 1148717926}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1157222711
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 989841561271551589, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.32646
+      objectReference: {fileID: 0}
+    - target: {fileID: 989841561271551589, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 989841561271551589, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 39.366714
+      objectReference: {fileID: 0}
+    - target: {fileID: 989841561271551589, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 989841561271551589, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 989841561271551589, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 989841561271551589, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 989841561271551589, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 989841561271551589, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 989841561271551589, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545032774175372164, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_Name
+      value: Sword_Teir1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
 --- !u!1 &1192716416
 GameObject:
   m_ObjectHideFlags: 0
@@ -13092,7 +13206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000095367, y: 164.38562}
+  m_AnchoredPosition: {x: 0.0000076293945, y: 164.38562}
   m_SizeDelta: {x: 687.8262, y: 125.8178}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1567317026
@@ -16762,9 +16876,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 489.14374, y: 869.57074}
+  m_AnchoredPosition: {x: 540, y: 909.57007}
   m_SizeDelta: {x: 919.135, y: 919.14}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.50000006}
 --- !u!114 &2034823836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17423,3 +17537,4 @@ SceneRoots:
   - {fileID: 1123608362}
   - {fileID: 123562960}
   - {fileID: 1418453537}
+  - {fileID: 1157222711}

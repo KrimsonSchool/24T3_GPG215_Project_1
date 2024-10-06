@@ -18,7 +18,7 @@ public class Gear : MonoBehaviour
 
     bool drop = true;
     float timer;
-    Player player;
+    PlayerInventory player;
 
     public Sprite icon;
 
@@ -33,7 +33,7 @@ public class Gear : MonoBehaviour
     {
         DontDestroyOnLoad(this);
 
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<PlayerInventory>();
 
         if (type == GearType.Armour)
         {
@@ -73,8 +73,8 @@ public class Gear : MonoBehaviour
                 drop = false;
                 timer = 0;
 
-                FindObjectOfType<Inventory>().itemPickupUi.SetActive(true);
-                FindObjectOfType<Inventory>().itemPickupUi.GetComponent<ItemPickup>().gear = GetComponent<Gear>();
+                player.itemPickupUi.SetActive(true);
+                player.itemPickupUi.GetComponent<ItemPickup>().gear = GetComponent<Gear>();
                 gameObject.SetActive(false);
                 //transform.position = player.weaponSlot.transform.position;
                 //transform.rotation = player.weaponSlot.transform.rotation;

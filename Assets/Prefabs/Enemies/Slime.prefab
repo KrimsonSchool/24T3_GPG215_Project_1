@@ -323,8 +323,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f3bbc49923bc4a742a56cddc1f5bf5ab, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -400,9 +400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9830b8203bebd4a8f2d0aecff7c4d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyDeadUnityEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!95 &8942865382168142469
 Animator:
   serializedVersion: 5

@@ -21,9 +21,15 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (openMenus == 0)
+        {
+            Time.timeScale = 1;
+        }
+        else
+        {
+            Time.timeScale = 0;
+        }
     }
-
     public void OpenMenu(GameObject menu)
     {
         menu.SetActive(true);
