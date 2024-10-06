@@ -18,6 +18,8 @@ public class ItemPickup : MonoBehaviour
     int pm;
 
     int defenceOffset;
+
+    public int DEBUG_dmg;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,7 @@ public class ItemPickup : MonoBehaviour
 
         if (inventory.weapon != null)
         {
-            damageOffset = gear.damage -= inventory.weapon.damage;
+            damageOffset = (gear.damage - inventory.weapon.damage);
             critOffset = gear.critChance - inventory.weapon.critChance;
             critAOffset = gear.critAmount - inventory.weapon.critAmount;
 
@@ -46,6 +48,7 @@ public class ItemPickup : MonoBehaviour
 
         if (gear.type == Gear.GearType.Weapon)
         {
+            DEBUG_dmg = gear.damage;
             if (inventory.weapon == null)
             {
                 statsText.text = "+ [" + gear.damage + "] Attack\n+ [" + gear.critChance + "] Crit Chance\n+ [" + gear.critAmount + "] Crit Amount";

@@ -25,7 +25,7 @@ public class Gear : MonoBehaviour
     [Header("Stats")]
     [HideInInspector]
     public int defence;
-    [HideInInspector] public int damage;
+     public int damage;
     [HideInInspector] public int critChance;
     [HideInInspector] public int critAmount;
     // Start is called before the first frame update
@@ -37,13 +37,13 @@ public class Gear : MonoBehaviour
 
         if (type == GearType.Armour)
         {
-            defence = Random.Range(1, teir + 2);
+            defence = Random.Range(teir, teir + 2);
         }
 
         if(type == GearType.Weapon)
         {
-            damage = Random.Range(1, teir + 2);
-            critChance = Random.Range(1, teir*20);
+            damage = Random.Range(teir, teir + 4);
+            critChance = Random.Range(teir, teir*20);
             critAmount = damage * teir;
         }
     }
