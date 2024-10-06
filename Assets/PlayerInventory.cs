@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
     public Ability[] abilities;
 
 
-    
+
     [HideInInspector] public GameObject itemPickupUi;
     [HideInInspector] public Image weaponInv;
     [HideInInspector] public Image armourInv;
@@ -59,15 +59,24 @@ public class PlayerInventory : MonoBehaviour
             maxHealth += 5;
         }*/
 
+        /*defence;
+          health;
+          abilityCooldown;
+          blockAmount;
+          dodgeSpeed;*/
+
+
+
         if (weaponInv.gameObject.activeSelf && weapon != null)
         {
             weaponInv.sprite = weapon.icon;
-            weaponStatsText.text = "Attack: " + weapon.damage + "\nCrit Chance: " + weapon.critChance + "%\nCrit Amount: " + weapon.critAmount;
+            weaponStatsText.text = "Attack: " + weapon.damage + "\nCrit Chance: " + weapon.critChance + "%\nCrit Amount: " + weapon.critAmount + "\nAttack Speed: " + weapon.attackSpeed;
         }
 
         if (armourInv.gameObject.activeSelf && armour != null)
         {
             armourInv.sprite = armour.icon;
+            armourStatsText.text = "Defence: " + armour.defence + "\nHealth: " + armour.health + "\nAbility Cooldown: " + armour.abilityCooldown + "\nBlock Amount: " + armour.blockAmount + "\nDodge Speed: " + armour.dodgeSpeed;
         }
 
         if (weapon != null)

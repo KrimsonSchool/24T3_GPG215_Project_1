@@ -15,9 +15,15 @@ public class ItemPickup : MonoBehaviour
     int damageOffset;
     int critOffset;
     int critAOffset;
-    int pm;
+    int attackSpeedOffset;
+    int wpm;
 
     int defenceOffset;
+    int healthOffset;
+    int abilityCooldownOffset;
+    int blockAmountOffset;
+    int dodgeSpeedOffset;
+    int apm;
 
     public int DEBUG_dmg;
     // Start is called before the first frame update
@@ -31,12 +37,19 @@ public class ItemPickup : MonoBehaviour
             damageOffset = (gear.damage - inventory.weapon.damage);
             critOffset = gear.critChance - inventory.weapon.critChance;
             critAOffset = gear.critAmount - inventory.weapon.critAmount;
+            attackSpeedOffset = gear.attackSpeed - inventory.weapon.attackSpeed;
 
-            pm = (damageOffset + critAOffset + critOffset) / 3;
+            wpm = (damageOffset + critAOffset + critOffset + attackSpeedOffset) / 4;
         }
         if (inventory.armour != null)
         {
             defenceOffset = gear.defence - inventory.armour.defence;
+            healthOffset = gear.health - inventory.armour.health;
+            abilityCooldownOffset = gear.abilityCooldown - inventory.armour.abilityCooldown;
+            blockAmountOffset = gear.blockAmount - inventory.armour.blockAmount;
+            dodgeSpeedOffset = gear.dodgeSpeed - inventory.armour.dodgeSpeed;
+
+            apm = (defenceOffset + healthOffset + abilityCooldownOffset + blockAmountOffset + dodgeSpeedOffset) / 5;
         }
     }
 
@@ -51,22 +64,22 @@ public class ItemPickup : MonoBehaviour
             DEBUG_dmg = gear.damage;
             if (inventory.weapon == null)
             {
-                statsText.text = "+ [" + gear.damage + "] Attack\n+ [" + gear.critChance + "] Crit Chance\n+ [" + gear.critAmount + "] Crit Amount";
+                statsText.text = "+ [" + gear.damage + "] Attack\n+ [" + gear.critChance + "] Crit Chance\n+ [" + gear.critAmount + "] Crit Amount\n+ [" + gear.attackSpeed+"] Attack Speed";
             }
             else
             {
-                if (pm <= 0)
+                if (wpm <= 0)
                 {
                     statsText.color = Color.red;
                 }
-                statsText.text = "+ [" + (damageOffset) + "] Attack\n+ [" + (critOffset) + "] Crit Chance\n+ [" + (critAOffset) + "] Crit Amount";
+                statsText.text = "+ [" + (damageOffset) + "] Attack\n+ [" + (critOffset) + "] Crit Chance\n+ [" + (critAOffset) + "] Crit Amount\n+ ["+attackSpeedOffset+"] Attack Speed";
             }
         }
         if (gear.type == Gear.GearType.Armour)
         {
             if (inventory.armour == null)
             {
-                statsText.text = "+ [" + gear.defence + "] Defence";
+                statsText.text = "+ [" + gear.defence + "] Defence\n+ ["+gear.health+"] Health\n+ ["+gear.abilityCooldown+"] Ability Cooldown\n+ [" + gear.blockAmount+"] Block Amount\n+ ["+gear.dodgeSpeed+"] Dodge Speed";
             }
             else
             {
@@ -74,7 +87,7 @@ public class ItemPickup : MonoBehaviour
                 {
                     statsText.color = Color.red;
                 }
-                statsText.text = "+ [" + defenceOffset + "] Defence";
+                statsText.text = "+ [" + defenceOffset + "] Defence\n+ [" + healthOffset + "] Health\n+ [" + abilityCooldownOffset + "] Ability Cooldown\n+ [" + blockAmountOffset + "] Block Amount\n+ [" + dodgeSpeedOffset + "] Dodge Speed";
             }
         }
     }
