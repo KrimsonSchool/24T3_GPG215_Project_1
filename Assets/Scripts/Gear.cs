@@ -23,11 +23,17 @@ public class Gear : MonoBehaviour
     public Sprite icon;
 
     [Header("Stats")]
-    [HideInInspector]
-    public int defence;
-     public int damage;
+    [HideInInspector] public int defence;
+    [HideInInspector] public int health;
+    [HideInInspector] public int abilityCooldown;
+    [HideInInspector] public int blockAmount;
+    [HideInInspector] public int dodgeSpeed;
+
+
+    [HideInInspector] public int damage;
     [HideInInspector] public int critChance;
     [HideInInspector] public int critAmount;
+    [HideInInspector] public int attackSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,12 +43,17 @@ public class Gear : MonoBehaviour
 
         if (type == GearType.Armour)
         {
-            defence = Random.Range(teir, teir + 2);
+            defence = Random.Range(teir, teir + 3);
+            health = Random.Range(teir, teir + 3);
+            abilityCooldown = Random.Range(teir, teir + 3);
+            blockAmount = Random.Range(teir, teir + 3);
+            dodgeSpeed = Random.Range(teir, teir + 3);
         }
 
         if(type == GearType.Weapon)
         {
-            damage = Random.Range(teir, teir + 4);
+            damage = Random.Range(teir, teir + 3);
+            attackSpeed = Random.Range(teir, teir + 3);
             critChance = Random.Range(teir, teir*20);
             critAmount = damage * teir;
         }
