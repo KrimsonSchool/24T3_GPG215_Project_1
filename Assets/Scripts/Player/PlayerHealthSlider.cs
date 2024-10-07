@@ -17,7 +17,7 @@ public class PlayerHealthSlider : MonoBehaviour
 
     private void Start()
     {
-        UpdateHealthBar();
+        UpdateHealthBar(0);
     }
 
     private void OnEnable()
@@ -30,7 +30,7 @@ public class PlayerHealthSlider : MonoBehaviour
         PlayerStats.HealthValueChangedEvent -= UpdateHealthBar;
     }
 
-    private void UpdateHealthBar()
+    private void UpdateHealthBar(int damageDone)
     {
         healthSlider.maxValue = playerStats.MaxHealth;
         healthSlider.value = playerStats.CurrentHealth;

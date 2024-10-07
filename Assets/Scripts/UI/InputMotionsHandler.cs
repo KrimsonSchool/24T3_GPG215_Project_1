@@ -11,10 +11,11 @@ public class InputMotionsHandler : MonoBehaviour
     [SerializeField] private float tapDuration = 0.4f;
     [SerializeField] private float tapDeadZone = 100f;
 
-    public static event Action PlayerAttackInputEvent;
-    public static event Action PlayerDodgeRightInputEvent;
-    public static event Action PlayerDodgeLeftInputEvent;
-    public static event Action PlayerBlockInputEvent;
+    public static event Action PlayerTapInputEvent;
+    public static event Action PlayerSwipeRightInputEvent;
+    public static event Action PlayerSwipeLeftInputEvent;
+    public static event Action PlayerSwipeUpInputEvent;
+    public static event Action PlayerSwipeDownInputEvent;
 
     public void RecordDragMotion()
     {
@@ -30,30 +31,30 @@ public class InputMotionsHandler : MonoBehaviour
         Vector2 swipeVector = endPoint - startPoint;
         if (tapAllowed && swipeVector.magnitude < tapDeadZone)
         {
-            PlayerAttackInputEvent?.Invoke();
-            //Debug.Log("Detected attack input");
+            PlayerTapInputEvent?.Invoke();
+            //Debug.Log("Detected tap input");
         }
         else if (swipeVector.magnitude > tapDeadZone)
         {
             if (swipeVector.normalized.x > 0.7f) // 0.7f is just quick hillbilly shorthand to indicate passing the 45% normalized mark
             {
-                PlayerDodgeRightInputEvent?.Invoke();
-                //Debug.Log("Detected dodge right input");
+                PlayerSwipeRightInputEvent?.Invoke();
+                //Debug.Log("Detected swipe right input");
             }
             else if (swipeVector.normalized.x < -0.7f)
             {
-                PlayerDodgeLeftInputEvent?.Invoke();
-                //Debug.Log("Detected dodge left input");
+                PlayerSwipeLeftInputEvent?.Invoke();
+                //Debug.Log("Detected swipe left input");
             }
             else if (swipeVector.normalized.y < -0.7f)
             {
-                PlayerBlockInputEvent?.Invoke();
-                //Debug.Log("Detected block input");
+                PlayerSwipeDownInputEvent?.Invoke();
+                //Debug.Log("Detected swipe down input");
             }
             else if (swipeVector.normalized.y > 0.7f)
             {
-                PlayerAttackInputEvent?.Invoke();
-                //Debug.Log("Detected attack input"); //idk this might feel intuitive to some people?
+                PlayerSwipeUpInputEvent?.Invoke();
+                //Debug.Log("Detected swipe up input");
             }
         }
     }

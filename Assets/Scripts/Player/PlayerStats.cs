@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     // Value Changed Events
-    public static event Action HealthValueChangedEvent;
+    public static event Action<int> HealthValueChangedEvent;
 
     [Header("Health")]
     [SerializeField] private int maxHealth = 10;
@@ -37,7 +37,7 @@ public class PlayerStats : MonoBehaviour
         set
         {
             maxHealth = Mathf.Clamp(value, 1, int.MaxValue);
-            HealthValueChangedEvent?.Invoke();
+            HealthValueChangedEvent?.Invoke(0);
         }
     }
 
@@ -46,8 +46,9 @@ public class PlayerStats : MonoBehaviour
         get { return currentHealth; }
         set
         {
+            var storePrevious = currentHealth;
             currentHealth = (Mathf.Clamp(value, 0, int.MaxValue));
-            HealthValueChangedEvent?.Invoke();
+            HealthValueChangedEvent?.Invoke(value - storePrevious);
         }
     }
     #endregion

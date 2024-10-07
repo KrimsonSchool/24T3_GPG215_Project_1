@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpriteImageScroll : MonoBehaviour
+public class ImageSpriteScroller : MonoBehaviour
 {
     private Image image;
     [SerializeField] private Vector2 scrollSpeed;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Declared outside of class for ease of use
-public enum PlayerCombatStates { Idle, Attacking, DodgingRight, DodgingLeft, Blocking, Recovering }
+public enum PlayerCombatStates { Idle, Attacking, DodgingRight, DodgingLeft, DodgingUp, Blocking, Recovering }
 
 [RequireComponent(typeof(PlayerStats)), DisallowMultipleComponent]
 public class PlayerCombatHandler : MonoBehaviour
@@ -20,6 +20,7 @@ public class PlayerCombatHandler : MonoBehaviour
     public static event Action PlayerBlockStart;
     public static event Action PlayerDodgeRight;
     public static event Action PlayerDodgeLeft;
+    public static event Action PlayerDodgeUp;
 
     private void Awake()
     {
@@ -28,19 +29,21 @@ public class PlayerCombatHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        InputMotionsHandler.PlayerAttackInputEvent += Attack;
-        InputMotionsHandler.PlayerDodgeRightInputEvent += DodgeRight;
-        InputMotionsHandler.PlayerDodgeLeftInputEvent += DodgeLeft;
-        InputMotionsHandler.PlayerBlockInputEvent += Block;
+        InputMotionsHandler.PlayerTapInputEvent += Attack;
+        InputMotionsHandler.PlayerSwipeRightInputEvent += DodgeRight;
+        InputMotionsHandler.PlayerSwipeLeftInputEvent += DodgeLeft;
+        InputMotionsHandler.PlayerSwipeUpInputEvent += DodgeUp;
+        InputMotionsHandler.PlayerSwipeDownInputEvent += Block;
         EnemyCombatHandler.EnemyAttackEvent += DamagePlayer;
     }
 
     private void OnDisable()
     {
-        InputMotionsHandler.PlayerAttackInputEvent -= Attack;
-        InputMotionsHandler.PlayerDodgeRightInputEvent -= DodgeRight;
-        InputMotionsHandler.PlayerDodgeLeftInputEvent -= DodgeLeft;
-        InputMotionsHandler.PlayerBlockInputEvent -= Block;
+        InputMotionsHandler.PlayerTapInputEvent -= Attack;
+        InputMotionsHandler.PlayerSwipeRightInputEvent -= DodgeRight;
+        InputMotionsHandler.PlayerSwipeLeftInputEvent -= DodgeLeft;
+        InputMotionsHandler.PlayerSwipeUpInputEvent -= DodgeUp;
+        InputMotionsHandler.PlayerSwipeDownInputEvent -= Block;
         EnemyCombatHandler.EnemyAttackEvent -= DamagePlayer;
     }
 
@@ -84,6 +87,17 @@ public class PlayerCombatHandler : MonoBehaviour
         }
     }
 
+    private void DodgeUp()
+    {
+        if (currentPlayerState == PlayerCombatStates.Idle)
+        {
+            currentPlayerState = PlayerCombatStates.DodgingUp;
+            PlayerDodgeUp?.Invoke();
+            StartCoroutine(Recovery(playerStats.DodgeWindow, playerStats.DodgeRecovery));
+            Debug.Log("JUMPING!");
+        }
+    }
+
     private void Block()
     {
         if (currentPlayerState == PlayerCombatStates.Idle)
@@ -110,7 +124,16 @@ public class PlayerCombatHandler : MonoBehaviour
     {
         if (currentPlayerState != requiredState)
         {
-            int damageAfterResistances = Mathf.RoundToInt(damage / (1 + playerStats.DamageResistance));
+            // some arbitrary placeholder block calculations
+            int damageAfterResistances;
+            if (currentPlayerState == PlayerCombatStates.Blocking)
+            {
+                damageAfterResistances = Mathf.RoundToInt(damage / (1 + playerStats.DamageResistance));
+            }
+            else
+            {
+                damageAfterResistances = damage;
+            }
             playerStats.CurrentHealth = Mathf.Clamp(playerStats.CurrentHealth - damageAfterResistances, 0, int.MaxValue);
             Debug.Log($"Player took {damageAfterResistances} damage. [HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}]");
         }

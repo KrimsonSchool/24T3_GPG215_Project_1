@@ -11,7 +11,7 @@ public class EnemyCombatHandler : MonoBehaviour
     private float attackTimer = 0f;
     private bool isAttacking = false;
     private bool isAlive = true;
-    private PlayerCombatStates[] defensivePlayerStates = {PlayerCombatStates.DodgingRight, PlayerCombatStates.DodgingLeft, PlayerCombatStates.Blocking};
+    private PlayerCombatStates[] defensivePlayerStates = {PlayerCombatStates.DodgingRight, PlayerCombatStates.DodgingLeft, PlayerCombatStates.DodgingUp};
 
     public static event Action<PlayerCombatStates> EnemyWindupEvent; // T1 = Attack type/defence state required from player
     public static event Action<int, PlayerCombatStates> EnemyAttackEvent; // T1 = Damage dealt, T2 = Attack type/defence state required from player

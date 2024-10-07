@@ -16,6 +16,7 @@ public class PlayerAnimationLinks : MonoBehaviour
         PlayerCombatHandler.PlayerAttackStart += PlayerAttackAnimation;
         PlayerCombatHandler.PlayerDodgeRight += PlayerDodgeRightAnimation;
         PlayerCombatHandler.PlayerDodgeLeft += PlayerDodgeLeftAnimation;
+        PlayerCombatHandler.PlayerDodgeUp += PlayerDodgeUpAnimation;
         PlayerCombatHandler.PlayerBlockStart += PlayerBlockAnimation;
     }
 
@@ -24,6 +25,7 @@ public class PlayerAnimationLinks : MonoBehaviour
         PlayerCombatHandler.PlayerAttackStart -= PlayerAttackAnimation;
         PlayerCombatHandler.PlayerDodgeRight -= PlayerDodgeRightAnimation;
         PlayerCombatHandler.PlayerDodgeLeft -= PlayerDodgeLeftAnimation;
+        PlayerCombatHandler.PlayerDodgeUp -= PlayerDodgeUpAnimation;
         PlayerCombatHandler.PlayerBlockStart -= PlayerBlockAnimation;
     }
 
@@ -40,6 +42,11 @@ public class PlayerAnimationLinks : MonoBehaviour
     private void PlayerDodgeLeftAnimation()
     {
         animator.Play("PlayerDodgeLeft");
+    }
+
+    private void PlayerDodgeUpAnimation()
+    {
+        animator.Play("PlayerDodgeUp");
     }
 
     private void PlayerBlockAnimation()
