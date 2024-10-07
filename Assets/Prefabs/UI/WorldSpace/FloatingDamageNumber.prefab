@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3994331019143212428}
   - component: {fileID: 8659694132441403752}
   - component: {fileID: 8155764379668299098}
-  - component: {fileID: 1304010416102767274}
+  - component: {fileID: 7201146882306120929}
   - component: {fileID: 744200434937004327}
   - component: {fileID: 717403907243439540}
   m_Layer: 0
@@ -118,7 +118,7 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &1304010416102767274
+--- !u!114 &7201146882306120929
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,12 +127,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 963467190783410194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e002bcbb4ad0914bbb33bd0dfed6b7a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f0a13d7921e62440a92ffd62bcd0fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fadeType: 1
-  fadeSpeed: 0.5
-  delayBeforeFade: 0.5
+  fadeSpeed: 0.7
+  delayBeforeFade: 0
   fadeOnStart: 1
 --- !u!114 &744200434937004327
 MonoBehaviour:

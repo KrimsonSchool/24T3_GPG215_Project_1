@@ -11,18 +11,23 @@ public class CameraAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        animator.Play("CameraLevelStart");
+    }
+
     private void OnEnable()
     {
-        RoomLevelManager.RoomLevelChanging += AnimateCamera;
+        RoomLevelManager.RoomLevelChanging += AnimateNextLevel;
     }
 
     private void OnDisable()
     {
-        RoomLevelManager.RoomLevelChanging -= AnimateCamera;
+        RoomLevelManager.RoomLevelChanging -= AnimateNextLevel;
     }
 
-    private void AnimateCamera()
+    private void AnimateNextLevel()
     {
-        animator.enabled = true;
+        animator.Play("CameraNextLevel");
     }
 }

@@ -45,7 +45,7 @@ public class EnemyCombatHandler : MonoBehaviour
     {
         PlayerCombatStates randomState = defensivePlayerStates[UnityEngine.Random.Range(0, defensivePlayerStates.Length)];
         EnemyWindupEvent?.Invoke(randomState);
-        Debug.Log($"Enemy attack winding up. Requires: {randomState}");
+        Debug.LogWarning($"Enemy attack winding up. Requires: {randomState}");
         yield return new WaitForSeconds(enemyStats.AttackWindup);
         EnemyAttackEvent?.Invoke(enemyStats.BaseAttackDamage, randomState);
         isAttacking = false;

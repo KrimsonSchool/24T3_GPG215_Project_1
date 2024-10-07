@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class FadeOutCanvasUI : MonoBehaviour
+public class FadeCanvasUI : MonoBehaviour
 {
     protected CanvasGroup canvasGroup;
     protected enum FadeOptions { fadeIn, fadeOut }

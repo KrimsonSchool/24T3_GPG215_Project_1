@@ -16,8 +16,10 @@ public class PlayerCombatHandler : MonoBehaviour
 
     public static event Action<int> PlayerAttackEvent;
 
+    // could refactor these into params too
     public static event Action PlayerAttackStart;
     public static event Action PlayerBlockStart;
+    public static event Action PlayerBlockEnd;
     public static event Action PlayerDodgeRight;
     public static event Action PlayerDodgeLeft;
     public static event Action PlayerDodgeUp;
@@ -34,6 +36,7 @@ public class PlayerCombatHandler : MonoBehaviour
         InputMotionsHandler.PlayerSwipeLeftInputEvent += DodgeLeft;
         InputMotionsHandler.PlayerSwipeUpInputEvent += DodgeUp;
         InputMotionsHandler.PlayerSwipeDownInputEvent += Block;
+        InputMotionsHandler.PlayerReleaseInputEvent += EndBlock;
         EnemyCombatHandler.EnemyAttackEvent += DamagePlayer;
     }
 
@@ -44,6 +47,7 @@ public class PlayerCombatHandler : MonoBehaviour
         InputMotionsHandler.PlayerSwipeLeftInputEvent -= DodgeLeft;
         InputMotionsHandler.PlayerSwipeUpInputEvent -= DodgeUp;
         InputMotionsHandler.PlayerSwipeDownInputEvent -= Block;
+        InputMotionsHandler.PlayerReleaseInputEvent -= EndBlock;
         EnemyCombatHandler.EnemyAttackEvent -= DamagePlayer;
     }
 
@@ -104,8 +108,16 @@ public class PlayerCombatHandler : MonoBehaviour
         {
             currentPlayerState = PlayerCombatStates.Blocking;
             PlayerBlockStart?.Invoke();
-            StartCoroutine(Recovery(playerStats.BlockWindow, playerStats.BlockRecovery));
             Debug.Log("BLOCKING!");
+        }
+    }
+
+    private void EndBlock()
+    {
+        if (currentPlayerState == PlayerCombatStates.Blocking)
+        {
+            PlayerBlockEnd?.Invoke();
+            StartCoroutine(Recovery(0f, playerStats.BlockRecovery));
         }
     }
 
