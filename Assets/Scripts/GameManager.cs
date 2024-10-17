@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RoomLevelManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public static GameObject instance;
 

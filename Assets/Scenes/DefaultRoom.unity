@@ -792,7 +792,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1380580859}
   - {fileID: 981525354}
   - {fileID: 1224061489}
   - {fileID: 1789768937}
@@ -802,6 +801,7 @@ RectTransform:
   - {fileID: 272156354}
   - {fileID: 1762826661}
   - {fileID: 1000102261}
+  - {fileID: 1380580859}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1995,7 +1995,7 @@ GameObject:
   - component: {fileID: 178235637}
   - component: {fileID: 178235638}
   m_Layer: 0
-  m_Name: RoomLevelManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9949,6 +9949,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemies:
   - {fileID: 3214645606131860641, guid: 790fba6ed7780c646a6d872c4f1c6226, type: 3}
+  - {fileID: 3214645606131860641, guid: 98029763d3b728348beca3627ef3630b, type: 3}
+  enemySpawnWeighting:
+  - 50
+  - 25
 --- !u!4 &1123608362
 Transform:
   m_ObjectHideFlags: 0
@@ -11657,9 +11661,9 @@ GameObject:
   - component: {fileID: 1380580863}
   - component: {fileID: 1380580862}
   - component: {fileID: 1380580861}
-  - component: {fileID: 1380580860}
+  - component: {fileID: 1380580864}
   m_Layer: 5
-  m_Name: UnderUIFade
+  m_Name: ScreenFader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11684,22 +11688,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1380580860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1380580858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f0a13d7921e62440a92ffd62bcd0fae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeType: 1
-  fadeSpeed: 0.5
-  delayBeforeFade: 0.2
-  fadeOnStart: 1
 --- !u!225 &1380580861
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -11708,7 +11696,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380580858}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -11750,6 +11738,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380580858}
   m_CullTransparentMesh: 1
+--- !u!114 &1380580864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380580858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0128653db492d649acabe01751b7d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeType: 1
+  fadeSpeed: 0.5
+  delayBeforeFade: 0.2
+  fadeOnStart: 1
 --- !u!1 &1384683705
 GameObject:
   m_ObjectHideFlags: 0

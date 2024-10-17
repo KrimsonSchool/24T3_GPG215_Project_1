@@ -347,3 +347,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetimeInSeconds: 1
+  countdownOnStart: 1

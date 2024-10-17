@@ -18,12 +18,12 @@ public class CameraAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        RoomLevelManager.RoomLevelChanging += AnimateNextLevel;
+        GameManager.RoomLevelChanging += AnimateNextLevel;
     }
 
     private void OnDisable()
     {
-        RoomLevelManager.RoomLevelChanging -= AnimateNextLevel;
+        GameManager.RoomLevelChanging -= AnimateNextLevel;
     }
 
     private void AnimateNextLevel()
