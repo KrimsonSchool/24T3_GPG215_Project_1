@@ -70,7 +70,7 @@ public class EnemyStats : MonoBehaviour
 
     private void Awake()
     {
-        RoomLevelManager roomLevelManager = FindObjectOfType<RoomLevelManager>();
+        GameManager roomLevelManager = FindObjectOfType<GameManager>();
         MaxHealth = Mathf.RoundToInt(3 * (1 + (roomLevelManager.RoomLevel * 0.5f)));
         CurrentHealth = MaxHealth;
         BaseAttackDamage = 1;

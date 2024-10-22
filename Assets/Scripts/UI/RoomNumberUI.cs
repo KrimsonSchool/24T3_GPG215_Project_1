@@ -6,12 +6,12 @@ using UnityEngine;
 public class RoomNumberUI : MonoBehaviour
 {
     private TextMeshProUGUI roomNumberText;
-    private RoomLevelManager roomLevelManager;
+    private GameManager roomLevelManager;
 
     private void Awake()
     {
         roomNumberText = GetComponent<TextMeshProUGUI>();
-        roomLevelManager = FindObjectOfType<RoomLevelManager>();
+        roomLevelManager = FindObjectOfType<GameManager>();
         roomNumberText.text = $"Room {roomLevelManager.RoomLevel}";
     }
 }

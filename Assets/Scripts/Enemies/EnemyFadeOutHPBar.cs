@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFadeOutHPBar : FadeCanvasUI
+public class EnemyFadeOutHPBar : FadeCanvasGroup
 {
     private void OnEnable()
     {
