@@ -562,7 +562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.23320836}
-  m_AnchoredPosition: {x: -0.000061035156, y: 86}
+  m_AnchoredPosition: {x: 0, y: 86}
   m_SizeDelta: {x: 0, y: -168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &29310486
@@ -1807,11 +1807,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coins: 0
-  xp: 0
-  xpMax: 0
-  level: 0
-  health: 0
-  maxHealth: 0
   weapon: {fileID: 0}
   armour: {fileID: 0}
   abilities: []
@@ -1832,6 +1827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9c38f379a96a946a299ee182d0b132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gearPrefab: {fileID: 454332190283853545, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
 --- !u!1 &128429002
 GameObject:
   m_ObjectHideFlags: 0
@@ -3802,7 +3798,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.060000002, y: 0.68531275}
   m_AnchorMax: {x: 0.48262966, y: 0.92300004}
-  m_AnchoredPosition: {x: -2.999939, y: -2}
+  m_AnchoredPosition: {x: -2.999878, y: -2}
   m_SizeDelta: {x: -6, y: -6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &376953032
@@ -10905,6 +10901,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword_Teir1
       objectReference: {fileID: 0}
+    - target: {fileID: 7545032774175372164, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12020,7 +12020,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00039672852, y: 0.00024414062}
+  m_AnchoredPosition: {x: -0.00036621094, y: 0.00024414062}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1368084396

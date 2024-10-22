@@ -10,7 +10,8 @@ public class ItemPickup : MonoBehaviour
     public TMPro.TextMeshProUGUI statsText;
     public Image itemImage;
 
-    PlayerInventory inventory;
+    [HideInInspector]
+    public PlayerInventory inventory;
 
     int damageOffset;
     int critOffset;
@@ -96,6 +97,8 @@ public class ItemPickup : MonoBehaviour
     {
         if(gear.type == Gear.GearType.Weapon)
         {
+            print("equipping [" + gear + "]");
+            print("to [" + inventory + "]");
             inventory.weapon = gear;
         }
         if (gear.type == Gear.GearType.Armour)
