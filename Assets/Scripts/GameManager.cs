@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MoveToNextRoom()
     {
+        yield return new WaitForSeconds(0.75f); // this currently acts as a delay for loot phase instead
         RoomLevelChanging?.Invoke();
         yield return new WaitForSeconds(1.5f);
         roomLevel++;
