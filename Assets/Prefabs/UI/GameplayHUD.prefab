@@ -1136,6 +1136,7 @@ MonoBehaviour:
   itemText: {fileID: 56368635259925456}
   statsText: {fileID: 7698605900043708177}
   itemImage: {fileID: 8443312044268219733}
+  inventory: {fileID: 0}
   DEBUG_dmg: 0
 --- !u!1 &1647138948496751938
 GameObject:
@@ -1165,7 +1166,7 @@ RectTransform:
   m_GameObject: {fileID: 1647138948496751938}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.90582174, y: 0.90582174, z: 0.90582174}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5807295906379109243}

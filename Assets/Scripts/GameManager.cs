@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameObject instance;
 
-    private int roomLevel = 1;
+    private  int roomLevel = 1;
 
     public static event Action RoomLevelChanging;
 
-    public int RoomLevel {  get { return roomLevel; } }
+    public int RoomLevel {  get { return roomLevel; } set { roomLevel = value; } }
 
     private void Awake()
     {
@@ -29,23 +29,38 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyCombatHandler.EnemyDeadEvent += EnemyLootStage;
+        EnemyLootTable.DroppedLoot += StartLootPhase;
     }
 
     private void OnDisable()
     {
-        EnemyCombatHandler.EnemyDeadEvent -= EnemyLootStage;
+        EnemyLootTable.DroppedLoot -= StartLootPhase;
     }
 
-    private void EnemyLootStage()
+    private void StartMoveToNextRoom()
     {
-        // This is just here to move onto next room while working on a loot stage so that there is a playable game loop
+        StartCoroutine(MoveToNextRoom());
+    }
+
+    private float lootingTimeThisTemporaryWillProablySwapThisToSomeEvent;
+
+    private void StartLootPhase(bool hasLootDropped)
+    {
+        if (hasLootDropped)
+        {
+            lootingTimeThisTemporaryWillProablySwapThisToSomeEvent = 0.5f;
+        }
+        else
+        {
+            lootingTimeThisTemporaryWillProablySwapThisToSomeEvent = 0f;
+        }
         StartCoroutine(MoveToNextRoom());
     }
 
     private IEnumerator MoveToNextRoom()
     {
-        yield return new WaitForSeconds(0.75f); // this currently acts as a delay for loot phase instead
+        yield return new WaitForSeconds(lootingTimeThisTemporaryWillProablySwapThisToSomeEvent);
+        lootingTimeThisTemporaryWillProablySwapThisToSomeEvent = 0f;
         RoomLevelChanging?.Invoke();
         yield return new WaitForSeconds(1.5f);
         roomLevel++;
