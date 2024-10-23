@@ -12,10 +12,13 @@ public class MenuManager : MonoBehaviour
 
     public TMPro.TextMeshProUGUI weaponStatsText;
     public TMPro.TextMeshProUGUI armourStatsText;
+
+    public GameObject deathScreen;
+    PlayerStats playerStats;
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerStats = FindAnyObjectByType<PlayerStats>();
     }
 
     // Update is called once per frame
@@ -28,6 +31,13 @@ public class MenuManager : MonoBehaviour
         else
         {
             Time.timeScale = 0;
+        }
+
+        print("Current Health: "+playerStats.CurrentHealth);
+        if (playerStats.CurrentHealth <= 0)
+        {
+            deathScreen.SetActive(true);
+            openMenus++;
         }
     }
     public void OpenMenu(GameObject menu)
