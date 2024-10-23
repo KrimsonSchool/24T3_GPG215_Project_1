@@ -6,7 +6,7 @@ public class SaveManager : MonoBehaviour
 {
     bool cansave = true;
     PlayerStats ps;
-    RoomLevelManager rlm;
+    GameManager rlm;
     PlayerInventory inv;
 
     public GameObject gearPrefab;
@@ -18,14 +18,14 @@ public class SaveManager : MonoBehaviour
 
         ps = GetComponent<PlayerStats>();
         inv = GetComponent<PlayerInventory>();
-        rlm = FindObjectOfType<RoomLevelManager>();
+        rlm = FindObjectOfType<GameManager>();
 
         if (PlayerPrefs.GetInt("Health") > 0)
         {
             Load();
         }
 
-        RoomLevelManager.RoomLevelChanging += Save;
+        GameManager.RoomLevelChanging += Save;
     }
 
     private void OnLevelWasLoaded()
