@@ -29,38 +29,23 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyLootTable.DroppedLoot += StartLootPhase;
+        EnemyCombatHandler.EnemyDeadEvent += EnemyLootStage;
     }
 
     private void OnDisable()
     {
-        EnemyLootTable.DroppedLoot -= StartLootPhase;
+        EnemyCombatHandler.EnemyDeadEvent -= EnemyLootStage;
     }
 
-    private void StartMoveToNextRoom()
+    private void EnemyLootStage()
     {
-        StartCoroutine(MoveToNextRoom());
-    }
-
-    private float lootingTimeThisTemporaryWillProablySwapThisToSomeEvent;
-
-    private void StartLootPhase(bool hasLootDropped)
-    {
-        if (hasLootDropped)
-        {
-            lootingTimeThisTemporaryWillProablySwapThisToSomeEvent = 0.5f;
-        }
-        else
-        {
-            lootingTimeThisTemporaryWillProablySwapThisToSomeEvent = 0f;
-        }
+        // This is just here to move onto next room while working on a loot stage so that there is a playable game loop
         StartCoroutine(MoveToNextRoom());
     }
 
     private IEnumerator MoveToNextRoom()
     {
-        yield return new WaitForSeconds(lootingTimeThisTemporaryWillProablySwapThisToSomeEvent);
-        lootingTimeThisTemporaryWillProablySwapThisToSomeEvent = 0f;
+        yield return new WaitForSeconds(0.75f); // this currently acts as a delay for loot phase instead
         RoomLevelChanging?.Invoke();
         yield return new WaitForSeconds(1.5f);
         roomLevel++;
