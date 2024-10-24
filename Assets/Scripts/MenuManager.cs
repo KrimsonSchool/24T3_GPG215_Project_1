@@ -16,10 +16,14 @@ public class MenuManager : MonoBehaviour
 
     public GameObject deathScreen;
     PlayerStats playerStats;
+    GameManager gameManager;
+
+    public TMPro.TextMeshProUGUI madeItToText;
     // Start is called before the first frame update
     void Start()
     {
         playerStats = FindAnyObjectByType<PlayerStats>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     // Update is called once per frame
@@ -35,9 +39,10 @@ public class MenuManager : MonoBehaviour
         }
 
         print("Current Health: "+playerStats.CurrentHealth);
-        if (playerStats.CurrentHealth <= 0)
+        if (playerStats.CurrentHealth <= 0 && !deathScreen.activeSelf)
         {
             deathScreen.SetActive(true);
+            madeItToText.text = "Made it to room " + gameManager.RoomLevel;
             openMenus++;
         }
     }

@@ -74,6 +74,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void LoadDependecies()
     {
+        //!!! CHECK IF ALL EXIST PLS!!!
         //The true in the below find obejcts means it will find disabled objects
         itemPickupUi = FindObjectOfType<ItemPickup>(true).gameObject;
 
