@@ -5,17 +5,22 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    // Value Changed Events
-    public static event Action HealthValueChangedEvent;
+    /// <summary>
+    /// &lt;CurrentHealth, MaxHealth&gt;
+    /// </summary>
+    public static event Action<int, int> HealthValueChangedEvent;
 
     [Header("Health")]
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private int currentHealth = 3;
 
     [Header("Offensive Stats")]
-    [SerializeField] private int baseAttackDamage = 1;
+    [SerializeField] private int attackDamage = 1;
     [SerializeField] private float attackWindup = 1f;
+    [SerializeField] private float attackWarning = 0.5f;
     [SerializeField] private float attackSpeed = 3f;
+    [SerializeField] private int attackCombos = 1;
+    [SerializeField] private float attackComboSpeed = 0f;
 
     #region Health Getters & Setters
     public int MaxHealth
@@ -24,7 +29,7 @@ public class EnemyStats : MonoBehaviour
         set
         {
             maxHealth = Mathf.Clamp(value, 1, int.MaxValue);
-            HealthValueChangedEvent?.Invoke();
+            HealthValueChangedEvent?.Invoke(currentHealth, maxHealth);
         }
     }
 
@@ -34,48 +39,34 @@ public class EnemyStats : MonoBehaviour
         set
         {
             currentHealth = (Mathf.Clamp(value, 0, int.MaxValue));
-            HealthValueChangedEvent?.Invoke();
+            HealthValueChangedEvent?.Invoke(currentHealth, maxHealth);
         }
     }
     #endregion
 
     #region Offensive Stats Getters & Setters
-    public int BaseAttackDamage
-    {
-        get { return baseAttackDamage; }
-        set
-        {
-            baseAttackDamage = Mathf.Clamp(value, 0, int.MaxValue);
-        }
-    }
-
-    public float AttackWindup
-    {
-        get { return attackWindup; }
-        set
-        {
-            attackWindup = Mathf.Clamp(value, 0f, float.MaxValue);
-        }
-    }
-
-    public float AttackSpeed
-    {
-        get { return attackSpeed; }
-        set
-        {
-            attackSpeed = Mathf.Clamp(value, 0f, float.MaxValue);
-        }
-    }
+    public int AttackDamage { get { return attackDamage; } set { attackDamage = value; } }
+    public float AttackWindup { get { return attackWindup; } set { attackWindup = value; } }
+    public float AttackWarning { get { return attackWarning; } set { attackWarning = value; } }
+    public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
+    public int AttackCombos { get { return attackCombos; } set { attackCombos = value; } }
+    public float AttackComboSpeed { get { return attackComboSpeed; } set { attackComboSpeed = value; } }
     #endregion
 
-    private void Awake()
+    private void Start()
     {
-        GameManager roomLevelManager = FindObjectOfType<GameManager>();
-        MaxHealth = Mathf.RoundToInt(3 * (1 + (roomLevelManager.RoomLevel * 0.5f)));
+        GameManager gameManager;
+        if (GameManager.instance == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+        else
+        {
+            gameManager = GameManager.instance.GetComponent<GameManager>();
+        }
+        MaxHealth = Mathf.RoundToInt(3 * (1 + (gameManager.RoomLevel * 0.5f)));
         CurrentHealth = MaxHealth;
-        BaseAttackDamage = 1;
-        AttackWindup = 1f;
-        AttackSpeed = 3f;
-        // need some difficulty balancing, only did some arbitrary stuff to health
+        AttackDamage = Mathf.RoundToInt(1 * (1 + (gameManager.RoomLevel * 0.2f)));
+        // need some difficulty balancing, only did some arbitrary stuff
     }
 }

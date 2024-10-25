@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIThreatIndicator : MonoBehaviour
+public class ThreatIndicator : MonoBehaviour
 {
     [SerializeField] private CanvasGroup canvasGroupRight;
     [SerializeField] private CanvasGroup canvasGroupLeft;
@@ -12,16 +12,16 @@ public class UIThreatIndicator : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyCombatHandler.EnemyWindupEvent += StartThreatIndicator;
+        EnemyCombatHandler.EnemyAttackWarningEvent += StartThreatIndicator;
         EnemyCombatHandler.EnemyAttackEvent += RemoveIndicators;
-        EnemyCombatHandler.EnemyDeadEvent += ImmidiateRemoveIndicators;
+        EnemyCombatHandler.EnemyDeadEvent += RemoveIndicators;
     }
 
     private void OnDisable()
     {
-        EnemyCombatHandler.EnemyWindupEvent -= StartThreatIndicator;
+        EnemyCombatHandler.EnemyAttackWarningEvent -= StartThreatIndicator;
         EnemyCombatHandler.EnemyAttackEvent -= RemoveIndicators;
-        EnemyCombatHandler.EnemyDeadEvent -= ImmidiateRemoveIndicators;
+        EnemyCombatHandler.EnemyDeadEvent -= RemoveIndicators;
     }
 
     private void StartThreatIndicator(PlayerCombatStates requiredState)
@@ -55,11 +55,10 @@ public class UIThreatIndicator : MonoBehaviour
                 }
                 break;
         }
-        StartCoroutine(RemoveIndicatorsPrecaution());
         yield return null;
     }
 
-    private void ImmidiateRemoveIndicators()
+    private void RemoveIndicators()
     {
         StopAllCoroutines();
         if (canvasGroupRight.alpha != 0f)
@@ -76,29 +75,12 @@ public class UIThreatIndicator : MonoBehaviour
         }
     }
 
-    private IEnumerator RemoveIndicatorsPrecaution()
-    {
-        yield return new WaitForSeconds(1f);
-        if (canvasGroupRight.alpha != 0f)
-        {
-            canvasGroupRight.alpha = 0f;
-        }
-        if (canvasGroupLeft.alpha != 0f)
-        {
-            canvasGroupLeft.alpha = 0f;
-        }
-        if (canvasGroupBelow.alpha != 0f)
-        {
-            canvasGroupBelow.alpha = 0f;
-        }
-    }
-
     private void RemoveIndicators(int damage, PlayerCombatStates requiredState)
     {
-        StartCoroutine(FadeOutRightIndicator(requiredState));
+        StartCoroutine(FadeOutIndicator(requiredState));
     }
 
-    private IEnumerator FadeOutRightIndicator(PlayerCombatStates requiredState)
+    private IEnumerator FadeOutIndicator(PlayerCombatStates requiredState)
     {
         switch (requiredState)
         {

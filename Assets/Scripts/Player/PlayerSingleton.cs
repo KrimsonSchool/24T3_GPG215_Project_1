@@ -10,14 +10,13 @@ public class PlayerSingleton : MonoBehaviour
     {
         if (instance != null)
         {
-            instance.gameObject.transform.position = gameObject.transform.position;
-            instance.gameObject.transform.rotation = gameObject.transform.rotation;
+            instance.transform.SetPositionAndRotation(gameObject.transform.position, gameObject.transform.rotation);
             Destroy(gameObject);
         }
         else
         {
             instance = gameObject;
+            DontDestroyOnLoad(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
     }
 }

@@ -8,7 +8,7 @@ public class EnemyHealthSlider : MonoBehaviour
 {
     private EnemyStats enemyStats;
     private Slider healthSlider;
-    private TextMeshProUGUI hPText;
+    private TextMeshProUGUI sliderText;
 
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class EnemyHealthSlider : MonoBehaviour
 
     private void Start()
     {
-        UpdateHealthBar();
+        UpdateHealthBar(enemyStats.CurrentHealth, enemyStats.MaxHealth);
     }
 
     private void OnEnable()
@@ -30,17 +30,17 @@ public class EnemyHealthSlider : MonoBehaviour
         EnemyStats.HealthValueChangedEvent -= UpdateHealthBar;
     }
 
-    private void UpdateHealthBar()
+    private void UpdateHealthBar(int currentHealth, int maxHealth)
     {
-        healthSlider.maxValue = enemyStats.MaxHealth;
-        healthSlider.value = enemyStats.CurrentHealth;
-        hPText.text = $"{enemyStats.CurrentHealth}/{enemyStats.MaxHealth}";
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
+        sliderText.text = $"{currentHealth}/{maxHealth}";
     }
 
     private void FindReferences()
     {
-        enemyStats = FindObjectOfType<EnemyStats>();
+        enemyStats = GetComponentInParent<EnemyStats>();
         healthSlider = GetComponent<Slider>();
-        hPText = GetComponentInChildren<TextMeshProUGUI>();
+        sliderText = GetComponentInChildren<TextMeshProUGUI>();
     }
 }

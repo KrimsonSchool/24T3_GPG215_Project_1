@@ -2,13 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 public class PlayerStats : MonoBehaviour
 {
-    // Value Changed Events
-    public static event Action<int> HealthValueChangedEvent;
-
     [Header("Health")]
     [SerializeField] private int maxHealth = 10;
     [SerializeField] private int currentHealth = 10;
@@ -30,14 +28,36 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float abilityDamageMultiplier = 1f;
     [SerializeField] private float abilityCDRMultiplier = 1f;
 
+    /// <summary>
+    /// &lt;CurrentHealth, MaxHealth&gt;
+    /// </summary>
+    public static event Action<int, int> HealthValueChangedEvent;
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Update any subscribers
+        HealthValueChangedEvent?.Invoke(currentHealth, maxHealth);
+    }
+
     #region Health Getters & Setters
     public int MaxHealth
     {
         get { return maxHealth; }
         set
         {
+            var previousMaxHealth = maxHealth;
             maxHealth = Mathf.Clamp(value, 1, int.MaxValue);
-            HealthValueChangedEvent?.Invoke(0);
+            HealthValueChangedEvent?.Invoke(currentHealth, maxHealth);
         }
     }
 
@@ -46,9 +66,10 @@ public class PlayerStats : MonoBehaviour
         get { return currentHealth; }
         set
         {
-            var storePrevious = currentHealth;
+            var previousCurrentHealth = currentHealth;
             currentHealth = (Mathf.Clamp(value, 0, int.MaxValue));
-            HealthValueChangedEvent?.Invoke(value - storePrevious);
+            print($"{currentHealth - previousCurrentHealth} applied to player health. [HP: {currentHealth}/{maxHealth}]");
+            HealthValueChangedEvent?.Invoke(currentHealth, maxHealth);
         }
     }
     #endregion

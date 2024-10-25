@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 7bb1e8ff38ec29d4a987f46135a12f46
+guid: 0ee507da10453c74bb2efe20df36e8f6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - floatingDamageNumberPrefab: {fileID: 4013153568204750465, guid: 32bd381a4dd44104ab0b0519cc43851f, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

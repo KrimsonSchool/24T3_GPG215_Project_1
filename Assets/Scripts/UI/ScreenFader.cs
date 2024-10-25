@@ -6,12 +6,12 @@ public class ScreenFader : FadeCanvasGroup
 {
     protected void OnEnable()
     {
-        GameManager.RoomLevelChanging += OnRoomLevelChanging;
+        GameManager.StartRoomTransition += OnRoomLevelChanging;
     }
 
     protected void OnDisable()
     {
-        GameManager.RoomLevelChanging -= OnRoomLevelChanging;
+        GameManager.StartRoomTransition -= OnRoomLevelChanging;
     }
 
     protected virtual void OnRoomLevelChanging()

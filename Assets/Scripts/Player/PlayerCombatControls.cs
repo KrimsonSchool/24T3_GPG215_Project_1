@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputMotionsHandler : MonoBehaviour
+public class PlayerCombatControls : MonoBehaviour
 {
     [SerializeField] private float tapDuration = 0.4f;
     [SerializeField, Range(1f, 50f), Tooltip("Size of deadzone in relation to percentage of screen width")] private float deadZone = 10f;

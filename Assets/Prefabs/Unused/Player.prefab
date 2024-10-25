@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 533900183522381998}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a3e59fb9fd0cb40805a2672e251239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingDamageNumberPrefab: {fileID: 4013153568204750465, guid: f5bf167cd6b413449b2cb103120c9b64, type: 3}
 --- !u!114 &8999931748937679807
 MonoBehaviour:
   m_ObjectHideFlags: 0
