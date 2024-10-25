@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIThreatIndicator : MonoBehaviour
+public class ThreatIndicator : MonoBehaviour
 {
     [SerializeField] private CanvasGroup canvasGroupRight;
     [SerializeField] private CanvasGroup canvasGroupLeft;
@@ -55,7 +55,6 @@ public class UIThreatIndicator : MonoBehaviour
                 }
                 break;
         }
-        StartCoroutine(RemoveIndicatorsPrecaution());
         yield return null;
     }
 
@@ -74,13 +73,6 @@ public class UIThreatIndicator : MonoBehaviour
         {
             canvasGroupBelow.alpha = 0f;
         }
-    }
-
-    // Precaution to remove indicators after 1 second if for any reason they stick around
-    private IEnumerator RemoveIndicatorsPrecaution()
-    {
-        yield return new WaitForSeconds(1f);
-        RemoveIndicators();
     }
 
     private void RemoveIndicators(int damage, PlayerCombatStates requiredState)

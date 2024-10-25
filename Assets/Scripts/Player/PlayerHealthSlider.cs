@@ -34,7 +34,14 @@ public class PlayerHealthSlider : MonoBehaviour
 
     private void FindReferences()
     {
-        playerStats = FindObjectOfType<PlayerStats>();
+        if (PlayerSingleton.instance != null)
+        {
+            playerStats = PlayerSingleton.instance.GetComponent<PlayerStats>();
+        }
+        else
+        {
+            playerStats = FindObjectOfType<PlayerStats>();
+        }
         healthSlider = GetComponent<Slider>();
         hPText = GetComponentInChildren<TextMeshProUGUI>();
     }

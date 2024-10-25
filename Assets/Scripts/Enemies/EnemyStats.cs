@@ -20,7 +20,7 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] private float attackWarning = 0.5f;
     [SerializeField] private float attackSpeed = 3f;
     [SerializeField] private int attackCombos = 1;
-    [SerializeField] private float attackComboSpeed = 1f;
+    [SerializeField] private float attackComboSpeed = 0f;
 
     #region Health Getters & Setters
     public int MaxHealth
@@ -55,11 +55,18 @@ public class EnemyStats : MonoBehaviour
 
     private void Start()
     {
-        GameManager gameManager = FindObjectOfType<GameManager>();
+        GameManager gameManager;
+        if (GameManager.instance == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+        else
+        {
+            gameManager = GameManager.instance.GetComponent<GameManager>();
+        }
         MaxHealth = Mathf.RoundToInt(3 * (1 + (gameManager.RoomLevel * 0.5f)));
         CurrentHealth = MaxHealth;
         AttackDamage = Mathf.RoundToInt(1 * (1 + (gameManager.RoomLevel * 0.2f)));
-        AttackSpeed = 3f;
         // need some difficulty balancing, only did some arbitrary stuff
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIRoomNumber : MonoBehaviour
+public class RoomNumber : MonoBehaviour
 {
     private TextMeshProUGUI roomNumberText;
     private GameManager gameManager;
@@ -11,7 +11,14 @@ public class UIRoomNumber : MonoBehaviour
     private void Awake()
     {
         roomNumberText = GetComponent<TextMeshProUGUI>();
-        gameManager = FindObjectOfType<GameManager>();
+        if (GameManager.instance != null)
+        {
+            gameManager = GameManager.instance.GetComponent<GameManager>();
+        }
+        else
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
         roomNumberText.text = $"Room {gameManager.RoomLevel}";
     }
 

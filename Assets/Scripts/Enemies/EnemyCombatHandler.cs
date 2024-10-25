@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyStats)), DisallowMultipleComponent]
 public class EnemyCombatHandler : MonoBehaviour
 {
+    [SerializeField] private GameObject floatingDamageNumberPrefab;
     private EnemyStats enemyStats;
     private float attackTimer = 0f;
     private bool isAttacking = false;
@@ -45,7 +47,7 @@ public class EnemyCombatHandler : MonoBehaviour
         if (attackTimer >= enemyStats.AttackSpeed)
         {
             isAttacking = true;
-            attackTimer = 0f;
+            attackTimer = UnityEngine.Random.Range(0f, enemyStats.AttackSpeed * 0.25f);
             StartCoroutine(Attack());
         }
     }
@@ -54,11 +56,16 @@ public class EnemyCombatHandler : MonoBehaviour
     {
         PlayerCombatStates randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
         EnemyWindupEvent?.Invoke(randomState);
-        Debug.LogWarning($"Enemy attack winding up. Requires: {randomState}");
-        yield return new WaitForSeconds(enemyStats.AttackWindup - enemyStats.AttackWarning);
-        EnemyAttackWarningEvent?.Invoke(randomState);
-        yield return new WaitForSeconds(enemyStats.AttackWarning);
-        EnemyAttackEvent?.Invoke(enemyStats.AttackDamage, randomState);
+        yield return new WaitForSeconds(Mathf.Clamp(enemyStats.AttackWindup - enemyStats.AttackWarning, 0, float.MaxValue));
+        for (int i = 0; i < enemyStats.AttackCombos; i++)
+        {
+            Debug.LogWarning($"Enemy about to attack. Requires: {randomState}");
+            EnemyAttackWarningEvent?.Invoke(randomState);
+            yield return new WaitForSeconds(enemyStats.AttackWarning);
+            EnemyAttackEvent?.Invoke(enemyStats.AttackDamage, randomState);
+            yield return new WaitForSeconds(Mathf.Clamp(enemyStats.AttackComboSpeed - enemyStats.AttackWarning, 0, float.MaxValue));
+            randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
+        }
         isAttacking = false;
     }
 
@@ -77,6 +84,7 @@ public class EnemyCombatHandler : MonoBehaviour
         if (isAlive)
         {
             enemyStats.CurrentHealth = Mathf.Clamp(enemyStats.CurrentHealth - damage, 0, int.MaxValue);
+            SpawnFloatingNumber(damage);
             if (enemyStats.CurrentHealth > 0)
             {
                 Debug.Log($"{gameObject.name} took {damage} damage. [HP: {enemyStats.CurrentHealth}/{enemyStats.MaxHealth}]");
@@ -89,6 +97,12 @@ public class EnemyCombatHandler : MonoBehaviour
                 EnemyDeadEvent?.Invoke();
             }
         }
+    }
+
+    private void SpawnFloatingNumber(int damageDone)
+    {
+        var prefab = Instantiate(floatingDamageNumberPrefab, transform.position, default);
+        prefab.GetComponentInChildren<TextMeshProUGUI>().text = $"-{damageDone}HP";
     }
 
     private void FindReferences()

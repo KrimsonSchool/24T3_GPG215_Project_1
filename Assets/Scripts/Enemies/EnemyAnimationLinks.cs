@@ -15,16 +15,19 @@ public class EnemyAnimationLinks : MonoBehaviour
     {
         EnemyCombatHandler.EnemyDeadEvent += EnemyDeadAnimation;
         EnemyCombatHandler.EnemyAttackEvent += EnemyAttackAnimation;
+        EnemyCombatHandler.EnemyWindupEvent += WindupStart;
     }
 
     private void OnDisable()
     {
         EnemyCombatHandler.EnemyDeadEvent -= EnemyDeadAnimation;
         EnemyCombatHandler.EnemyAttackEvent -= EnemyAttackAnimation;
+        EnemyCombatHandler.EnemyWindupEvent -= WindupStart;
     }
 
     private void EnemyAttackAnimation(int damage, PlayerCombatStates defenceRequirement)
     {
+        animator.SetBool("Windup", false);
         // can put in different animations depending on attack type
         animator.SetBool("Attack", true);
     }
@@ -37,6 +40,11 @@ public class EnemyAnimationLinks : MonoBehaviour
     private void AttackEnd()
     {
         animator.SetBool("Attack", false);
+    }
+
+    private void WindupStart(PlayerCombatStates defenceRequirement)
+    {
+        animator.SetBool("Windup", true);
     }
 
     private void SignalDead()

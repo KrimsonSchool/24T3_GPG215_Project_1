@@ -19,11 +19,25 @@ public class MenuManager : MonoBehaviour
     GameManager gameManager;
 
     public TMPro.TextMeshProUGUI madeItToText;
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
-        playerStats = FindAnyObjectByType<PlayerStats>();
-        gameManager = FindAnyObjectByType<GameManager>();
+        if (PlayerSingleton.instance != null)
+        {
+            playerStats = PlayerSingleton.instance.GetComponent<PlayerStats>();
+        }
+        else
+        {
+            playerStats = FindObjectOfType<PlayerStats>();
+        }
+        if (GameManager.instance != null)
+        {
+            gameManager = GameManager.instance.GetComponent<GameManager>();
+        }
+        else
+        {
+            gameManager = FindAnyObjectByType<GameManager>();
+        }
     }
 
     // Update is called once per frame
@@ -39,6 +53,26 @@ public class MenuManager : MonoBehaviour
         }
 
         //print("Current Health: "+playerStats.CurrentHealth);
+        //if (playerStats.CurrentHealth <= 0 && !deathScreen.activeSelf)
+        //{
+        //    deathScreen.SetActive(true);
+        //    madeItToText.text = "Made it to room " + gameManager.RoomLevel;
+        //    openMenus++;
+        //}
+    }
+
+    private void OnEnable()
+    {
+        PlayerStats.HealthValueChangedEvent += CheckForPlayerDeath;
+    }
+
+    private void OnDisable()
+    {
+        PlayerStats.HealthValueChangedEvent -= CheckForPlayerDeath;
+    }
+
+    private void CheckForPlayerDeath(int currentHealth, int maxHealth)
+    {
         if (playerStats.CurrentHealth <= 0 && !deathScreen.activeSelf)
         {
             deathScreen.SetActive(true);
@@ -46,6 +80,7 @@ public class MenuManager : MonoBehaviour
             openMenus++;
         }
     }
+
     public void OpenMenu(GameObject menu)
     {
         menu.SetActive(true);

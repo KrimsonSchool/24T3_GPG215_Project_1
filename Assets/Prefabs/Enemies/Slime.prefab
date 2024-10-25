@@ -1,50 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &759900512668754084
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3125699268231199667}
-  - component: {fileID: 5855168463754266611}
-  m_Layer: 0
-  m_Name: FloatingDamageSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3125699268231199667
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 759900512668754084}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1449902088485598246}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5855168463754266611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 759900512668754084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bb1e8ff38ec29d4a987f46135a12f46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floatingDamageNumberPrefab: {fileID: 4013153568204750465, guid: 32bd381a4dd44104ab0b0519cc43851f, type: 3}
 --- !u!1 &871220221337089828
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +381,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 3125699268231199667}
   - {fileID: 1885777616366364841}
   - {fileID: 8738553520333199859}
   - {fileID: 3373414673881551291}
@@ -449,9 +403,9 @@ MonoBehaviour:
   attackDamage: 1
   attackWindup: 1
   attackWarning: 0.5
-  attackSpeed: 3
+  attackSpeed: 2.5
   attackCombos: 1
-  attackComboSpeed: 1
+  attackComboSpeed: 0
 --- !u!114 &-3143809352477227198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,6 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9830b8203bebd4a8f2d0aecff7c4d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingDamageNumberPrefab: {fileID: 4013153568204750465, guid: 32bd381a4dd44104ab0b0519cc43851f, type: 3}
 --- !u!95 &8942865382168142469
 Animator:
   serializedVersion: 5

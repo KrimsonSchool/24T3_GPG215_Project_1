@@ -19,7 +19,10 @@ public class SaveManager : MonoBehaviour
 
         ps = GetComponent<PlayerStats>();
         inv = GetComponent<PlayerInventory>();
-        gm = FindObjectOfType<GameManager>();
+        if (GameManager.instance == null)
+            gm = FindObjectOfType<GameManager>();
+        else
+            gm = GameManager.instance.GetComponent<GameManager>();
     }
 
     private void Start()
@@ -112,7 +115,7 @@ public class SaveManager : MonoBehaviour
             Gear gear = Instantiate(gearPrefab, transform).GetComponent<Gear>();
 
             //give saved stats
-            gear.type=Gear.GearType.Armour;
+            gear.type = Gear.GearType.Armour;
             gear.defence = PlayerPrefs.GetInt("Defence");
             gear.health = PlayerPrefs.GetInt("Health");
             gear.abilityCooldown = PlayerPrefs.GetInt("AbilityCooldown");
