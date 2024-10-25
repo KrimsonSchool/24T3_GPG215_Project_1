@@ -15,11 +15,6 @@ public class PlayerHealthSlider : MonoBehaviour
         FindReferences();
     }
 
-    private void Start()
-    {
-        UpdateHealthBar(0);
-    }
-
     private void OnEnable()
     {
         PlayerStats.HealthValueChangedEvent += UpdateHealthBar;
@@ -30,11 +25,11 @@ public class PlayerHealthSlider : MonoBehaviour
         PlayerStats.HealthValueChangedEvent -= UpdateHealthBar;
     }
 
-    private void UpdateHealthBar(int damageDone)
+    private void UpdateHealthBar(int currentHealth, int maxHealth)
     {
-        healthSlider.maxValue = playerStats.MaxHealth;
-        healthSlider.value = playerStats.CurrentHealth;
-        hPText.text = $"HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}";
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
+        hPText.text = $"HP: {currentHealth}/{maxHealth}";
     }
 
     private void FindReferences()

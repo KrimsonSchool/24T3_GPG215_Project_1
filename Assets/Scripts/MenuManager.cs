@@ -38,7 +38,7 @@ public class MenuManager : MonoBehaviour
             Time.timeScale = 0;
         }
 
-        print("Current Health: "+playerStats.CurrentHealth);
+        //print("Current Health: "+playerStats.CurrentHealth);
         if (playerStats.CurrentHealth <= 0 && !deathScreen.activeSelf)
         {
             deathScreen.SetActive(true);
@@ -60,6 +60,8 @@ public class MenuManager : MonoBehaviour
 
     public void ChangeScene(string scene)
     {
+        FindObjectOfType<SaveManager>().Save();
+        Destroy(FindObjectOfType<SaveManager>().gameObject);
         SceneManager.LoadScene(scene);
     }
 }

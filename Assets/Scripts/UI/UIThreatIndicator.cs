@@ -12,16 +12,16 @@ public class UIThreatIndicator : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyCombatHandler.EnemyWindupEvent += StartThreatIndicator;
+        EnemyCombatHandler.EnemyAttackWarningEvent += StartThreatIndicator;
         EnemyCombatHandler.EnemyAttackEvent += RemoveIndicators;
-        EnemyCombatHandler.EnemyDeadEvent += ImmidiateRemoveIndicators;
+        EnemyCombatHandler.EnemyDeadEvent += RemoveIndicators;
     }
 
     private void OnDisable()
     {
-        EnemyCombatHandler.EnemyWindupEvent -= StartThreatIndicator;
+        EnemyCombatHandler.EnemyAttackWarningEvent -= StartThreatIndicator;
         EnemyCombatHandler.EnemyAttackEvent -= RemoveIndicators;
-        EnemyCombatHandler.EnemyDeadEvent -= ImmidiateRemoveIndicators;
+        EnemyCombatHandler.EnemyDeadEvent -= RemoveIndicators;
     }
 
     private void StartThreatIndicator(PlayerCombatStates requiredState)
@@ -59,7 +59,7 @@ public class UIThreatIndicator : MonoBehaviour
         yield return null;
     }
 
-    private void ImmidiateRemoveIndicators()
+    private void RemoveIndicators()
     {
         StopAllCoroutines();
         if (canvasGroupRight.alpha != 0f)
@@ -76,29 +76,19 @@ public class UIThreatIndicator : MonoBehaviour
         }
     }
 
+    // Precaution to remove indicators after 1 second if for any reason they stick around
     private IEnumerator RemoveIndicatorsPrecaution()
     {
         yield return new WaitForSeconds(1f);
-        if (canvasGroupRight.alpha != 0f)
-        {
-            canvasGroupRight.alpha = 0f;
-        }
-        if (canvasGroupLeft.alpha != 0f)
-        {
-            canvasGroupLeft.alpha = 0f;
-        }
-        if (canvasGroupBelow.alpha != 0f)
-        {
-            canvasGroupBelow.alpha = 0f;
-        }
+        RemoveIndicators();
     }
 
     private void RemoveIndicators(int damage, PlayerCombatStates requiredState)
     {
-        StartCoroutine(FadeOutRightIndicator(requiredState));
+        StartCoroutine(FadeOutIndicator(requiredState));
     }
 
-    private IEnumerator FadeOutRightIndicator(PlayerCombatStates requiredState)
+    private IEnumerator FadeOutIndicator(PlayerCombatStates requiredState)
     {
         switch (requiredState)
         {

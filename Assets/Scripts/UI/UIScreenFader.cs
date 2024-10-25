@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenFader : FadeCanvasGroup
+public class UIScreenFader : FadeCanvasGroup
 {
     protected void OnEnable()
     {
-        GameManager.RoomLevelChanging += OnRoomLevelChanging;
+        GameManager.StartRoomTransition += OnRoomLevelChanging;
     }
 
     protected void OnDisable()
     {
-        GameManager.RoomLevelChanging -= OnRoomLevelChanging;
+        GameManager.StartRoomTransition -= OnRoomLevelChanging;
     }
 
     protected virtual void OnRoomLevelChanging()

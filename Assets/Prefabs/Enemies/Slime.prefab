@@ -401,7 +401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1449902088485598246}
-  - component: {fileID: 3903285471651867804}
+  - component: {fileID: -4577348616963139804}
   - component: {fileID: -3143809352477227198}
   - component: {fileID: 6197270530822183060}
   - component: {fileID: 8942865382168142469}
@@ -432,7 +432,7 @@ Transform:
   - {fileID: 3373414673881551291}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: -90}
---- !u!114 &3903285471651867804
+--- !u!114 &-4577348616963139804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -444,11 +444,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f744ba01cee4b604ba451c1d4a0cb47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  currentHealth: 5
-  baseAttackDamage: 1
+  maxHealth: 3
+  currentHealth: 3
+  attackDamage: 1
   attackWindup: 1
+  attackWarning: 0.5
   attackSpeed: 3
+  attackCombos: 1
+  attackComboSpeed: 1
 --- !u!114 &-3143809352477227198
 MonoBehaviour:
   m_ObjectHideFlags: 0

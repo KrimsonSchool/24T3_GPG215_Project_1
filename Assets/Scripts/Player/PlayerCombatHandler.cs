@@ -58,7 +58,7 @@ public class PlayerCombatHandler : MonoBehaviour
             currentPlayerState = PlayerCombatStates.Attacking;
             PlayerAttackStart?.Invoke();
             StartCoroutine(StartAttackWindup());
-            Debug.Log("ATACKING!");
+            //Debug.Log("ATACKING!");
         }
     }
 
@@ -76,7 +76,7 @@ public class PlayerCombatHandler : MonoBehaviour
             currentPlayerState = PlayerCombatStates.DodgingRight;
             PlayerDodgeRight?.Invoke();
             StartCoroutine(Recovery(playerStats.DodgeWindow, playerStats.DodgeRecovery));
-            Debug.Log("DODGING RIGHT!");
+            //Debug.Log("DODGING RIGHT!");
         }
     }
 
@@ -87,7 +87,7 @@ public class PlayerCombatHandler : MonoBehaviour
             currentPlayerState = PlayerCombatStates.DodgingLeft;
             PlayerDodgeLeft?.Invoke();
             StartCoroutine(Recovery(playerStats.DodgeWindow, playerStats.DodgeRecovery));
-            Debug.Log("DODGING LEFT!");
+            //Debug.Log("DODGING LEFT!");
         }
     }
 
@@ -98,7 +98,7 @@ public class PlayerCombatHandler : MonoBehaviour
             currentPlayerState = PlayerCombatStates.DodgingUp;
             PlayerDodgeUp?.Invoke();
             StartCoroutine(Recovery(playerStats.DodgeWindow, playerStats.DodgeRecovery));
-            Debug.Log("JUMPING!");
+            //Debug.Log("JUMPING!");
         }
     }
 
@@ -108,7 +108,7 @@ public class PlayerCombatHandler : MonoBehaviour
         {
             currentPlayerState = PlayerCombatStates.Blocking;
             PlayerBlockStart?.Invoke();
-            Debug.Log("BLOCKING!");
+            //Debug.Log("BLOCKING!");
         }
     }
 
@@ -125,33 +125,33 @@ public class PlayerCombatHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(stateDuration);
         currentPlayerState = PlayerCombatStates.Recovering;
-        Debug.Log("Recovering...");
+        //Debug.Log("Recovering...");
 
         yield return new WaitForSeconds(recoveryTime);
         currentPlayerState = PlayerCombatStates.Idle;
-        Debug.Log("Now idle");
+        //Debug.Log("Now idle");
     }
 
-    public void DamagePlayer(int damage, PlayerCombatStates requiredState)
+    public void DamagePlayer(int damage, PlayerCombatStates combatStateToAvoid)
     {
-        if (currentPlayerState != requiredState)
+        if (currentPlayerState != combatStateToAvoid)
         {
             // some arbitrary placeholder block calculations
             int damageAfterResistances;
             if (currentPlayerState == PlayerCombatStates.Blocking)
             {
-                damageAfterResistances = Mathf.RoundToInt(damage / (1 + playerStats.DamageResistance));
+                damageAfterResistances = Mathf.RoundToInt(damage * (1 - (playerStats.DamageResistance * 0.01f)));
             }
             else
             {
                 damageAfterResistances = damage;
             }
             playerStats.CurrentHealth = Mathf.Clamp(playerStats.CurrentHealth - damageAfterResistances, 0, int.MaxValue);
-            Debug.Log($"Player took {damageAfterResistances} damage. [HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}]");
+            //Debug.Log($"Player took {damageAfterResistances} damage. {damage - damageAfterResistances} was blocked. [HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}]");
         }
         else
         {
-            Debug.Log("Damage avoided");
+            //Debug.Log("Damage avoided");
         }
     }
 

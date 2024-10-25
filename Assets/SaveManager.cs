@@ -1,41 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
     bool cansave = true;
     PlayerStats ps;
-    GameManager rlm;
+    GameManager gm;
     PlayerInventory inv;
 
     public GameObject gearPrefab;
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         //PlayerPrefs.SetInt("HasWeapon", 0);
         //PlayerPrefs.SetInt("HasArmour", 0);
 
         ps = GetComponent<PlayerStats>();
         inv = GetComponent<PlayerInventory>();
-        rlm = FindObjectOfType<GameManager>();
+        gm = FindObjectOfType<GameManager>();
+    }
 
+    private void Start()
+    {
         if (PlayerPrefs.GetInt("Health") > 0)
         {
             Load();
         }
 
-        GameManager.RoomLevelChanging += Save;
+        GameManager.StartRoomTransition += Save;
     }
 
-    private void OnLevelWasLoaded()
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         cansave = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void Save()
@@ -46,7 +53,7 @@ public class SaveManager : MonoBehaviour
 
             PlayerPrefs.SetInt("Health", ps.CurrentHealth);
             PlayerPrefs.SetInt("AttackDamage", ps.AttackDamage);
-            PlayerPrefs.SetInt("Level", rlm.RoomLevel);
+            PlayerPrefs.SetInt("Level", gm.RoomLevel);
 
             if (inv.weapon != null)
             {
@@ -73,7 +80,7 @@ public class SaveManager : MonoBehaviour
     {
         ps.CurrentHealth = PlayerPrefs.GetInt("Health");
         ps.AttackDamage = PlayerPrefs.GetInt("AttackDamage");
-        rlm.RoomLevel = PlayerPrefs.GetInt("Level");
+        gm.RoomLevel = PlayerPrefs.GetInt("Level");
 
         if (PlayerPrefs.GetInt("HasWeapon") == 1)
         {

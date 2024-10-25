@@ -9,7 +9,7 @@ public class RoomManager : MonoBehaviour
     public string nextScene;
     [HideInInspector]
     public bool enemyDead;
-    GameObject camera;
+    GameObject _camera;
     Player player;
     Enemy enemy;
 
@@ -49,7 +49,15 @@ public class RoomManager : MonoBehaviour
     }
 
     //when the level loads in
-    void OnLevelWasLoaded()
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         //debug that it has loaded in
         print("Level Loaded");
@@ -68,7 +76,7 @@ public class RoomManager : MonoBehaviour
         if (enemyDead)
         {
             //enable the cameras animator
-            camera.GetComponent<Animator>().enabled = true;
+            _camera.GetComponent<Animator>().enabled = true;
             //play the players Move On animation
             player.animator.SetBool("MoveOn", true);
 
@@ -99,7 +107,7 @@ public class RoomManager : MonoBehaviour
     public void LoadPrerequisites()
     {
         //this function grabs all the required prerequisites from the current scene
-        camera = FindObjectOfType<Camera>().gameObject;
+        _camera = FindObjectOfType<Camera>().gameObject;
         player = FindObjectOfType<Player>();
         roomText = GameObject.Find("RoomText").GetComponent<TMPro.TextMeshProUGUI>();
         currencyText = GameObject.Find("CurrencyText").GetComponent<TMPro.TextMeshProUGUI>();

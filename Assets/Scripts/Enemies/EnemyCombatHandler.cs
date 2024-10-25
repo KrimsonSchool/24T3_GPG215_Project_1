@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(EnemyStats)), DisallowMultipleComponent]
 public class EnemyCombatHandler : MonoBehaviour
@@ -11,10 +10,20 @@ public class EnemyCombatHandler : MonoBehaviour
     private float attackTimer = 0f;
     private bool isAttacking = false;
     private bool isAlive = true;
-    private PlayerCombatStates[] defensivePlayerStates = {PlayerCombatStates.DodgingRight, PlayerCombatStates.DodgingLeft, PlayerCombatStates.DodgingUp};
+    private static readonly PlayerCombatStates[] playerDodgeStates = { PlayerCombatStates.DodgingRight, PlayerCombatStates.DodgingLeft, PlayerCombatStates.DodgingUp };
 
-    public static event Action<PlayerCombatStates> EnemyWindupEvent; // T1 = Attack type/defence state required from player
-    public static event Action<int, PlayerCombatStates> EnemyAttackEvent; // T1 = Damage dealt, T2 = Attack type/defence state required from player
+    /// <summary>
+    /// &lt;Dodge state required avoid damage&gt;
+    /// </summary>
+    public static event Action<PlayerCombatStates> EnemyWindupEvent;
+    /// <summary>
+    /// &lt;Dodge state required avoid damage&gt;
+    /// </summary>
+    public static event Action<PlayerCombatStates> EnemyAttackWarningEvent;
+    /// <summary>
+    /// &lt;Damage Dealt, Dodge state required avoid damage&gt;
+    /// </summary>
+    public static event Action<int, PlayerCombatStates> EnemyAttackEvent;
     public static event Action EnemyDeadEvent;
 
     private void Awake()
@@ -43,11 +52,13 @@ public class EnemyCombatHandler : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        PlayerCombatStates randomState = defensivePlayerStates[UnityEngine.Random.Range(0, defensivePlayerStates.Length)];
+        PlayerCombatStates randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
         EnemyWindupEvent?.Invoke(randomState);
         Debug.LogWarning($"Enemy attack winding up. Requires: {randomState}");
-        yield return new WaitForSeconds(enemyStats.AttackWindup);
-        EnemyAttackEvent?.Invoke(enemyStats.BaseAttackDamage, randomState);
+        yield return new WaitForSeconds(enemyStats.AttackWindup - enemyStats.AttackWarning);
+        EnemyAttackWarningEvent?.Invoke(randomState);
+        yield return new WaitForSeconds(enemyStats.AttackWarning);
+        EnemyAttackEvent?.Invoke(enemyStats.AttackDamage, randomState);
         isAttacking = false;
     }
 
@@ -63,14 +74,14 @@ public class EnemyCombatHandler : MonoBehaviour
 
     private void TakeDamage(int damage)
     {
-        enemyStats.CurrentHealth = Mathf.Clamp(enemyStats.CurrentHealth - damage, 0, int.MaxValue);
-        if (enemyStats.CurrentHealth > 0)
+        if (isAlive)
         {
-            Debug.Log($"{gameObject.name} took {damage} damage. [HP: {enemyStats.CurrentHealth}/{enemyStats.MaxHealth}]");
-        }
-        else
-        {
-            if (isAlive)
+            enemyStats.CurrentHealth = Mathf.Clamp(enemyStats.CurrentHealth - damage, 0, int.MaxValue);
+            if (enemyStats.CurrentHealth > 0)
+            {
+                Debug.Log($"{gameObject.name} took {damage} damage. [HP: {enemyStats.CurrentHealth}/{enemyStats.MaxHealth}]");
+            }
+            else
             {
                 isAlive = false;
                 StopAllCoroutines();
