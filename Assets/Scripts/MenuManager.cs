@@ -60,6 +60,8 @@ public class MenuManager : MonoBehaviour
 
     public void ChangeScene(string scene)
     {
+        FindObjectOfType<SaveManager>().Save();
+        Destroy(FindObjectOfType<SaveManager>().gameObject);
         SceneManager.LoadScene(scene);
     }
 }
