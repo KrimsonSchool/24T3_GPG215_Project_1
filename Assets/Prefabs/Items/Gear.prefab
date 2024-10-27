@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8220937897875235391}
   - component: {fileID: 6854508013492359443}
   m_Layer: 0
-  m_Name: Sword_Teir1
+  m_Name: Gear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,9 +98,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   teir: 1
-  weight: 2
+  weight: 1
+  icon: {fileID: 21300000, guid: eeed05fc69d60cf47beb011b381e29a0, type: 3}
   defence: 0
+  health: 0
+  abilityCooldown: 0
+  blockAmount: 0
+  dodgeSpeed: 0
   damage: 0
   critChance: 0
   critAmount: 0
-  icon: {fileID: 21300000, guid: eeed05fc69d60cf47beb011b381e29a0, type: 3}
+  attackSpeed: 0
