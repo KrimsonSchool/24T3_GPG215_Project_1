@@ -24,7 +24,8 @@ public class EnemyLootTable : MonoBehaviour
         if (UnityEngine.Random.Range(0f, 100f) < dropChance)
         {
             int index = UnityEngine.Random.Range(0, lootTable.Count);
-            Instantiate(lootTable[index], transform.position, transform.rotation);
+            var loot = Instantiate(lootTable[index], transform.position, transform.rotation);
+            loot.GetComponent<Gear>().teir = Mathf.RoundToInt(1 + (GameManager.instance.GetComponent<GameManager>().RoomLevel / 10));
             DroppedLoot?.Invoke(true);
         }
         else

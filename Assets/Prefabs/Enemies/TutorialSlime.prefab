@@ -164,7 +164,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 86f51e47116da77478f77b5eb0f51d6c, type: 2}
+  - {fileID: 2100000, guid: d269edaab0b368d479f8317d31070211, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -356,13 +356,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1449902088485598246}
-  - component: {fileID: 3903285471651867804}
-  - component: {fileID: 3627285457424134738}
+  - component: {fileID: -4577348616963139804}
+  - component: {fileID: -3143809352477227198}
   - component: {fileID: 6197270530822183060}
   - component: {fileID: 8942865382168142469}
   - component: {fileID: 4954908537311211310}
   m_Layer: 0
-  m_Name: Spider
+  m_Name: TutorialSlime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386,7 +386,7 @@ Transform:
   - {fileID: 3373414673881551291}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: -90}
---- !u!114 &3903285471651867804
+--- !u!114 &-4577348616963139804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -398,15 +398,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f744ba01cee4b604ba451c1d4a0cb47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
-  currentHealth: 4
+  maxHealth: 5
+  currentHealth: 5
   attackDamage: 1
-  attackWindup: 1
-  attackWarning: 0.5
-  attackSpeed: 3
-  attackCombos: 3
-  attackComboSpeed: 0.8
---- !u!114 &3627285457424134738
+  attackWindup: 1.2
+  attackWarning: 0.6
+  attackSpeed: 4
+  attackCombos: 1
+  attackComboSpeed: 0
+--- !u!114 &-3143809352477227198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7b5756ac0b4ca479b717ab588a41ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropChance: 66
+  dropChance: 100
   lootTable:
   - {fileID: 7545032774175372164, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
 --- !u!114 &6197270530822183060
@@ -742,7 +742,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8857397209016056920}
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -4.67}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -752,7 +752,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1222648698046071865
@@ -883,13 +883,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8919436418003818169}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.26, y: 2.66, z: -1.9}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.32, z: -3.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1449902088485598246}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &315255804376937552
 Light:
   m_ObjectHideFlags: 0
@@ -901,11 +901,11 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.75, b: 0.75, a: 1}
-  m_Intensity: 1.6
-  m_Range: 5
-  m_SpotAngle: 145
-  m_InnerSpotAngle: 14
+  m_Color: {r: 1, g: 0.4481132, b: 0.4481132, a: 1}
+  m_Intensity: 1.68
+  m_Range: 8.27
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
