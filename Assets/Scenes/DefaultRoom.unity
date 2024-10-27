@@ -1276,6 +1276,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114279052}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &139675629 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6698297559665833850, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+  m_PrefabInstance: {fileID: 174536080}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &159206180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,7 +1613,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7094990786917239162, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1307508712}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6698297559665833850, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 670579996}
+    - targetCorrespondingSourceObject: {fileID: 6698297559665833850, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 670579995}
   m_SourcePrefab: {fileID: 100100000, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
 --- !u!114 &174536081 stripped
 MonoBehaviour:
@@ -4762,6 +4773,49 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7094990786917239162, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
   m_PrefabInstance: {fileID: 174536080}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &670579995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139675629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3a70e3d67522e4e842aa086b8a2501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toShow:
+  - {fileID: 1307508711}
+--- !u!114 &670579996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139675629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 670579995}
+          m_TargetAssemblyTypeName: HoverShow, Assembly-CSharp
+          m_MethodName: HideShow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &682373485
 GameObject:
   m_ObjectHideFlags: 0
@@ -12421,6 +12475,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 533900183522381998, guid: d46f3cc9ce684594883175ed1eb079b6, type: 3}
+      propertyPath: gearPrefab
+      value: 
+      objectReference: {fileID: 7545032774175372164, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
     - target: {fileID: 6430844788910598997, guid: d46f3cc9ce684594883175ed1eb079b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
