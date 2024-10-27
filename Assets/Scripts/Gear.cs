@@ -41,6 +41,15 @@ public class Gear : MonoBehaviour
 
         player = FindObjectOfType<PlayerInventory>();
 
+        if (Random.Range(0, 2) == 0)
+        {
+            type = Gear.GearType.Weapon;
+        }
+        else
+        {
+            type = Gear.GearType.Armour;
+        }
+
         if (type == GearType.Armour)
         {
             defence = Random.Range(teir, teir + 3);
