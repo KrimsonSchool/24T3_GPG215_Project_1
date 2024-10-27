@@ -64,9 +64,9 @@ public class EnemyStats : MonoBehaviour
         {
             gameManager = GameManager.instance.GetComponent<GameManager>();
         }
-        MaxHealth = Mathf.RoundToInt(3 * (1 + (gameManager.RoomLevel * 0.5f)));
+        MaxHealth = Mathf.RoundToInt(maxHealth * (1 + ((gameManager.RoomLevel - 1) * 0.5f)));
         CurrentHealth = MaxHealth;
-        AttackDamage = Mathf.RoundToInt(1 * (1 + (gameManager.RoomLevel * 0.2f)));
+        AttackDamage = Mathf.RoundToInt(attackDamage * (1 + ((gameManager.RoomLevel - 1) * 0.2f)));
         // need some difficulty balancing, only did some arbitrary stuff
     }
 }

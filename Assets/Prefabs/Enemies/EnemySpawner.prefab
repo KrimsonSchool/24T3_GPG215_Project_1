@@ -50,3 +50,4 @@ MonoBehaviour:
   enemySpawnWeighting:
   - 2
   - 1
+  tutorialEnemy: {fileID: 3214645606131860641, guid: 31555d9d2634bbf498932586f97f6ee0, type: 3}

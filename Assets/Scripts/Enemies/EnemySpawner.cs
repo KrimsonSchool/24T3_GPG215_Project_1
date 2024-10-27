@@ -6,29 +6,50 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] Enemies;
     [SerializeField] private float[] enemySpawnWeighting;
+    [SerializeField] private GameObject tutorialEnemy;
+    private GameManager gameManager;
+
+    private void Awake()
+    {
+        if (GameManager.instance != null)
+        {
+            gameManager = GameManager.instance.GetComponent<GameManager>();
+        }
+        else
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+    }
 
     private void Start()
     {
-        float weightSum = 0f;
-        for (int i = 0; i < enemySpawnWeighting.Length; i++)
+        if (gameManager.RoomLevel == 1)
         {
-            weightSum += enemySpawnWeighting[i];
+            Instantiate(tutorialEnemy);
         }
-        float randomNum = Random.Range(0, weightSum);
-        int enemyIteration = 0;
-        weightSum = 0f;
-        for (int i = 0; i < enemySpawnWeighting.Length; i++)
+        else
         {
-            weightSum += enemySpawnWeighting[i];
-            if (randomNum > weightSum)
+            float weightSum = 0f;
+            for (int i = 0; i < enemySpawnWeighting.Length; i++)
             {
-                enemyIteration++;
+                weightSum += enemySpawnWeighting[i];
             }
-            else
+            float randomNum = Random.Range(0, weightSum);
+            int enemyIteration = 0;
+            weightSum = 0f;
+            for (int i = 0; i < enemySpawnWeighting.Length; i++)
             {
-                break;
+                weightSum += enemySpawnWeighting[i];
+                if (randomNum > weightSum)
+                {
+                    enemyIteration++;
+                }
+                else
+                {
+                    break;
+                }
             }
+            Instantiate(Enemies[enemyIteration]);
         }
-        Instantiate(Enemies[enemyIteration]);
     }
 }
