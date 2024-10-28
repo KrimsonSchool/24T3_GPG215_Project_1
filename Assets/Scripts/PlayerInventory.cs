@@ -20,6 +20,9 @@ public class PlayerInventory : MonoBehaviour
     [HideInInspector] public TMPro.TextMeshProUGUI weaponStatsText;
     [HideInInspector] public TMPro.TextMeshProUGUI armourStatsText;
 
+    public Sprite weaponSprite;
+    public Sprite armourSprite;
+
     // Start is called before the first frame update
     void Start()
     {

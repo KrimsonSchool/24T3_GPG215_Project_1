@@ -12483,6 +12483,14 @@ PrefabInstance:
       propertyPath: gearPrefab
       value: 
       objectReference: {fileID: 7545032774175372164, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+    - target: {fileID: 1763947152387251987, guid: d46f3cc9ce684594883175ed1eb079b6, type: 3}
+      propertyPath: armourSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 88f5e846afc51924cbd86d5fd7f1bd02, type: 3}
+    - target: {fileID: 1763947152387251987, guid: d46f3cc9ce684594883175ed1eb079b6, type: 3}
+      propertyPath: weaponSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f351afa8cf499244e9413eccbf5cc41e, type: 3}
     - target: {fileID: 6430844788910598997, guid: d46f3cc9ce684594883175ed1eb079b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

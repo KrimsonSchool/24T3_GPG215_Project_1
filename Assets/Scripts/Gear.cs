@@ -41,13 +41,18 @@ public class Gear : MonoBehaviour
 
         player = FindObjectOfType<PlayerInventory>();
 
+
         if (Random.Range(0, 2) == 0)
         {
             type = Gear.GearType.Weapon;
+            name = "Weapon Tier "+teir;
+            icon = player.weaponSprite;
         }
         else
         {
             type = Gear.GearType.Armour;
+            name = "Armour Tier " + teir;
+            icon = player.armourSprite;
         }
 
         if (type == GearType.Armour)

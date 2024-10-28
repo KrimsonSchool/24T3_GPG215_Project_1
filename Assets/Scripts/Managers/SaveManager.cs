@@ -90,6 +90,7 @@ public class SaveManager : MonoBehaviour
             print("Has weapon, loading...");
             //spawn gear
             Gear gear = Instantiate(gearPrefab, transform).GetComponent<Gear>();
+            gear.icon = inv.weaponSprite;
 
             //give saved stats
             gear.type = Gear.GearType.Weapon;
@@ -113,6 +114,7 @@ public class SaveManager : MonoBehaviour
             print("Has weapon, loading...");
             //spawn gear
             Gear gear = Instantiate(gearPrefab, transform).GetComponent<Gear>();
+            gear.icon = inv.armourSprite;
 
             //give saved stats
             gear.type = Gear.GearType.Armour;
