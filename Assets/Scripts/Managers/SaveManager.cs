@@ -23,6 +23,8 @@ public class SaveManager : MonoBehaviour
             gm = FindObjectOfType<GameManager>();
         else
             gm = GameManager.instance.GetComponent<GameManager>();
+
+        
     }
 
     private void Start()
