@@ -22,6 +22,8 @@ public class Gear : MonoBehaviour
 
     public Sprite icon;
 
+    [HideInInspector] public bool ForceGearType = false;
+
     [Header("Stats")]
     [HideInInspector] public int defence;
     [HideInInspector] public int health;
@@ -41,22 +43,22 @@ public class Gear : MonoBehaviour
 
         player = FindObjectOfType<PlayerInventory>();
 
-
-        if (Random.Range(0, 2) == 0)
+        if (!ForceGearType)
         {
-            type = Gear.GearType.Weapon;
-            name = "Weapon Tier "+teir;
-            icon = player.weaponSprite;
-        }
-        else
-        {
-            type = Gear.GearType.Armour;
-            name = "Armour Tier " + teir;
-            icon = player.armourSprite;
+            if (Random.Range(0, 2) == 0)
+            {
+                type = Gear.GearType.Weapon;
+            }
+            else
+            {
+                type = Gear.GearType.Armour;
+            }
         }
 
         if (type == GearType.Armour)
         {
+            name = "Armour Tier " + teir;
+            icon = player.armourSprite;
             defence = Random.Range(teir, teir + 3);
             health = Random.Range(teir, teir + 3);
             abilityCooldown = Random.Range(teir, teir + 3);
@@ -66,6 +68,8 @@ public class Gear : MonoBehaviour
 
         if(type == GearType.Weapon)
         {
+            name = "Weapon Tier " + teir;
+            icon = player.weaponSprite;
             damage = Random.Range(teir, teir + 3);
             attackSpeed = Random.Range(teir, teir + 3);
             critChance = Random.Range(teir, teir*20);
