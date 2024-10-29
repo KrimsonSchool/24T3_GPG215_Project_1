@@ -12,13 +12,13 @@ public class DestroySingletons : MonoBehaviour
 
     public void DestroyGameManagerSingleton()
     {
-        Destroy(FindObjectOfType<GameManager>().gameObject);
+        Destroy(GameManager.instance);
         GameManager.instance = null;
     }
 
     public void DestroyPlayerSingleton()
     {
-        Destroy(FindObjectOfType<PlayerSingleton>().gameObject);
+        Destroy(PlayerSingleton.instance);
         PlayerSingleton.instance = null;
     }
 

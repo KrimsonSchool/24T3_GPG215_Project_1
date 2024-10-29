@@ -25,24 +25,21 @@ public class SaveManager : MonoBehaviour
             gm = GameManager.instance.GetComponent<GameManager>();
 
 
-        if ((PlayerSingleton.instance == null || PlayerSingleton.instance == gameObject) && PlayerPrefs.GetInt("Health") > 0)
+        if ((PlayerSingleton.instance == null || PlayerSingleton.instance == gameObject) && PlayerPrefs.HasKey("Health") && PlayerPrefs.GetInt("Health") > 0)
         {
             Load();
         }
     }
 
-    private void Start()
-    {
-        GameManager.StartRoomTransition += Save;
-    }
-
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        GameManager.StartRoomTransition += Save;
     }
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        GameManager.StartRoomTransition -= Save;
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -70,11 +67,11 @@ public class SaveManager : MonoBehaviour
             if (inv.armour != null)
             {
                 PlayerPrefs.SetInt("HasArmour", 1);
-                PlayerPrefs.SetInt("Defence", inv.armour.defence);
-                PlayerPrefs.SetInt("Health", inv.armour.health);
-                PlayerPrefs.SetInt("AbilityCooldown", inv.armour.abilityCooldown);
-                PlayerPrefs.SetInt("BlockAmount", inv.armour.blockAmount);
-                PlayerPrefs.SetInt("DodgeSpeed", inv.armour.dodgeSpeed);
+                PlayerPrefs.SetInt("ArmourDefence", inv.armour.defence);
+                PlayerPrefs.SetInt("ArmourHealth", inv.armour.health);
+                PlayerPrefs.SetInt("ArmourAbilityCooldown", inv.armour.abilityCooldown);
+                PlayerPrefs.SetInt("ArmourBlockAmount", inv.armour.blockAmount);
+                PlayerPrefs.SetInt("ArmourDodgeSpeed", inv.armour.dodgeSpeed);
             }
         }
         cansave = false;
@@ -84,7 +81,7 @@ public class SaveManager : MonoBehaviour
     {
         ps.CurrentHealth = PlayerPrefs.GetInt("Health");
         ps.AttackDamage = PlayerPrefs.GetInt("AttackDamage");
-        gm.RoomLevel = PlayerPrefs.GetInt("Level");
+        //gm.RoomLevel = PlayerPrefs.GetInt("Level");
 
         if (PlayerPrefs.GetInt("HasWeapon") == 1)
         {
@@ -119,11 +116,11 @@ public class SaveManager : MonoBehaviour
 
             //give saved stats
             gear.type = Gear.GearType.Armour;
-            gear.defence = PlayerPrefs.GetInt("Defence");
-            gear.health = PlayerPrefs.GetInt("Health");
-            gear.abilityCooldown = PlayerPrefs.GetInt("AbilityCooldown");
-            gear.blockAmount = PlayerPrefs.GetInt("BlockAmount");
-            gear.dodgeSpeed = PlayerPrefs.GetInt("DodgeSpeed");
+            gear.defence = PlayerPrefs.GetInt("ArmourDefence");
+            gear.health = PlayerPrefs.GetInt("ArmourHealth");
+            gear.abilityCooldown = PlayerPrefs.GetInt("ArmourAbilityCooldown");
+            gear.blockAmount = PlayerPrefs.GetInt("ArmourBlockAmount");
+            gear.dodgeSpeed = PlayerPrefs.GetInt("ArmourDodgeSpeed");
 
             //equip
             ItemPickup ip = FindObjectOfType<ItemPickup>(true);
