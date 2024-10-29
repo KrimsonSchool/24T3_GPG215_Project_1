@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2513059390930456444}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.43, z: 29.71}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50,4 +50,4 @@ MonoBehaviour:
   enemySpawnWeighting:
   - 2
   - 1
-  tutorialEnemy: {fileID: 3214645606131860641, guid: 31555d9d2634bbf498932586f97f6ee0, type: 3}
+  tutorialEnemy: {fileID: 3214645606131860641, guid: 4761fd23d5b0cbe4290f9c6053886cfc, type: 3}

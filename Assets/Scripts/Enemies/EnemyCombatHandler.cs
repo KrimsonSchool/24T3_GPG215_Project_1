@@ -52,7 +52,7 @@ public class EnemyCombatHandler : MonoBehaviour
         }
     }
 
-    private IEnumerator Attack()
+    protected virtual IEnumerator Attack()
     {
         PlayerCombatStates randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
         EnemyWindupEvent?.Invoke(randomState);
@@ -69,12 +69,12 @@ public class EnemyCombatHandler : MonoBehaviour
         isAttacking = false;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         PlayerCombatHandler.PlayerAttackEvent += TakeDamage;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         PlayerCombatHandler.PlayerAttackEvent -= TakeDamage;
     }
@@ -105,7 +105,7 @@ public class EnemyCombatHandler : MonoBehaviour
         prefab.GetComponentInChildren<TextMeshProUGUI>().text = $"-{damageDone}HP";
     }
 
-    private void FindReferences()
+    protected virtual void FindReferences()
     {
         enemyStats = GetComponent<EnemyStats>();
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class EnemyAnimationLinks : MonoBehaviour
 {
     private Animator animator;
@@ -27,14 +28,18 @@ public class EnemyAnimationLinks : MonoBehaviour
 
     private void EnemyAttackAnimation(int damage, PlayerCombatStates defenceRequirement)
     {
-        animator.SetBool("Windup", false);
-        // can put in different animations depending on attack type
-        animator.SetBool("Attack", true);
+        //animator.SetBool("Windup", false);
+        //// can put in different animations depending on attack type
+        //animator.SetBool("Attack", true);
+
+        animator.Play("Slime_Attack");
     }
 
     private void EnemyDeadAnimation()
     {
-        animator.SetBool("Dead", true);
+        //animator.SetBool("Dead", true);
+
+        animator.Play("Slime_Die");
     }
 
     private void AttackEnd()
@@ -44,7 +49,9 @@ public class EnemyAnimationLinks : MonoBehaviour
 
     private void WindupStart(PlayerCombatStates defenceRequirement)
     {
-        animator.SetBool("Windup", true);
+        //animator.SetBool("Windup", true);
+
+        animator.Play("Slime_Windup");
     }
 
     private void SignalDead()

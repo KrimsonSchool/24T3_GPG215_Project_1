@@ -25,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (gameManager.RoomLevel == 1)
         {
-            Instantiate(tutorialEnemy);
+            Instantiate(tutorialEnemy, transform.position, transform.rotation);
         }
         else
         {
@@ -49,7 +49,7 @@ public class EnemySpawner : MonoBehaviour
                     break;
                 }
             }
-            Instantiate(Enemies[enemyIteration]);
+            Instantiate(Enemies[enemyIteration], transform.position, transform.rotation);
         }
     }
 }

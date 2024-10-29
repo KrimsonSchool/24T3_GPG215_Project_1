@@ -33,6 +33,14 @@ public class RoomNumber : MonoBehaviour
 
     private void OnRoomLevelChanged(int roomLevel)
     {
-        roomNumberText.text = $"Room {roomLevel}";
+        if(roomLevel % 10 != 0)
+        {
+            roomNumberText.text = $"Room {roomLevel}";
+        }
+        else
+        {
+            // This'll need refactoring with boss additions
+            roomNumberText.text = $"The Angery Chicken";
+        }        
     }
 }
