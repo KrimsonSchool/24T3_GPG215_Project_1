@@ -15,6 +15,12 @@ public class PlayerHealthSlider : MonoBehaviour
         FindReferences();
     }
 
+    private void Start()
+    {
+        healthSlider.maxValue = playerStats.MaxHealth;
+        healthSlider.value = playerStats.CurrentHealth;
+    }
+
     private void OnEnable()
     {
         PlayerStats.HealthValueChangedEvent += UpdateHealthBar;
