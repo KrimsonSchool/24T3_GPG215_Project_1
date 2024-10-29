@@ -1419,6 +1419,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1653383703392737172, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 1653383703392737172, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 1752624686600397403, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1427,6 +1435,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2260254166600085416, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 2260254166600085416, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 3038739718390955617, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 3038739718390955617, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 3221409164998617861, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_Name
       value: GameplayHUD
