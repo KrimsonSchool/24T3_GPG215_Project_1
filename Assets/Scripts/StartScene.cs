@@ -5,27 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class StartScene : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OpenScene(string scene)
     {
-        if (PlayerPrefs.GetInt("Level") % 10 != 0 && PlayerPrefs.GetInt("Level") != 0)
+        if (PlayerPrefs.GetInt("Level") >= 2)
         {
-            SceneManager.LoadSceneAsync(scene);
+            GameManager.instance.GetComponent<GameManager>().RoomLevel = PlayerPrefs.GetInt("Level");
+        }
+
+        if (PlayerPrefs.GetInt("Level") >= 10 && PlayerPrefs.GetInt("Level") % 10 == 0)
+        {
+            SceneManager.LoadSceneAsync("BossRoom");
         }
         else
         {
-            SceneManager.LoadSceneAsync("BossRoom");
+            SceneManager.LoadSceneAsync(scene);
         }
     }
 

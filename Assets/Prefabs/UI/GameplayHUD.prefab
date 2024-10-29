@@ -6496,25 +6496,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 83d40d3c9dc90214ba66b88d33e5f065, type: 2}
     - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 4720880955055619651}
-    - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 3130804380192676634}
+      objectReference: {fileID: 0}
     - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -6522,30 +6506,6 @@ PrefabInstance:
     - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: DestroyAllSingletons
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MenuManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: DestroySingletons, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Start
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6001690282974761591, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -6569,14 +6529,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3292175381747606805, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
   m_PrefabInstance: {fileID: 3126298423373195555}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3130804380192676634 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4519150992683577, guid: 323ef1eb51b1a2a4c97e8d13eabd5986, type: 3}
-  m_PrefabInstance: {fileID: 3126298423373195555}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03fc1e0eafc7c5d4ca75983f4c3b676a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
