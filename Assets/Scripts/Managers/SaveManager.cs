@@ -24,16 +24,15 @@ public class SaveManager : MonoBehaviour
         else
             gm = GameManager.instance.GetComponent<GameManager>();
 
-        
+
+        if ((PlayerSingleton.instance == null || PlayerSingleton.instance == gameObject) && PlayerPrefs.GetInt("Health") > 0)
+        {
+            Load();
+        }
     }
 
     private void Start()
     {
-        if (PlayerPrefs.GetInt("Health") > 0)
-        {
-            Load();
-        }
-
         GameManager.StartRoomTransition += Save;
     }
 

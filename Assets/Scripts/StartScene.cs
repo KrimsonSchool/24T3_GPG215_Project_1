@@ -19,7 +19,14 @@ public class StartScene : MonoBehaviour
 
     public void OpenScene(string scene)
     {
-        SceneManager.LoadSceneAsync(scene);
+        if (PlayerPrefs.GetInt("Level") % 10 != 0 && PlayerPrefs.GetInt("Level") != 0)
+        {
+            SceneManager.LoadSceneAsync(scene);
+        }
+        else
+        {
+            SceneManager.LoadSceneAsync("BossRoom");
+        }
     }
 
     public void OpenMenu(GameObject menu)

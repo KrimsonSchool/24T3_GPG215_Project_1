@@ -16,6 +16,10 @@ public class TapToAttack : MonoBehaviour
         {
             gameManager = FindObjectOfType<GameManager>();
         }
+    }
+
+    private void Start()
+    {
         if (gameManager.RoomLevel != 1)
         {
             gameObject.SetActive(false);

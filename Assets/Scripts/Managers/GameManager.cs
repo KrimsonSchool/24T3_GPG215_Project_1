@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameObject instance;
 
-    private int roomLevel = 1;
+    [SerializeField] private int roomLevel = 1;
 
     public static event Action StartRoomTransition;
     /// <summary>
@@ -83,6 +83,13 @@ public class GameManager : MonoBehaviour
         StartRoomTransition?.Invoke();
         yield return new WaitForSeconds(1.5f);
         roomLevel++;
-        SceneManager.LoadScene("DefaultRoom");
+        if (roomLevel % 10 == 0)
+        {
+            SceneManager.LoadScene("BossRoom");
+        }
+        else
+        {
+            SceneManager.LoadScene("DefaultRoom");
+        }
     }
 }
