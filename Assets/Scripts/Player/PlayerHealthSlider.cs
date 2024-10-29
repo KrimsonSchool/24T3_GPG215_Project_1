@@ -19,6 +19,7 @@ public class PlayerHealthSlider : MonoBehaviour
     {
         healthSlider.maxValue = playerStats.MaxHealth;
         healthSlider.value = playerStats.CurrentHealth;
+        hPText.text = $"HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}";
     }
 
     private void OnEnable()
