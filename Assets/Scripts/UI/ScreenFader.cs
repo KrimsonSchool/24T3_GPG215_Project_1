@@ -17,5 +17,6 @@ public class ScreenFader : FadeCanvasGroup
     protected virtual void OnRoomLevelChanging()
     {
         StartFade(FadeOptions.FadeIn, 0.4f, 0.4f);
+        canvasGroup.blocksRaycasts = true;
     }
 }
