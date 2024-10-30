@@ -35,6 +35,7 @@ public class SaveManager : MonoBehaviour
     private void Start()
     {
         PlayerPrefs.SetInt("CanLoad", 1);
+        Save();
     }
 
     private void OnEnable()

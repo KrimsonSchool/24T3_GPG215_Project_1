@@ -11,6 +11,10 @@ public class StartScene : MonoBehaviour
         {
             GameManager.instance.GetComponent<GameManager>().RoomLevel = PlayerPrefs.GetInt("Level");
         }
+        else
+        {
+            PlayerPrefs.SetInt("CanLoad", 0);
+        }
 
         if (PlayerPrefs.GetInt("CanLoad") == 1 && PlayerPrefs.GetInt("Level") >= 10 && PlayerPrefs.GetInt("Level") % 10 == 0)
         {

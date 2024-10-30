@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 6530277359925762264}
   - component: {fileID: 6001690282974761591}
   - component: {fileID: 4882377775448985664}
-  - component: {fileID: 4519150992683577}
   m_Layer: 5
   m_Name: TryAgain
   m_TagString: Untagged
@@ -197,7 +196,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4519150992683577}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DestroySingletons, Assembly-CSharp
         m_MethodName: DestroyAllSingletons
         m_Mode: 1
@@ -209,7 +208,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4519150992683577}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DestroySingletons, Assembly-CSharp
         m_MethodName: ClearPlayerPrefsTemp
         m_Mode: 1
@@ -254,18 +253,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4519150992683577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3134437340346337902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03fc1e0eafc7c5d4ca75983f4c3b676a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3857742079762918868
 GameObject:
   m_ObjectHideFlags: 0
