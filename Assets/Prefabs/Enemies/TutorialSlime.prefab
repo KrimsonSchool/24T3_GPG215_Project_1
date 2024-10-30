@@ -520,8 +520,8 @@ MonoBehaviour:
   maxHealth: 5
   currentHealth: 5
   attackDamage: 1
-  attackWindup: 1
-  attackWarning: 0.7
+  attackWindup: 0.5
+  attackWarning: 0.8
   attackSpeed: 4
   attackCombos: 1
   attackComboSpeed: 0

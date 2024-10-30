@@ -438,11 +438,11 @@ MonoBehaviour:
   maxHealth: 5
   currentHealth: 5
   attackDamage: 1
-  attackWindup: 1
-  attackWarning: 0.5
+  attackWindup: 0.5
+  attackWarning: 0.7
   attackSpeed: 4
   attackCombos: 5
-  attackComboSpeed: 0.7
+  attackComboSpeed: 0.3
 --- !u!114 &3627285457424134738
 MonoBehaviour:
   m_ObjectHideFlags: 0

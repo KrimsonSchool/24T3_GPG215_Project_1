@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerCombatControls : MonoBehaviour
 {
-    [SerializeField] private float tapDuration = 0.4f;
-    [SerializeField, Range(1f, 50f), Tooltip("Size of deadzone in relation to percentage of screen width")] private float deadZone = 10f;
+    [SerializeField] private float tapDuration = 0.2f;
+    [SerializeField, Range(0f, 1f), Tooltip("Size of deadzone in relation to percentage of screen width")] private float deadZone = 0.01f;
     private float adjustedDeadZone;
     private Vector2 startPoint;
     private Vector2 endPoint;
@@ -31,7 +31,7 @@ public class PlayerCombatControls : MonoBehaviour
     public void InputStart()
     {
         StopAllCoroutines();
-        adjustedDeadZone = Screen.width * (deadZone / 100f);
+        adjustedDeadZone = Screen.width * deadZone;
         detectingInput = true;
         tapAllowed = true;
         startPoint = Input.mousePosition;

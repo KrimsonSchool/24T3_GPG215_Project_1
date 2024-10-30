@@ -1435,6 +1435,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2228054903654024439, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2260254166600085416, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1591,10 +1595,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8658344391722285908, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 174536081}
     - target: {fileID: 8744900692847415313, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1625,17 +1625,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 670579995}
   m_SourcePrefab: {fileID: 100100000, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
---- !u!114 &174536081 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4720880955055619651, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-  m_PrefabInstance: {fileID: 174536080}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1ff7dc659a32840989d311f0ac714f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &215865423
 GameObject:
   m_ObjectHideFlags: 0

@@ -56,15 +56,18 @@ public class EnemyCombatHandler : MonoBehaviour
     {
         PlayerCombatStates randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
         EnemyWindupEvent?.Invoke(randomState);
-        yield return new WaitForSeconds(Mathf.Clamp(enemyStats.AttackWindup - enemyStats.AttackWarning, 0, float.MaxValue));
+        yield return new WaitForSeconds(enemyStats.AttackWindup);
         for (int i = 0; i < enemyStats.AttackCombos; i++)
         {
             Debug.LogWarning($"Enemy about to attack. Requires: {randomState}");
             EnemyAttackWarningEvent?.Invoke(randomState);
             yield return new WaitForSeconds(enemyStats.AttackWarning);
             EnemyAttackEvent?.Invoke(enemyStats.AttackDamage, randomState);
-            yield return new WaitForSeconds(Mathf.Clamp(enemyStats.AttackComboSpeed - enemyStats.AttackWarning, 0, float.MaxValue));
-            randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
+            if (enemyStats.AttackCombos > 1)
+            {
+                randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
+                yield return new WaitForSeconds(enemyStats.AttackComboSpeed);
+            }
         }
         isAttacking = false;
     }

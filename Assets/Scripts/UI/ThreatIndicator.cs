@@ -12,24 +12,26 @@ public class ThreatIndicator : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyCombatHandler.EnemyAttackWarningEvent += StartThreatIndicator;
-        EnemyCombatHandler.EnemyAttackEvent += RemoveIndicators;
-        EnemyCombatHandler.EnemyDeadEvent += RemoveIndicators;
+        EnemyCombatHandler.EnemyAttackWarningEvent += TriggerThreatIndicator;
+        EnemyCombatHandler.EnemyAttackEvent += RemoveIndicator;
+        EnemyCombatHandler.EnemyDeadEvent += RemoveAllIndicators;
     }
 
     private void OnDisable()
     {
-        EnemyCombatHandler.EnemyAttackWarningEvent -= StartThreatIndicator;
-        EnemyCombatHandler.EnemyAttackEvent -= RemoveIndicators;
-        EnemyCombatHandler.EnemyDeadEvent -= RemoveIndicators;
+        EnemyCombatHandler.EnemyAttackWarningEvent -= TriggerThreatIndicator;
+        EnemyCombatHandler.EnemyAttackEvent -= RemoveIndicator;
+        EnemyCombatHandler.EnemyDeadEvent -= RemoveAllIndicators;
     }
 
-    private void StartThreatIndicator(PlayerCombatStates requiredState)
+    private void TriggerThreatIndicator(PlayerCombatStates requiredState)
     {
-        StartCoroutine(ThreatIdication(requiredState));
+        StopAllCoroutines();
+        RemoveAllIndicators();
+        StartCoroutine(StartThreatIdication(requiredState));
     }
 
-    private IEnumerator ThreatIdication(PlayerCombatStates requiredState)
+    private IEnumerator StartThreatIdication(PlayerCombatStates requiredState)
     {
         switch (requiredState)
         {
@@ -58,25 +60,17 @@ public class ThreatIndicator : MonoBehaviour
         yield return null;
     }
 
-    private void RemoveIndicators()
+    private void RemoveAllIndicators()
     {
         StopAllCoroutines();
-        if (canvasGroupRight.alpha != 0f)
-        {
-            canvasGroupRight.alpha = 0f;
-        }
-        if (canvasGroupLeft.alpha != 0f)
-        {
-            canvasGroupLeft.alpha = 0f;
-        }
-        if (canvasGroupBelow.alpha != 0f)
-        {
-            canvasGroupBelow.alpha = 0f;
-        }
+        canvasGroupRight.alpha = 0f;
+        canvasGroupLeft.alpha = 0f;
+        canvasGroupBelow.alpha = 0f;
     }
 
-    private void RemoveIndicators(int damage, PlayerCombatStates requiredState)
+    private void RemoveIndicator(int damage, PlayerCombatStates requiredState)
     {
+        StopAllCoroutines();
         StartCoroutine(FadeOutIndicator(requiredState));
     }
 

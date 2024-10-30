@@ -25,6 +25,8 @@ public class DestroySingletons : MonoBehaviour
     // This is here just as a temporary method to clear the save upon losing
     public void ClearPlayerPrefsTemp()
     {
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("CanLoad", 0);
+        PlayerPrefs.SetInt("Health", 0);
+        //PlayerPrefs.DeleteAll();
     }
 }

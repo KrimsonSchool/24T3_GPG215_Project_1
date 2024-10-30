@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SaveManager : MonoBehaviour
 {
     bool cansave = true;
+    bool canLoad;
     PlayerStats ps;
     GameManager gm;
     PlayerInventory inv;
@@ -25,25 +26,42 @@ public class SaveManager : MonoBehaviour
             gm = GameManager.instance.GetComponent<GameManager>();
 
 
-        if ((PlayerSingleton.instance == null || PlayerSingleton.instance == gameObject) && PlayerPrefs.HasKey("Health") && PlayerPrefs.GetInt("Health") > 0)
+        if ((PlayerSingleton.instance == null || PlayerSingleton.instance == gameObject) && PlayerPrefs.GetInt("CanLoad") == 1 && PlayerPrefs.GetInt("Health") > 0)
         {
             Load();
         }
+    }
+
+    private void Start()
+    {
+        PlayerPrefs.SetInt("CanLoad", 1);
     }
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         GameManager.StartRoomTransition += Save;
+        PlayerStats.HealthValueChangedEvent += CanLoad;
     }
+
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
         GameManager.StartRoomTransition -= Save;
+        PlayerStats.HealthValueChangedEvent -= CanLoad;
     }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         cansave = true;
+    }
+
+    private void CanLoad(int currentHealth, int maxHealth)
+    {
+        if (currentHealth <= 0)
+        {
+            PlayerPrefs.SetInt("CanLoad", 0);
+        }
     }
 
     public void Save()
