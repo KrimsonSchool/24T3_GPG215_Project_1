@@ -95,6 +95,8 @@ public class ItemPickup : MonoBehaviour
 
     public void Equip()
     {
+        FindObjectOfType<FxPlayer>().PlaySound("Equip");
+
         gear.gameObject.SetActive(true);
         gear.gameObject.transform.parent = inventory.gameObject.transform;
         if(gear.type == Gear.GearType.Weapon)
