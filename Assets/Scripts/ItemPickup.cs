@@ -96,6 +96,7 @@ public class ItemPickup : MonoBehaviour
     public void Equip()
     {
         gear.gameObject.SetActive(true);
+        gear.gameObject.transform.parent = inventory.gameObject.transform;
         if(gear.type == Gear.GearType.Weapon)
         {
             print("equipping [" + gear + "]");
@@ -103,12 +104,14 @@ public class ItemPickup : MonoBehaviour
             inventory.weapon = gear;
 
             gear.gameObject.transform.position = inventory.weaponSlot.transform.position;
+            gear.gameObject.transform.rotation = inventory.weaponSlot.transform.rotation;
         }
         if (gear.type == Gear.GearType.Armour)
         {
             inventory.armour = gear;
 
             gear.gameObject.transform.position = inventory.armourSlot.transform.position;
+            gear.gameObject.transform.rotation = inventory.armourSlot.transform.rotation;
         }
 
         FindObjectOfType<MenuManager>().openMenus--;
