@@ -69,6 +69,8 @@ public class PlayerCombatHandler : MonoBehaviour
     {
         if (currentPlayerState == PlayerCombatStates.Idle && attackPrevention <= 0f)
         {
+            FindObjectOfType<FxPlayer>().PlaySound("PlayerAttack");
+
             currentPlayerState = PlayerCombatStates.Attacking;
             PlayerAttackStart?.Invoke();
             StartCoroutine(StartAttackWindup());

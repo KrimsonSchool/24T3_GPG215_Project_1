@@ -122,6 +122,8 @@ public class ItemPickup : MonoBehaviour
 
     public void Discard()
     {
+        FindObjectOfType<FxPlayer>().PlaySound("Discard");
+
         Destroy(gear.gameObject);
         FindObjectOfType<MenuManager>().openMenus--;
         gameObject.SetActive(false);
