@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : Singleton<PlayerInventory>
 {
     public int coins;
 
@@ -26,24 +26,27 @@ public class PlayerInventory : MonoBehaviour
     public GameObject armourSlot;
     public GameObject weaponSlot;
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
         LoadDependecies();
     }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         LoadDependecies();
     }
-    // Update is called once per frame
+
     void Update()
     {
         //print(itemPickupUi.activeSelf);
