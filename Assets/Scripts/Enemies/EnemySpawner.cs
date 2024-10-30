@@ -11,9 +11,9 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
-        if (GameManager.instance != null)
+        if (GameManager.Instance != null)
         {
-            gameManager = GameManager.instance.GetComponent<GameManager>();
+            gameManager = GameManager.Instance;
         }
         else
         {

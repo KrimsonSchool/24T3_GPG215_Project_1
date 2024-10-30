@@ -2,10 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : Singleton<PlayerStats>
 {
     [Header("Health")]
     [SerializeField] private int maxHealth = 10;
@@ -32,22 +31,7 @@ public class PlayerStats : MonoBehaviour
     /// &lt;CurrentHealth, MaxHealth&gt;
     /// </summary>
     public static event Action<int, int> HealthValueChangedEvent;
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Update any subscribers
-        HealthValueChangedEvent?.Invoke(currentHealth, maxHealth);
-    }
+    public static event Action PlayerDiedEvent;
 
     #region Health Getters & Setters
     public int MaxHealth
@@ -57,6 +41,7 @@ public class PlayerStats : MonoBehaviour
         {
             var previousMaxHealth = maxHealth;
             maxHealth = Mathf.Clamp(value, 1, int.MaxValue);
+            //print($"Player's max health set to {maxHealth}");
             HealthValueChangedEvent?.Invoke(currentHealth, maxHealth);
         }
     }
@@ -68,8 +53,13 @@ public class PlayerStats : MonoBehaviour
         {
             var previousCurrentHealth = currentHealth;
             currentHealth = (Mathf.Clamp(value, 0, int.MaxValue));
-            print($"{currentHealth - previousCurrentHealth} applied to player health. [HP: {currentHealth}/{maxHealth}]");
+            //print($"{currentHealth - previousCurrentHealth} applied to player health. [HP: {currentHealth}/{maxHealth}]");
             HealthValueChangedEvent?.Invoke(currentHealth, maxHealth);
+            if (currentHealth <= 0)
+            {
+                //print("Player died...");
+                PlayerDiedEvent?.Invoke();
+            }
         }
     }
     #endregion
