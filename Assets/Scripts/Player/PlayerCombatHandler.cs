@@ -8,7 +8,7 @@ using UnityEngine;
 public enum PlayerCombatStates { Idle, Attacking, DodgingRight, DodgingLeft, DodgingUp, Blocking, Recovering }
 
 [RequireComponent(typeof(PlayerStats)), DisallowMultipleComponent]
-public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
+public class PlayerCombatHandler : MonoBehaviour
 {
     private PlayerStats playerStats;
     [SerializeField] private GameObject floatingDamageNumberPrefab;
@@ -30,9 +30,8 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
     private bool isDodging = false;
     private Coroutine dodgeRecovery;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         FindReferneces();
     }
 

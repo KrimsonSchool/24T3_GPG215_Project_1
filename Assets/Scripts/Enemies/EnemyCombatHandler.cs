@@ -18,37 +18,19 @@ public class EnemyCombatHandler : MonoBehaviour
     /// &lt;Dodge state required avoid damage&gt;
     /// </summary>
     public static event Action<PlayerCombatStates> EnemyWindupEvent;
-
     /// <summary>
     /// &lt;Dodge state required avoid damage&gt;
     /// </summary>
     public static event Action<PlayerCombatStates> EnemyAttackWarningEvent;
-
     /// <summary>
     /// &lt;Damage Dealt, Dodge state required avoid damage&gt;
     /// </summary>
     public static event Action<int, PlayerCombatStates> EnemyAttackEvent;
-
     public static event Action EnemyDeadEvent;
 
     private void Awake()
     {
         FindReferences();
-    }
-
-    protected virtual void FindReferences()
-    {
-        enemyStats = GetComponent<EnemyStats>();
-    }
-
-    protected virtual void OnEnable()
-    {
-        PlayerCombatHandler.PlayerAttackEvent += TakeDamage;
-    }
-
-    protected virtual void OnDisable()
-    {
-        PlayerCombatHandler.PlayerAttackEvent -= TakeDamage;
     }
 
     private void Update()
@@ -77,7 +59,7 @@ public class EnemyCombatHandler : MonoBehaviour
         yield return new WaitForSeconds(enemyStats.AttackWindup);
         for (int i = 0; i < enemyStats.AttackCombos; i++)
         {
-            //Debug.LogWarning($"Enemy about to attack. Requires: {randomState}");
+            Debug.LogWarning($"Enemy about to attack. Requires: {randomState}");
             EnemyAttackWarningEvent?.Invoke(randomState);
             yield return new WaitForSeconds(enemyStats.AttackWarning);
             EnemyAttackEvent?.Invoke(enemyStats.AttackDamage, randomState);
@@ -90,7 +72,17 @@ public class EnemyCombatHandler : MonoBehaviour
         isAttacking = false;
     }
 
-    public void TakeDamage(int damage)
+    protected virtual void OnEnable()
+    {
+        PlayerCombatHandler.PlayerAttackEvent += TakeDamage;
+    }
+
+    protected virtual void OnDisable()
+    {
+        PlayerCombatHandler.PlayerAttackEvent -= TakeDamage;
+    }
+
+    private void TakeDamage(int damage)
     {
         if (isAlive)
         {
@@ -98,13 +90,13 @@ public class EnemyCombatHandler : MonoBehaviour
             SpawnFloatingNumber(damage);
             if (enemyStats.CurrentHealth > 0)
             {
-                //Debug.Log($"{gameObject.name} took {damage} damage. [HP: {enemyStats.CurrentHealth}/{enemyStats.MaxHealth}]");
+                Debug.Log($"{gameObject.name} took {damage} damage. [HP: {enemyStats.CurrentHealth}/{enemyStats.MaxHealth}]");
             }
             else
             {
                 isAlive = false;
                 StopAllCoroutines();
-                //Debug.Log($"{gameObject.name} died");
+                Debug.Log($"{gameObject.name} died");
                 EnemyDeadEvent?.Invoke();
             }
         }
@@ -114,5 +106,10 @@ public class EnemyCombatHandler : MonoBehaviour
     {
         var prefab = Instantiate(floatingDamageNumberPrefab, transform.position, default);
         prefab.GetComponentInChildren<TextMeshProUGUI>().text = $"-{damageDone}HP";
+    }
+
+    protected virtual void FindReferences()
+    {
+        enemyStats = GetComponent<EnemyStats>();
     }
 }

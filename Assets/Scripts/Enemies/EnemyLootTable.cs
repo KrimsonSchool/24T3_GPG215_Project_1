@@ -39,7 +39,7 @@ public class EnemyLootTable : MonoBehaviour
     private void SetLootVariables(GameObject loot)
     {
         var gearInfo = loot.GetComponent<Gear>();
-        gearInfo.teir = Mathf.RoundToInt(1 + (GameManager.Instance.RoomLevel / 10));
+        gearInfo.teir = Mathf.RoundToInt(1 + (GameManager.instance.GetComponent<GameManager>().RoomLevel / 10));
         if (forceGearType)
         {
             gearInfo.ForceGearType = true;

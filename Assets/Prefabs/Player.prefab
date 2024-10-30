@@ -84,37 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &4311325994650868136
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1967499925065035829}
-  m_Layer: 0
-  m_Name: Armour Slot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1967499925065035829
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4311325994650868136}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.06, y: 0.51, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6430844788910598997}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6821615685042706775
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,12 +93,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6430844788910598997}
-  - component: {fileID: 782285023349585218}
   - component: {fileID: 8603805751029111460}
   - component: {fileID: 5514597673188763931}
+  - component: {fileID: 8999931748937679807}
   - component: {fileID: 40305372594144510}
   - component: {fileID: 1574516069396171322}
   - component: {fileID: 1763947152387251987}
+  - component: {fileID: 533900183522381998}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -151,22 +121,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7428400505293721034}
-  - {fileID: 1967499925065035829}
-  - {fileID: 6593473152271278584}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &782285023349585218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6821615685042706775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60b7b76814d8e8648b0e7ff4a91ae690, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8603805751029111460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +161,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingDamageNumberPrefab: {fileID: 4013153568204750465, guid: f5bf167cd6b413449b2cb103120c9b64, type: 3}
+--- !u!114 &8999931748937679807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6821615685042706775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b7b76814d8e8648b0e7ff4a91ae690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &40305372594144510
 Animator:
   serializedVersion: 5
@@ -259,38 +227,16 @@ MonoBehaviour:
   armourInv: {fileID: 0}
   weaponStatsText: {fileID: 0}
   armourStatsText: {fileID: 0}
-  weaponSprite: {fileID: 21300000, guid: f351afa8cf499244e9413eccbf5cc41e, type: 3}
-  armourSprite: {fileID: 21300000, guid: 88f5e846afc51924cbd86d5fd7f1bd02, type: 3}
-  armourSlot: {fileID: 4311325994650868136}
-  weaponSlot: {fileID: 7895553314359588907}
---- !u!1 &7895553314359588907
-GameObject:
+--- !u!114 &533900183522381998
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6593473152271278584}
-  m_Layer: 0
-  m_Name: Weapon Slot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6593473152271278584
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7895553314359588907}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.4418516, w: 0.89708817}
-  m_LocalPosition: {x: 2.09, y: 2.41, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6430844788910598997}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 52.444}
+  m_GameObject: {fileID: 6821615685042706775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9c38f379a96a946a299ee182d0b132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearPrefab: {fileID: 454332190283853545, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}

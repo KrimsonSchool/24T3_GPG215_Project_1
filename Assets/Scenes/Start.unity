@@ -245,8 +245,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290036194
-  m_fontColor: {r: 0.8867924, g: 0.75688756, b: 0.70692414, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -507,13 +507,14 @@ GameObject:
   - component: {fileID: 612160888}
   - component: {fileID: 612160887}
   - component: {fileID: 612160886}
+  - component: {fileID: 612160889}
   m_Layer: 5
-  m_Name: NewGameButton
+  m_Name: Continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &612160885
 RectTransform:
   m_ObjectHideFlags: 0
@@ -555,11 +556,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.5647059, g: 0.47058827, b: 0.43529415, a: 1}
-    m_HighlightedColor: {r: 0.5411765, g: 0.454902, b: 0.42352945, a: 1}
-    m_PressedColor: {r: 0.46226418, g: 0.39521405, b: 0.37286404, a: 1}
-    m_SelectedColor: {r: 0.5411765, g: 0.454902, b: 0.42352945, a: 1}
-    m_DisabledColor: {r: 0.4245283, g: 0.3638441, b: 0.34242612, a: 0.5019608}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -580,7 +581,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 955614062}
         m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
-        m_MethodName: StartNewGame
+        m_MethodName: OpenScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DefaultRoom
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 612160889}
+        m_TargetAssemblyTypeName: DestroySingletons, Assembly-CSharp
+        m_MethodName: DestroyAllSingletons
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -628,6 +641,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 612160884}
   m_CullTransparentMesh: 1
+--- !u!114 &612160889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612160884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fc1e0eafc7c5d4ca75983f4c3b676a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &631876786
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,8 +665,9 @@ GameObject:
   - component: {fileID: 631876791}
   - component: {fileID: 631876790}
   - component: {fileID: 631876789}
+  - component: {fileID: 631876788}
   m_Layer: 5
-  m_Name: SettingsButton
+  m_Name: Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -667,6 +693,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -480}
   m_SizeDelta: {x: 566, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &631876788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631876786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fc1e0eafc7c5d4ca75983f4c3b676a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &631876789
 MonoBehaviour:
   m_ObjectHideFlags: 0

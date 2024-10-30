@@ -561,10 +561,6 @@ MonoBehaviour:
   openMenus: 0
   weaponInv: {fileID: 135932502}
   armourInv: {fileID: 1989464835}
-  weaponStatsText: {fileID: 0}
-  armourStatsText: {fileID: 0}
-  deathScreen: {fileID: 0}
-  madeItToText: {fileID: 0}
 --- !u!1 &55917926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,6 +1601,7 @@ GameObject:
   - component: {fileID: 123562958}
   - component: {fileID: 123562957}
   - component: {fileID: 123562961}
+  - component: {fileID: 123562962}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1723,6 +1720,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &123562962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123562956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac6b290584d0064cb20a3ecb7567c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  attackDamage: 0100000002000000050000000a000000
+  damageIndi: {fileID: 7227665479345735964, guid: 0ae90435f902a8847a5557ae3220b2f8, type: 3}
+  weaponSlot: {fileID: 4334741398973932489}
+  armourSlot: {fileID: 722766040}
 --- !u!1 &135932502
 GameObject:
   m_ObjectHideFlags: 0
@@ -2196,7 +2210,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 123562962}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: Attack1
         m_Mode: 1
@@ -2836,7 +2850,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.8
+  m_fontSize: 31.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3396,7 +3410,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.8
+  m_fontSize: 93.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4126,8 +4140,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Room X
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4151,7 +4165,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43.45
+  m_fontSize: 126.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5331,7 +5345,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 123562962}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: Attack1
         m_Mode: 1
@@ -5435,7 +5449,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.8
+  m_fontSize: 31.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5724,8 +5738,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Coins: xxx'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5749,7 +5763,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.5
+  m_fontSize: 64.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7308,7 +7322,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0
+  m_fontSize: 27.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11538,8 +11552,6 @@ MonoBehaviour:
   itemPickupUi: {fileID: 0}
   weaponInv: {fileID: 0}
   armourInv: {fileID: 0}
-  weaponStatsText: {fileID: 0}
-  armourStatsText: {fileID: 0}
 --- !u!114 &1110473992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12972,7 +12984,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.8
+  m_fontSize: 31.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14821,7 +14833,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 123562962}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: Attack1
         m_Mode: 1
@@ -16906,8 +16918,6 @@ MonoBehaviour:
   itemText: {fileID: 591240595}
   statsText: {fileID: 173447795}
   itemImage: {fileID: 1787496219}
-  inventory: {fileID: 0}
-  DEBUG_dmg: 0
 --- !u!1 &1848136048
 GameObject:
   m_ObjectHideFlags: 0
@@ -17130,6 +17140,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876210188}
   m_CullTransparentMesh: 1
+--- !u!1001 &1881967863
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 454332190283853545, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_Name
+      value: Armour_Teir1
+      objectReference: {fileID: 0}
+    - target: {fileID: 454332190283853545, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168066179858973085, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168066179858973085, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168066179858973085, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 55.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168066179858973085, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168066179858973085, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168066179858973085, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168066179858973085, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168066179858973085, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168066179858973085, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168066179858973085, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8eca67ce3dc57ef479c0ac703b6604ae, type: 3}
 --- !u!1 &1902025532
 GameObject:
   m_ObjectHideFlags: 0
@@ -17791,7 +17862,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.3
+  m_fontSize: 71.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -19428,6 +19499,7 @@ SceneRoots:
   - {fileID: 1816411180}
   - {fileID: 1132522156}
   - {fileID: 5698455909882868790}
+  - {fileID: 1881967863}
   - {fileID: 1148717926}
   - {fileID: 370801757}
   - {fileID: 537347153}

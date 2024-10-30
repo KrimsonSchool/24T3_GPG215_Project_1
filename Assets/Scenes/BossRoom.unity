@@ -9673,6 +9673,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chicken
       objectReference: {fileID: 0}
+    - target: {fileID: 3982593715688391232, guid: 5a57e3b8f982fb04083c718ed1305e14, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982593715688391232, guid: 5a57e3b8f982fb04083c718ed1305e14, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -180
+      objectReference: {fileID: 0}
     - target: {fileID: 5110013856571244901, guid: 5a57e3b8f982fb04083c718ed1305e14, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -12445,6 +12453,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 533900183522381998, guid: d46f3cc9ce684594883175ed1eb079b6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 533900183522381998, guid: d46f3cc9ce684594883175ed1eb079b6, type: 3}
+      propertyPath: gearPrefab
+      value: 
+      objectReference: {fileID: 7545032774175372164, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
+    - target: {fileID: 1763947152387251987, guid: d46f3cc9ce684594883175ed1eb079b6, type: 3}
+      propertyPath: armourSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 88f5e846afc51924cbd86d5fd7f1bd02, type: 3}
+    - target: {fileID: 1763947152387251987, guid: d46f3cc9ce684594883175ed1eb079b6, type: 3}
+      propertyPath: weaponSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f351afa8cf499244e9413eccbf5cc41e, type: 3}
     - target: {fileID: 6430844788910598997, guid: d46f3cc9ce684594883175ed1eb079b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

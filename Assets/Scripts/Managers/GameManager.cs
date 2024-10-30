@@ -4,18 +4,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : PersistentSingleton<GameManager>
+public class GameManager : MonoBehaviour
 {
+    public static GameObject instance;
+
     [SerializeField] private int roomLevel = 1;
 
-    #region Events
     public static event Action StartRoomTransition;
-
     /// <summary>
     /// &lt;int GameManager.RoomLevel&gt;
     /// </summary>
     public static event Action<int> RoomLevelChanged;
-    #endregion
+
+    public int RoomLevel
+    {
+        get
+        {
+            return roomLevel;
+        }
+        set
+        {
+            roomLevel = value;
+            RoomLevelChanged?.Invoke(roomLevel);
+            print($"Room level set to {roomLevel}");
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = gameObject;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     private void OnEnable()
     {
@@ -32,20 +58,6 @@ public class GameManager : PersistentSingleton<GameManager>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         RoomLevelChanged?.Invoke(roomLevel);
-    }
-
-    public int RoomLevel
-    {
-        get
-        {
-            return roomLevel;
-        }
-        set
-        {
-            roomLevel = value;
-            RoomLevelChanged?.Invoke(roomLevel);
-            print($"Room level set to {roomLevel}");
-        }
     }
 
     private void StartMoveToNextRoom()
@@ -73,11 +85,11 @@ public class GameManager : PersistentSingleton<GameManager>
         roomLevel++;
         if (roomLevel % 10 == 0)
         {
-            LoadScene("BossRoom");
+            SceneManager.LoadScene("BossRoom");
         }
         else
         {
-            LoadScene("DefaultRoom");
+            SceneManager.LoadScene("DefaultRoom");
         }
     }
 

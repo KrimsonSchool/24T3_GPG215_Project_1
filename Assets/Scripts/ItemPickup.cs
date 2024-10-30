@@ -101,7 +101,8 @@ public class ItemPickup : MonoBehaviour
         gear.gameObject.transform.parent = inventory.gameObject.transform;
         if(gear.type == Gear.GearType.Weapon)
         {
-            //print("Equipping [" + gear + "] to [" + inventory + "]");
+            print("equipping [" + gear + "]");
+            print("to [" + inventory + "]");
             inventory.weapon = gear;
 
             gear.gameObject.transform.position = inventory.weaponSlot.transform.position;

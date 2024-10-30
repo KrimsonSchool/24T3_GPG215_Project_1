@@ -39,7 +39,7 @@ public class Gear : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);
 
         player = FindObjectOfType<PlayerInventory>();
 

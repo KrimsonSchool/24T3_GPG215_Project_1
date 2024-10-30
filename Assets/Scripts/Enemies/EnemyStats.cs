@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    private GameManager gameManager;
     /// <summary>
     /// &lt;CurrentHealth, MaxHealth&gt;
     /// </summary>
@@ -84,20 +83,17 @@ public class EnemyStats : MonoBehaviour
     public float AttackComboSpeed { get { return attackComboSpeed; } set { attackComboSpeed = value; } }
     #endregion
 
-    private void Awake()
+    private void Start()
     {
-        if (GameManager.Instance != null)
-        {
-            gameManager = GameManager.Instance;
-        }
-        else
+        GameManager gameManager;
+        if (GameManager.instance == null)
         {
             gameManager = FindObjectOfType<GameManager>();
         }
-    }
-
-    private void Start()
-    {
+        else
+        {
+            gameManager = GameManager.instance.GetComponent<GameManager>();
+        }
         MaxHealth = Mathf.RoundToInt(maxHealth * (1 + ((gameManager.RoomLevel - 1) * 0.5f)));
         CurrentHealth = MaxHealth;
         AttackDamage = Mathf.RoundToInt(attackDamage * (1 + ((gameManager.RoomLevel - 1) * 0.2f)));

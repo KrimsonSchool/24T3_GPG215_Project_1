@@ -8,9 +8,9 @@ public class SwipeToDodge : MonoBehaviour
 
     private void Awake()
     {
-        if (GameManager.Instance != null)
+        if (GameManager.instance != null)
         {
-            gameManager = GameManager.Instance;
+            gameManager = GameManager.instance.GetComponent<GameManager>();
         }
         else
         {

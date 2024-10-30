@@ -11,14 +11,15 @@ public class RoomNumber : MonoBehaviour
     private void Awake()
     {
         roomNumberText = GetComponent<TextMeshProUGUI>();
-        if (GameManager.Instance != null)
+        if (GameManager.instance != null)
         {
-            gameManager = GameManager.Instance;
+            gameManager = GameManager.instance.GetComponent<GameManager>();
         }
         else
         {
             gameManager = FindObjectOfType<GameManager>();
         }
+        roomNumberText.text = $"Room {gameManager.RoomLevel}";
     }
 
     private void OnEnable()
@@ -28,11 +29,6 @@ public class RoomNumber : MonoBehaviour
     private void OnDisable()
     {
         GameManager.RoomLevelChanged -= OnRoomLevelChanged;
-    }
-
-    private void Start()
-    {
-        roomNumberText.text = $"Room {gameManager.RoomLevel}";
     }
 
     private void OnRoomLevelChanged(int roomLevel)
