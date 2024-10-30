@@ -75,6 +75,8 @@ public class Gear : MonoBehaviour
             critChance = Random.Range(teir, teir*20);
             critAmount = damage * teir;
         }
+
+        GetComponent<SpriteRenderer>().sprite = icon;
     }
 
     // Update is called once per frame
