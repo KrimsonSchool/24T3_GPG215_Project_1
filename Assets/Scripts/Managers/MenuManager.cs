@@ -47,9 +47,13 @@ public class MenuManager : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-        else
+        else if(openMenus > 0)
         {
             Time.timeScale = 0;
+        }
+        else
+        {
+            Debug.LogError("Less than 0 menus are open");
         }
 
         //print("Current Health: "+playerStats.CurrentHealth);

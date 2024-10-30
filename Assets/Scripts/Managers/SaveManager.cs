@@ -124,6 +124,7 @@ public class SaveManager : MonoBehaviour
             gear.gameObject.SetActive(false);
             ip.inventory = FindObjectOfType<PlayerInventory>();
             FindObjectOfType<MenuManager>().openMenus++;
+            ip.gear.drop = false;
             ip.Equip();
         }
         if (PlayerPrefs.GetInt("HasArmour") == 1)
@@ -147,6 +148,7 @@ public class SaveManager : MonoBehaviour
             gear.gameObject.SetActive(false);
             ip.inventory = FindObjectOfType<PlayerInventory>();
             FindObjectOfType<MenuManager>().openMenus++;
+            ip.gear.drop = false;
             ip.Equip();
         }
     }

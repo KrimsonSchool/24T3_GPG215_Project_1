@@ -16,7 +16,7 @@ public class Gear : MonoBehaviour
 
     
 
-    bool drop = true;
+    [HideInInspector]public bool drop = true;
     float timer;
     PlayerInventory player;
 
