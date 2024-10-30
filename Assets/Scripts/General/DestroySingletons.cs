@@ -6,14 +6,21 @@ public class DestroySingletons : MonoBehaviour
 {
     public void DestroyAllSingletons()
     {
-        DestroyGameManagerSingleton();
+        DestroyGameManager();
+        DestroySaveManager();
         DestroyPlayerSingleton();
     }
 
-    public void DestroyGameManagerSingleton()
+    public void DestroyGameManager()
     {
         Destroy(GameManager.instance);
         GameManager.instance = null;
+    }
+
+    public void DestroySaveManager()
+    {
+        Destroy(SaveManager.instance);
+        SaveManager.instance = null;
     }
 
     public void DestroyPlayerSingleton()

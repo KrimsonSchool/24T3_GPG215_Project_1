@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,6 +25,12 @@ public class StartScene : MonoBehaviour
         {
             SceneManager.LoadSceneAsync(scene);
         }
+    }
+
+    public void StartNewGame()
+    {
+        PlayerPrefs.SetInt("CanLoad", 0);
+        SceneManager.LoadSceneAsync("DefaultRoom");
     }
 
     public void OpenMenu(GameObject menu)

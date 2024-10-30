@@ -5,109 +5,159 @@ using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
-    bool cansave = true;
-    bool canLoad;
-    PlayerStats ps;
-    GameManager gm;
-    PlayerInventory inv;
+    public static GameObject instance;
 
     public GameObject gearPrefab;
+    GameManager gameManager;
+    PlayerStats playerStats;
+    PlayerInventory playerInventory;
 
+    #region Initialization
     void Awake()
     {
-        //PlayerPrefs.SetInt("HasWeapon", 0);
-        //PlayerPrefs.SetInt("HasArmour", 0);
+        SetupSingleton();
+        FindReferences();
+    }
 
-        ps = GetComponent<PlayerStats>();
-        inv = GetComponent<PlayerInventory>();
-        if (GameManager.instance == null)
-            gm = FindObjectOfType<GameManager>();
-        else
-            gm = GameManager.instance.GetComponent<GameManager>();
-
-
-        if ((PlayerSingleton.instance == null || PlayerSingleton.instance == gameObject) && PlayerPrefs.GetInt("CanLoad") == 1 && PlayerPrefs.GetInt("Health") > 0)
+    private void SetupSingleton()
+    {
+        if (instance != null)
         {
-            Load();
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = gameObject;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
-    private void Start()
+    private void FindReferences()
     {
-        PlayerPrefs.SetInt("CanLoad", 1);
-        Save();
+        if (GameManager.instance == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+        else
+        {
+            gameManager = GameManager.instance.GetComponent<GameManager>();
+        }
+
+        if (PlayerSingleton.instance == null)
+        {
+            playerStats = FindObjectOfType<PlayerStats>();
+            playerInventory = FindObjectOfType<PlayerInventory>();
+        }
+        else
+        {
+            playerStats = PlayerSingleton.instance.GetComponent<PlayerStats>();
+            playerInventory = PlayerSingleton.instance.GetComponent<PlayerInventory>();
+        }
     }
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
         GameManager.StartRoomTransition += Save;
-        PlayerStats.HealthValueChangedEvent += CanLoad;
+        PlayerStats.PlayerDiedEvent += PreventLoad;
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
         GameManager.StartRoomTransition -= Save;
-        PlayerStats.HealthValueChangedEvent -= CanLoad;
+        PlayerStats.PlayerDiedEvent -= PreventLoad;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void Start()
     {
-        cansave = true;
-    }
-
-    private void CanLoad(int currentHealth, int maxHealth)
-    {
-        if (currentHealth <= 0)
+        if (PlayerPrefs.GetInt("CanLoad") == 1)
         {
-            PlayerPrefs.SetInt("CanLoad", 0);
+            Load();
         }
+        else
+        {
+            ResetSaveData();
+        }
+        print("Loading now allowed...");
+        PlayerPrefs.SetInt("CanLoad", 1);
+    }
+    #endregion
+
+    private void PreventLoad()
+    {
+        print("Loading now prevented. Deleting save manager...");
+        PlayerPrefs.SetInt("CanLoad", 0);
+        Destroy(gameObject);
+    }
+
+    public void ResetSaveData()
+    {
+        print("Save data reset");
+
+        PlayerPrefs.DeleteKey("Health");
+        PlayerPrefs.DeleteKey("AttackDamage");
+        PlayerPrefs.DeleteKey("Level");
+
+
+        PlayerPrefs.DeleteKey("HasWeapon");
+
+        PlayerPrefs.DeleteKey("WeaponDamage");
+        PlayerPrefs.DeleteKey("WeaponAttackSpeed");
+        PlayerPrefs.DeleteKey("WeaponCritChance");
+        PlayerPrefs.DeleteKey("WeaponCritAmount");
+
+
+        PlayerPrefs.DeleteKey("HasArmour");
+
+        PlayerPrefs.DeleteKey("ArmourDefence");
+        PlayerPrefs.DeleteKey("ArmourHealth");
+        PlayerPrefs.DeleteKey("ArmourAbilityCooldown");
+        PlayerPrefs.DeleteKey("ArmourBlockAmount");
+        PlayerPrefs.DeleteKey("ArmourDodgeSpeed");
     }
 
     public void Save()
     {
-        if (cansave)
+        print("Saving game...");
+
+        PlayerPrefs.SetInt("Health", playerStats.CurrentHealth);
+        PlayerPrefs.SetInt("AttackDamage", playerStats.AttackDamage);
+        PlayerPrefs.SetInt("Level", gameManager.RoomLevel);
+
+        if (playerInventory.weapon != null)
         {
-            print("Saving cs: " + cansave);
+            PlayerPrefs.SetInt("HasWeapon", 1);
 
-            PlayerPrefs.SetInt("Health", ps.CurrentHealth);
-            PlayerPrefs.SetInt("AttackDamage", ps.AttackDamage);
-            PlayerPrefs.SetInt("Level", gm.RoomLevel);
-
-            if (inv.weapon != null)
-            {
-                PlayerPrefs.SetInt("HasWeapon", 1);
-                PlayerPrefs.SetInt("WeaponDamage", inv.weapon.damage);
-                PlayerPrefs.SetInt("WeaponAttackSpeed", inv.weapon.attackSpeed);
-                PlayerPrefs.SetInt("WeaponCritChance", inv.weapon.critChance);
-                PlayerPrefs.SetInt("WeaponCritAmount", inv.weapon.critAmount);
-            }
-            if (inv.armour != null)
-            {
-                PlayerPrefs.SetInt("HasArmour", 1);
-                PlayerPrefs.SetInt("ArmourDefence", inv.armour.defence);
-                PlayerPrefs.SetInt("ArmourHealth", inv.armour.health);
-                PlayerPrefs.SetInt("ArmourAbilityCooldown", inv.armour.abilityCooldown);
-                PlayerPrefs.SetInt("ArmourBlockAmount", inv.armour.blockAmount);
-                PlayerPrefs.SetInt("ArmourDodgeSpeed", inv.armour.dodgeSpeed);
-            }
+            PlayerPrefs.SetInt("WeaponDamage", playerInventory.weapon.damage);
+            PlayerPrefs.SetInt("WeaponAttackSpeed", playerInventory.weapon.attackSpeed);
+            PlayerPrefs.SetInt("WeaponCritChance", playerInventory.weapon.critChance);
+            PlayerPrefs.SetInt("WeaponCritAmount", playerInventory.weapon.critAmount);
         }
-        cansave = false;
+
+        if (playerInventory.armour != null)
+        {
+            PlayerPrefs.SetInt("HasArmour", 1);
+
+            PlayerPrefs.SetInt("ArmourDefence", playerInventory.armour.defence);
+            PlayerPrefs.SetInt("ArmourHealth", playerInventory.armour.health);
+            PlayerPrefs.SetInt("ArmourAbilityCooldown", playerInventory.armour.abilityCooldown);
+            PlayerPrefs.SetInt("ArmourBlockAmount", playerInventory.armour.blockAmount);
+            PlayerPrefs.SetInt("ArmourDodgeSpeed", playerInventory.armour.dodgeSpeed);
+        }
     }
 
     public void Load()
     {
-        ps.CurrentHealth = PlayerPrefs.GetInt("Health");
-        ps.AttackDamage = PlayerPrefs.GetInt("AttackDamage");
+        print("Loading game...");
+        playerStats.CurrentHealth = PlayerPrefs.GetInt("Health");
+        playerStats.AttackDamage = PlayerPrefs.GetInt("AttackDamage");
         //gm.RoomLevel = PlayerPrefs.GetInt("Level");
 
         if (PlayerPrefs.GetInt("HasWeapon") == 1)
         {
-            print("Has weapon, loading...");
+            //print("Has weapon, loading...");
             //spawn gear
             Gear gear = Instantiate(gearPrefab, transform).GetComponent<Gear>();
-            gear.icon = inv.weaponSprite;
+            gear.icon = playerInventory.weaponSprite;
 
             //give saved stats
             gear.type = Gear.GearType.Weapon;
@@ -118,9 +168,9 @@ public class SaveManager : MonoBehaviour
 
             //equip
             ItemPickup ip = FindObjectOfType<ItemPickup>(true);
-            print("Setting ip's gear");
+            //print("Setting ip's gear");
             ip.gear = gear;
-            print("ip's gear: " + ip.gear);
+            //print("ip's gear: " + ip.gear);
             gear.gameObject.SetActive(false);
             ip.inventory = FindObjectOfType<PlayerInventory>();
             FindObjectOfType<MenuManager>().openMenus++;
@@ -129,10 +179,10 @@ public class SaveManager : MonoBehaviour
         }
         if (PlayerPrefs.GetInt("HasArmour") == 1)
         {
-            print("Has weapon, loading...");
+            //print("Has weapon, loading...");
             //spawn gear
             Gear gear = Instantiate(gearPrefab, transform).GetComponent<Gear>();
-            gear.icon = inv.armourSprite;
+            gear.icon = playerInventory.armourSprite;
 
             //give saved stats
             gear.type = Gear.GearType.Armour;

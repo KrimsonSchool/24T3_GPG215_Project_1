@@ -67,15 +67,15 @@ public class MenuManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerStats.HealthValueChangedEvent += CheckForPlayerDeath;
+        PlayerStats.PlayerDiedEvent += CheckForPlayerDeath;
     }
 
     private void OnDisable()
     {
-        PlayerStats.HealthValueChangedEvent -= CheckForPlayerDeath;
+        PlayerStats.PlayerDiedEvent -= CheckForPlayerDeath;
     }
 
-    private void CheckForPlayerDeath(int currentHealth, int maxHealth)
+    private void CheckForPlayerDeath()
     {
         if (playerStats.CurrentHealth <= 0 && !deathScreen.activeSelf)
         {
