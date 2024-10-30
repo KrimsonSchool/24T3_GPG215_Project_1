@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -22,17 +21,18 @@ public class MenuManager : MonoBehaviour
 
     void Awake()
     {
-        if (PlayerSingleton.instance != null)
+        if (PlayerStats.Instance != null)
         {
-            playerStats = PlayerSingleton.instance.GetComponent<PlayerStats>();
+            playerStats = PlayerStats.Instance;
         }
         else
         {
             playerStats = FindObjectOfType<PlayerStats>();
         }
-        if (GameManager.instance != null)
+
+        if (GameManager.Instance != null)
         {
-            gameManager = GameManager.instance.GetComponent<GameManager>();
+            gameManager = GameManager.Instance;
         }
         else
         {
@@ -67,15 +67,15 @@ public class MenuManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerStats.HealthValueChangedEvent += CheckForPlayerDeath;
+        PlayerStats.PlayerDiedEvent += CheckForPlayerDeath;
     }
 
     private void OnDisable()
     {
-        PlayerStats.HealthValueChangedEvent -= CheckForPlayerDeath;
+        PlayerStats.PlayerDiedEvent -= CheckForPlayerDeath;
     }
 
-    private void CheckForPlayerDeath(int currentHealth, int maxHealth)
+    private void CheckForPlayerDeath()
     {
         if (playerStats.CurrentHealth <= 0 && !deathScreen.activeSelf)
         {
