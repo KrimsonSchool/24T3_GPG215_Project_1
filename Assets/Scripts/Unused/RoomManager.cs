@@ -10,7 +10,7 @@ public class RoomManager : MonoBehaviour
     [HideInInspector]
     public bool enemyDead;
     GameObject _camera;
-    Player player;
+    PlayerOLD player;
     Enemy enemy;
 
     float timer;
@@ -108,7 +108,7 @@ public class RoomManager : MonoBehaviour
     {
         //this function grabs all the required prerequisites from the current scene
         _camera = FindObjectOfType<Camera>().gameObject;
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<PlayerOLD>();
         roomText = GameObject.Find("RoomText").GetComponent<TMPro.TextMeshProUGUI>();
         currencyText = GameObject.Find("CurrencyText").GetComponent<TMPro.TextMeshProUGUI>();
         enemy = FindObjectOfType<Enemy>();

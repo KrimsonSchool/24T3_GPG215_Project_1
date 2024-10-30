@@ -2,10 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : Singleton<PlayerStats>
 {
     [Header("Health")]
     [SerializeField] private int maxHealth = 10;

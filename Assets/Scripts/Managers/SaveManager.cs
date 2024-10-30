@@ -1,57 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class SaveManager : MonoBehaviour
+public class SaveManager : PersistentSingleton<SaveManager>
 {
-    public static GameObject instance;
-
     public GameObject gearPrefab;
     GameManager gameManager;
     PlayerStats playerStats;
     PlayerInventory playerInventory;
 
     #region Initialization
-    void Awake()
+    protected override void Awake()
     {
-        SetupSingleton();
+        base.Awake();
         FindReferences();
-    }
-
-    private void SetupSingleton()
-    {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = gameObject;
-            DontDestroyOnLoad(gameObject);
-        }
     }
 
     private void FindReferences()
     {
-        if (GameManager.instance == null)
+        if (GameManager.Instance != null)
+        {
+            gameManager = GameManager.Instance;
+        }
+        else
         {
             gameManager = FindObjectOfType<GameManager>();
         }
-        else
-        {
-            gameManager = GameManager.instance.GetComponent<GameManager>();
-        }
 
-        if (PlayerSingleton.instance == null)
+        if (Player.Instance != null)
+        {
+            playerStats = PlayerStats.Instance;
+            playerInventory = PlayerInventory.Instance;
+        }
+        else
         {
             playerStats = FindObjectOfType<PlayerStats>();
             playerInventory = FindObjectOfType<PlayerInventory>();
-        }
-        else
-        {
-            playerStats = PlayerSingleton.instance.GetComponent<PlayerStats>();
-            playerInventory = PlayerSingleton.instance.GetComponent<PlayerInventory>();
         }
     }
 

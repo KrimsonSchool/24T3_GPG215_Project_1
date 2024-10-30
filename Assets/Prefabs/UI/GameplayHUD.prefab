@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 14553575886153377}
   - component: {fileID: 8197364354159702523}
   - component: {fileID: 8658344391722285908}
+  - component: {fileID: 2336426835200161901}
   - component: {fileID: 7539983872556267875}
   m_Layer: 5
   m_Name: TryAgain
@@ -197,9 +198,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5027233793835705669}
-        m_TargetAssemblyTypeName: DestroySingletons, Assembly-CSharp
-        m_MethodName: DestroyAllSingletons
+      - m_Target: {fileID: 2336426835200161901}
+        m_TargetAssemblyTypeName: QuitToMenuButton, Assembly-CSharp
+        m_MethodName: ResetSaveData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -209,9 +210,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5027233793835705669}
-        m_TargetAssemblyTypeName: DestroySingletons, Assembly-CSharp
-        m_MethodName: ClearPlayerPrefsTemp
+      - m_Target: {fileID: 2336426835200161901}
+        m_TargetAssemblyTypeName: QuitToMenuButton, Assembly-CSharp
+        m_MethodName: DestroyAllSingletons
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -233,6 +234,18 @@ MonoBehaviour:
           m_StringArgument: Start
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2336426835200161901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8186952190108493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fc1e0eafc7c5d4ca75983f4c3b676a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &7539983872556267875
 Animator:
   serializedVersion: 5
@@ -2196,6 +2209,7 @@ GameObject:
   - component: {fileID: 8429427078133536810}
   - component: {fileID: 6454129197189665860}
   - component: {fileID: 1880434165270858632}
+  - component: {fileID: 348019997931825621}
   m_Layer: 5
   m_Name: SaveAndQuitButton
   m_TagString: Untagged
@@ -2219,8 +2233,8 @@ RectTransform:
   - {fileID: 921331226245381496}
   m_Father: {fileID: 5632420272511719840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 443.20193, y: -1191.4059}
   m_SizeDelta: {x: 900, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2306,8 +2320,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5027233793835705669}
-        m_TargetAssemblyTypeName: DestroySingletons, Assembly-CSharp
+      - m_Target: {fileID: 348019997931825621}
+        m_TargetAssemblyTypeName: QuitToMenuButton, Assembly-CSharp
         m_MethodName: DestroyAllSingletons
         m_Mode: 1
         m_Arguments:
@@ -2330,6 +2344,18 @@ MonoBehaviour:
           m_StringArgument: Start
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &348019997931825621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2593081100301318006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fc1e0eafc7c5d4ca75983f4c3b676a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2599573559323239122
 GameObject:
   m_ObjectHideFlags: 0
@@ -3146,8 +3172,8 @@ RectTransform:
   - {fileID: 8689104855623042195}
   m_Father: {fileID: 5632420272511719840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 443.20193, y: -712.8435}
   m_SizeDelta: {x: 900, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3380,7 +3406,6 @@ GameObject:
   - component: {fileID: 803871141231027167}
   - component: {fileID: 5286343844792900006}
   - component: {fileID: 4720880955055619651}
-  - component: {fileID: 5027233793835705669}
   m_Layer: 5
   m_Name: GameplayHUD
   m_TagString: Untagged
@@ -3502,18 +3527,6 @@ MonoBehaviour:
   armourStatsText: {fileID: 5062702472507635217}
   deathScreen: {fileID: 2228054903654024439}
   madeItToText: {fileID: 7363123270641852227}
---- !u!114 &5027233793835705669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3221409164998617861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03fc1e0eafc7c5d4ca75983f4c3b676a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3315652994238699676
 GameObject:
   m_ObjectHideFlags: 0
@@ -6950,8 +6963,8 @@ RectTransform:
   - {fileID: 8633006100302057913}
   m_Father: {fileID: 5632420272511719840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 443.20193, y: -234.28117}
   m_SizeDelta: {x: 900, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}

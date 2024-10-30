@@ -37,7 +37,7 @@ public class CritCircle : MonoBehaviour
 
     public void Crit()
     {
-        FindObjectOfType<Player>().AttackDone();
+        FindObjectOfType<PlayerOLD>().AttackDone();
         Destroy(gameObject);
     }
 }

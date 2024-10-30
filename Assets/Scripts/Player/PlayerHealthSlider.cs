@@ -41,9 +41,9 @@ public class PlayerHealthSlider : MonoBehaviour
 
     private void FindReferences()
     {
-        if (PlayerSingleton.instance != null)
+        if (PlayerStats.Instance != null)
         {
-            playerStats = PlayerSingleton.instance.GetComponent<PlayerStats>();
+            playerStats = PlayerStats.Instance;
         }
         else
         {

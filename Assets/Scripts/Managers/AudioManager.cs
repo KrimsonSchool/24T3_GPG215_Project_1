@@ -5,26 +5,15 @@ using UnityEngine;
 /// <summary>
 /// Used to work with audio that persists through scenes. Sound effect logic should be handled on object that emits them.
 /// </summary>
-public class AudioManager : MonoBehaviour
+public class AudioManager : PersistentSingleton<AudioManager>
 {
-    public static GameObject instance;
-
     [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource ambienceSource;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = gameObject;
-            DontDestroyOnLoad(gameObject);
-        }
-
+        base.Awake(); // Run singleton code
         FindReferences();
     }
 
