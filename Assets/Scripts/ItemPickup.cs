@@ -95,15 +95,20 @@ public class ItemPickup : MonoBehaviour
 
     public void Equip()
     {
+        gear.gameObject.SetActive(true);
         if(gear.type == Gear.GearType.Weapon)
         {
             print("equipping [" + gear + "]");
             print("to [" + inventory + "]");
             inventory.weapon = gear;
+
+            gear.gameObject.transform.position = inventory.weaponSlot.transform.position;
         }
         if (gear.type == Gear.GearType.Armour)
         {
             inventory.armour = gear;
+
+            gear.gameObject.transform.position = inventory.armourSlot.transform.position;
         }
 
         FindObjectOfType<MenuManager>().openMenus--;

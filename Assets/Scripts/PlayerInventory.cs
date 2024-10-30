@@ -8,8 +8,8 @@ public class PlayerInventory : MonoBehaviour
 {
     public int coins;
 
-    public Gear weapon;
-    public Gear armour;
+    [HideInInspector] public Gear weapon;
+    [HideInInspector] public Gear armour;
     public Ability[] abilities;
 
 
@@ -22,6 +22,9 @@ public class PlayerInventory : MonoBehaviour
 
     public Sprite weaponSprite;
     public Sprite armourSprite;
+
+    public GameObject armourSlot;
+    public GameObject weaponSlot;
 
     // Start is called before the first frame update
     void Start()
