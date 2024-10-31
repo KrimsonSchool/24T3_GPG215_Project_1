@@ -161,7 +161,8 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
             int damageAfterResistances;
             if (currentPlayerState == PlayerCombatStates.Blocking)
             {
-                damageAfterResistances = Mathf.RoundToInt(damage * (1 - (playerStats.DamageResistance * 0.01f)));
+                // Every 10 armour/block/whatever we call it increases effective health by 100%, then reduces damage by a further 1
+                damageAfterResistances = Mathf.RoundToInt(Mathf.Clamp((damage * (10 / (10 + playerStats.DamageResistance))) - 1, 0, float.MaxValue));
             }
             else
             {
@@ -189,7 +190,14 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
     private void SpawnFloatingNumber(int damageDone)
     {
         var prefab = Instantiate(floatingDamageNumberPrefab, transform.position, default);
-        prefab.GetComponentInChildren<TextMeshProUGUI>().text = $"-{damageDone}HP";
+        if (damageDone == 0)
+        {
+            prefab.GetComponentInChildren<TextMeshProUGUI>().text = "Blocked";
+        }
+        else
+        {
+            prefab.GetComponentInChildren<TextMeshProUGUI>().text = $"-{damageDone}HP";
+        }
     }
 
     private void FindReferneces()

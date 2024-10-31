@@ -23,28 +23,28 @@ public class RoomNumber : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.RoomLevelChanged += OnRoomLevelChanged;
+        GameManager.RoomLevelChanged += ChangeRoomHeader;
     }
     private void OnDisable()
     {
-        GameManager.RoomLevelChanged -= OnRoomLevelChanged;
+        GameManager.RoomLevelChanged -= ChangeRoomHeader;
     }
 
     private void Start()
     {
-        roomNumberText.text = $"Room {gameManager.RoomLevel}";
+        ChangeRoomHeader(gameManager.RoomLevel);
     }
 
-    private void OnRoomLevelChanged(int roomLevel)
+    private void ChangeRoomHeader(int roomLevel)
     {
-        if(roomLevel % 10 != 0)
+        if (roomLevel % 10 == 0)
         {
-            roomNumberText.text = $"Room {roomLevel}";
+            // This'll need refactoring with boss additions
+            roomNumberText.text = "The Angery Chicken";
         }
         else
         {
-            // This'll need refactoring with boss additions
-            roomNumberText.text = $"The Angery Chicken";
-        }        
+            roomNumberText.text = $"Room {roomLevel}";
+        }
     }
 }

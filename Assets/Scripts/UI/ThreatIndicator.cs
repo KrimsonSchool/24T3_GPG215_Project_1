@@ -5,8 +5,11 @@ using UnityEngine;
 public class ThreatIndicator : MonoBehaviour
 {
     [SerializeField] private CanvasGroup canvasGroupRight;
+    [SerializeField] private Animator animatorRight;
     [SerializeField] private CanvasGroup canvasGroupLeft;
+    [SerializeField] private Animator animatorLeft;
     [SerializeField] private CanvasGroup canvasGroupBelow;
+    [SerializeField] private Animator animatorBelow;
     [SerializeField] private float fadeInSpeed = 4f;
     [SerializeField] private float fadeOutSpeed = 6f;
 
@@ -36,6 +39,7 @@ public class ThreatIndicator : MonoBehaviour
         switch (requiredState)
         {
             case PlayerCombatStates.DodgingRight:
+                animatorLeft.Play("ThreatArrowsFlyIn");
                 while (canvasGroupLeft.alpha < 1f)
                 {
                     canvasGroupLeft.alpha += Time.deltaTime * fadeInSpeed;
@@ -43,6 +47,7 @@ public class ThreatIndicator : MonoBehaviour
                 }
                 break;
             case PlayerCombatStates.DodgingLeft:
+                animatorRight.Play("ThreatArrowsFlyIn");
                 while (canvasGroupRight.alpha < 1f)
                 {
                     canvasGroupRight.alpha += Time.deltaTime * fadeInSpeed;
@@ -50,6 +55,7 @@ public class ThreatIndicator : MonoBehaviour
                 }
                 break;
             case PlayerCombatStates.DodgingUp:
+                animatorBelow.Play("ThreatArrowsFlyIn");
                 while (canvasGroupBelow.alpha < 1f)
                 {
                     canvasGroupBelow.alpha += Time.deltaTime * fadeInSpeed;
@@ -63,6 +69,9 @@ public class ThreatIndicator : MonoBehaviour
     private void RemoveAllIndicators()
     {
         StopAllCoroutines();
+        animatorRight.Play("Reset");
+        animatorLeft.Play("Reset");
+        animatorBelow.Play("Reset");
         canvasGroupRight.alpha = 0f;
         canvasGroupLeft.alpha = 0f;
         canvasGroupBelow.alpha = 0f;
@@ -84,6 +93,7 @@ public class ThreatIndicator : MonoBehaviour
                     canvasGroupLeft.alpha -= Time.unscaledDeltaTime * fadeOutSpeed;
                     yield return null;
                 }
+                animatorLeft.Play("Reset");
                 break;
             case PlayerCombatStates.DodgingLeft:
                 while (canvasGroupRight.alpha > 0f)
@@ -91,6 +101,7 @@ public class ThreatIndicator : MonoBehaviour
                     canvasGroupRight.alpha -= Time.unscaledDeltaTime * fadeOutSpeed;
                     yield return null;
                 }
+                animatorRight.Play("Reset");
                 break;
             case PlayerCombatStates.DodgingUp:
                 while (canvasGroupBelow.alpha > 0f)
@@ -98,6 +109,7 @@ public class ThreatIndicator : MonoBehaviour
                     canvasGroupBelow.alpha -= Time.unscaledDeltaTime * fadeOutSpeed;
                     yield return null;
                 }
+                animatorBelow.Play("Reset");
                 break;
         }
         yield return null;
