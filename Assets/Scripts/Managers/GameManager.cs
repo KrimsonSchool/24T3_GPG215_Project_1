@@ -31,7 +31,8 @@ public class GameManager : PersistentSingleton<GameManager>
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        RoomLevelChanged?.Invoke(roomLevel);
+        //print($"Started room {roomLevel}");
+        RoomLevelChanged?.Invoke(RoomLevel);
     }
 
     public int RoomLevel
@@ -71,7 +72,7 @@ public class GameManager : PersistentSingleton<GameManager>
         StartRoomTransition?.Invoke();
         yield return new WaitForSeconds(1.5f);
         roomLevel++;
-        if (roomLevel % 10 == 0)
+        if (RoomLevel % 10 == 0)
         {
             LoadScene("BossRoom");
         }
