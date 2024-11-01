@@ -36,8 +36,8 @@ public class ItemPickup : MonoBehaviour
         if (inventory.weapon != null)
         {
             damageOffset = (gear.damage - inventory.weapon.damage);
-            critOffset = gear.critChance - inventory.weapon.critChance;
-            critAOffset = gear.critAmount - inventory.weapon.critAmount;
+            //critOffset = gear.critChance - inventory.weapon.critChance;
+            //critAOffset = gear.critAmount - inventory.weapon.critAmount;
             attackSpeedOffset = gear.attackSpeed - inventory.weapon.attackSpeed;
 
             wpm = (damageOffset + critAOffset + critOffset + attackSpeedOffset) / 4;
@@ -46,7 +46,7 @@ public class ItemPickup : MonoBehaviour
         {
             defenceOffset = gear.defence - inventory.armour.defence;
             healthOffset = gear.health - inventory.armour.health;
-            abilityCooldownOffset = gear.abilityCooldown - inventory.armour.abilityCooldown;
+            //abilityCooldownOffset = gear.abilityCooldown - inventory.armour.abilityCooldown;
             blockAmountOffset = gear.blockAmount - inventory.armour.blockAmount;
             dodgeSpeedOffset = gear.dodgeSpeed - inventory.armour.dodgeSpeed;
 
@@ -65,7 +65,8 @@ public class ItemPickup : MonoBehaviour
             DEBUG_dmg = gear.damage;
             if (inventory.weapon == null)
             {
-                statsText.text = "+ [" + gear.damage + "] Attack\n+ [" + gear.critChance + "] Crit Chance\n+ [" + gear.critAmount + "] Crit Amount\n+ [" + gear.attackSpeed+"] Attack Speed";
+                statsText.text = "+ [" + gear.damage + "] Attack\n+ ["  + gear.attackSpeed+"] Attack Speed";
+                //+ gear.critChance + "] Crit Chance\n+ [" + gear.critAmount + "] Crit Amount\n+ ["
             }
             else
             {
@@ -80,7 +81,8 @@ public class ItemPickup : MonoBehaviour
         {
             if (inventory.armour == null)
             {
-                statsText.text = "+ [" + gear.defence + "] Defence\n+ ["+gear.health+"] Health\n+ ["+gear.abilityCooldown+"] Ability Cooldown\n+ [" + gear.blockAmount+"] Block Amount\n+ ["+gear.dodgeSpeed+"] Dodge Speed";
+                statsText.text = "+ [" + gear.defence + "] Defence\n+ ["+gear.health+"] Health\n+ ["+ gear.blockAmount+"] Block Amount\n+ ["+gear.dodgeSpeed+"] Dodge Speed";
+                //gear.abilityCooldown+"] Ability Cooldown\n+ [" +
             }
             else
             {

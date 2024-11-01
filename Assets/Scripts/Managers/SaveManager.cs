@@ -113,8 +113,8 @@ public class SaveManager : PersistentSingleton<SaveManager>
 
             PlayerPrefs.SetInt("WeaponDamage", playerInventory.weapon.damage);
             PlayerPrefs.SetInt("WeaponAttackSpeed", playerInventory.weapon.attackSpeed);
-            PlayerPrefs.SetInt("WeaponCritChance", playerInventory.weapon.critChance);
-            PlayerPrefs.SetInt("WeaponCritAmount", playerInventory.weapon.critAmount);
+            //PlayerPrefs.SetInt("WeaponCritChance", playerInventory.weapon.critChance);
+            //PlayerPrefs.SetInt("WeaponCritAmount", playerInventory.weapon.critAmount);
         }
 
         if (playerInventory.armour != null)
@@ -123,7 +123,7 @@ public class SaveManager : PersistentSingleton<SaveManager>
 
             PlayerPrefs.SetInt("ArmourDefence", playerInventory.armour.defence);
             PlayerPrefs.SetInt("ArmourHealth", playerInventory.armour.health);
-            PlayerPrefs.SetInt("ArmourAbilityCooldown", playerInventory.armour.abilityCooldown);
+            //PlayerPrefs.SetInt("ArmourAbilityCooldown", playerInventory.armour.abilityCooldown);
             PlayerPrefs.SetInt("ArmourBlockAmount", playerInventory.armour.blockAmount);
             PlayerPrefs.SetInt("ArmourDodgeSpeed", playerInventory.armour.dodgeSpeed);
         }
@@ -147,8 +147,8 @@ public class SaveManager : PersistentSingleton<SaveManager>
             gear.type = Gear.GearType.Weapon;
             gear.damage = PlayerPrefs.GetInt("WeaponDamage");
             gear.attackSpeed = PlayerPrefs.GetInt("WeaponAttackSpeed");
-            gear.critChance = PlayerPrefs.GetInt("WeaponCritChance");
-            gear.critAmount = PlayerPrefs.GetInt("WeaponCritAmount");
+            //gear.critChance = PlayerPrefs.GetInt("WeaponCritChance");
+            //gear.critAmount = PlayerPrefs.GetInt("WeaponCritAmount");
 
             //equip
             ItemPickup ip = FindObjectOfType<ItemPickup>(true);
@@ -172,7 +172,7 @@ public class SaveManager : PersistentSingleton<SaveManager>
             gear.type = Gear.GearType.Armour;
             gear.defence = PlayerPrefs.GetInt("ArmourDefence");
             gear.health = PlayerPrefs.GetInt("ArmourHealth");
-            gear.abilityCooldown = PlayerPrefs.GetInt("ArmourAbilityCooldown");
+            //gear.abilityCooldown = PlayerPrefs.GetInt("ArmourAbilityCooldown");
             gear.blockAmount = PlayerPrefs.GetInt("ArmourBlockAmount");
             gear.dodgeSpeed = PlayerPrefs.GetInt("ArmourDodgeSpeed");
 

@@ -85,7 +85,8 @@ public class Inventory : MonoBehaviour
         if (weaponInv.gameObject.activeSelf && weapon!=null)
         {
             weaponInv.sprite = weapon.icon;
-            weaponStatsText.text = "Attack: " + weapon.damage + "\nCrit Chance: " + weapon.critChance + "%\nCrit Amount: " + weapon.critAmount;
+            weaponStatsText.text = "Attack: " + weapon.damage + "\nCrit Chance: ";
+            // + weapon.critChance + "%\nCrit Amount: " + weapon.critAmount
         }
 
         if (armourInv.gameObject.activeSelf&&armour!=null)
