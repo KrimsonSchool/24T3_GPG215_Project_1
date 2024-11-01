@@ -27,14 +27,14 @@ public class Gear : MonoBehaviour
     [Header("Stats")]
     [HideInInspector] public int defence;
     [HideInInspector] public int health;
-    [HideInInspector] public int abilityCooldown;
+    //[HideInInspector] public int abilityCooldown;
     [HideInInspector] public int blockAmount;
     [HideInInspector] public int dodgeSpeed;
 
 
     [HideInInspector] public int damage;
-    [HideInInspector] public int critChance;
-    [HideInInspector] public int critAmount;
+    //[HideInInspector] public int critChance;
+    //[HideInInspector] public int critAmount;
     [HideInInspector] public int attackSpeed;
     // Start is called before the first frame update
     void Start()
@@ -61,7 +61,7 @@ public class Gear : MonoBehaviour
             icon = player.armourSprite;
             defence = Random.Range(teir, teir + 3);
             health = Random.Range(teir, teir + 3);
-            abilityCooldown = Random.Range(teir, teir + 3);
+            //abilityCooldown = Random.Range(teir, teir + 3);
             blockAmount = Random.Range(teir, teir + 3);
             dodgeSpeed = Random.Range(teir, teir + 3);
         }
@@ -70,10 +70,10 @@ public class Gear : MonoBehaviour
         {
             name = "Weapon Tier " + teir;
             icon = player.weaponSprite;
-            damage = Random.Range(teir, teir + 3);
-            attackSpeed = Random.Range(teir, teir + 3);
-            critChance = Random.Range(teir, teir*20);
-            critAmount = damage * teir;
+            damage = Random.Range(teir, teir * 2);
+            attackSpeed = Random.Range(teir, teir + (5/teir));
+            //critChance = Random.Range(teir, teir*20);
+            //critAmount = damage * teir;
         }
 
         GetComponent<SpriteRenderer>().sprite = icon;

@@ -14,7 +14,7 @@ public class PlayerStats : Singleton<PlayerStats>
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private float attackSpeed = 0.2f;
     [SerializeField] private float attackRecovery = 0.4f;
-    [SerializeField] private float critMultiplier = 1f;
+    //[SerializeField] private float critMultiplier = 1f;//Deprecated
 
     [Header("Defensive Stats")]
     [SerializeField] private float dodgeWindow = 0.4f;
@@ -23,9 +23,9 @@ public class PlayerStats : Singleton<PlayerStats>
     [SerializeField] private float blockRecovery = 0.4f;
     [SerializeField] private float damageResistance = 0f;
 
-    [Header("Ability Stats")]
-    [SerializeField] private float abilityDamageMultiplier = 1f;
-    [SerializeField] private float abilityCDRMultiplier = 1f;
+    //[Header("Ability Stats")]
+    //[SerializeField] private float abilityDamageMultiplier = 1f;
+    //[SerializeField] private float abilityCDRMultiplier = 1f;
 
     /// <summary>
     /// &lt;CurrentHealth, MaxHealth&gt;
@@ -92,14 +92,14 @@ public class PlayerStats : Singleton<PlayerStats>
         }
     }
 
-    public float CritMultiplier
-    {
-        get { return critMultiplier; }
-        set
-        {
-            critMultiplier = Mathf.Clamp(value, 1f, float.MaxValue);
-        }
-    }
+    /* public float CritMultiplier
+     {
+         get { return critMultiplier; }
+         set
+         {
+             critMultiplier = Mathf.Clamp(value, 1f, float.MaxValue);
+         }
+     }*/
     #endregion
 
     #region Defensive Stats Getters & Setters
@@ -150,7 +150,7 @@ public class PlayerStats : Singleton<PlayerStats>
     #endregion
 
     #region Ability Stats Getters & Setters
-    public float AbilityDamageMultiplier
+    /*public float AbilityDamageMultiplier
     {
         get { return abilityDamageMultiplier; }
         set
@@ -166,6 +166,6 @@ public class PlayerStats : Singleton<PlayerStats>
         {
             abilityCDRMultiplier = Mathf.Clamp(value, 0f, float.MaxValue);
         }
-    }
+    }*/
     #endregion
 }
