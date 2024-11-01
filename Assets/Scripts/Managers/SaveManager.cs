@@ -136,9 +136,12 @@ public class SaveManager : PersistentSingleton<SaveManager>
         playerStats.AttackDamage = PlayerPrefs.GetInt("AttackDamage");
         //gm.RoomLevel = PlayerPrefs.GetInt("Level");
 
+        ItemPickup ip = FindObjectOfType<ItemPickup>(true);
+        ip.inventory = FindObjectOfType<PlayerInventory>();
+
         if (PlayerPrefs.GetInt("HasWeapon") == 1)
         {
-            //print("Has weapon, loading...");
+            print("Has weapon, loading...");
             //spawn gear
             Gear gear = Instantiate(gearPrefab, transform).GetComponent<Gear>();
             gear.icon = playerInventory.weaponSprite;
@@ -149,21 +152,21 @@ public class SaveManager : PersistentSingleton<SaveManager>
             gear.attackSpeed = PlayerPrefs.GetInt("WeaponAttackSpeed");
             //gear.critChance = PlayerPrefs.GetInt("WeaponCritChance");
             //gear.critAmount = PlayerPrefs.GetInt("WeaponCritAmount");
-
+            gear.name = "Weapon";
             //equip
-            ItemPickup ip = FindObjectOfType<ItemPickup>(true);
+            
             //print("Setting ip's gear");
-            ip.gear = gear;
+            //ip.gear = gear;
             //print("ip's gear: " + ip.gear);
             gear.gameObject.SetActive(false);
-            ip.inventory = FindObjectOfType<PlayerInventory>();
             FindObjectOfType<MenuManager>().openMenus++;
-            ip.gear.drop = false;
-            ip.Equip();
+            //ip.gear.drop = false;
+            gear.drop = false;
+            ip.Equip(gear);
         }
         if (PlayerPrefs.GetInt("HasArmour") == 1)
         {
-            //print("Has weapon, loading...");
+            print("Has armour, loading...");
             //spawn gear
             Gear gear = Instantiate(gearPrefab, transform).GetComponent<Gear>();
             gear.icon = playerInventory.armourSprite;
@@ -175,15 +178,14 @@ public class SaveManager : PersistentSingleton<SaveManager>
             //gear.abilityCooldown = PlayerPrefs.GetInt("ArmourAbilityCooldown");
             gear.blockAmount = PlayerPrefs.GetInt("ArmourBlockAmount");
             gear.dodgeSpeed = PlayerPrefs.GetInt("ArmourDodgeSpeed");
+            gear.name = "Armour";
 
             //equip
-            ItemPickup ip = FindObjectOfType<ItemPickup>(true);
-            ip.gear = gear;
+            //ip.gear = gear;
             gear.gameObject.SetActive(false);
-            ip.inventory = FindObjectOfType<PlayerInventory>();
             FindObjectOfType<MenuManager>().openMenus++;
-            ip.gear.drop = false;
-            ip.Equip();
+            gear.drop = false;
+            ip.Equip(gear);
         }
     }
 }

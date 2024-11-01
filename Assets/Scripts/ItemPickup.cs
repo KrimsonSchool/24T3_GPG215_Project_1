@@ -95,7 +95,7 @@ public class ItemPickup : MonoBehaviour
         }
     }
 
-    public void Equip()
+    public void Equip(Gear gear)
     {
         FindObjectOfType<FxPlayer>().PlaySound("Equip");
 
@@ -109,12 +109,16 @@ public class ItemPickup : MonoBehaviour
             gear.gameObject.transform.position = inventory.weaponSlot.transform.position;
             gear.gameObject.transform.rotation = inventory.weaponSlot.transform.rotation;
         }
-        if (gear.type == Gear.GearType.Armour)
+        else if (gear.type == Gear.GearType.Armour)
         {
             inventory.armour = gear;
 
             gear.gameObject.transform.position = inventory.armourSlot.transform.position;
             gear.gameObject.transform.rotation = inventory.armourSlot.transform.rotation;
+        }
+        else
+        {
+            Debug.LogError("Non valid gear type");
         }
 
         FindObjectOfType<MenuManager>().openMenus--;
