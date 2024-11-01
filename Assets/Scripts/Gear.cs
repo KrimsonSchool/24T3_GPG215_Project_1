@@ -43,7 +43,7 @@ public class Gear : MonoBehaviour
 
         player = FindObjectOfType<PlayerInventory>();
 
-        if (!ForceGearType)
+        if (!ForceGearType && drop)
         {
             if (Random.Range(0, 2) == 0)
             {
