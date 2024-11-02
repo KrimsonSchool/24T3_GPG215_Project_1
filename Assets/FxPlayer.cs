@@ -35,7 +35,7 @@ public class FxPlayer : MonoBehaviour
                 }
                 else
                 {
-                    print("name was [" + allClips[i].name + "]");
+                    //print("name was [" + allClips[i].name + "]");
                 }
             }
             if (index > -1)

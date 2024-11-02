@@ -26,7 +26,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
     public GameObject armourSlot;
     public GameObject weaponSlot;
 
-    PlayerStats pStats;
+    PlayerStats playerStats;
 
     protected override void Awake()
     {
@@ -84,25 +84,32 @@ public class PlayerInventory : Singleton<PlayerInventory>
         if (armourInv.gameObject.activeSelf && armour != null)
         {
             armourInv.sprite = armour.icon;
-            armourStatsText.text = "Defence: " + armour.defence + "\nHealth: " + armour.health +  "\nBlock Amount: " + armour.blockAmount + "\nDodge Speed: " + armour.dodgeSpeed;
+            armourStatsText.text = "Defence: " + armour.defence + "\nHealth: " + armour.health + "\nBlock Amount: " + armour.blockAmount + "\nDodge Speed: " + armour.dodgeSpeed;
             //"\nAbility Cooldown: " + armour.abilityCooldown +
         }
 
         if (weapon != null)
         {
-            pStats.AttackDamage = 1 + weapon.damage;
+            playerStats.AttackDamage = 1 + weapon.damage;
 
-            pStats.AttackSpeed = 0.5f/weapon.attackSpeed;
-            pStats.AttackRecovery = 0.5f / weapon.attackSpeed;
+            playerStats.AttackSpeed = 0.2f - (weapon.attackSpeed * 0.01f);
+            playerStats.AttackRecovery = 0.4f - (weapon.attackSpeed * 0.01f);
         }
 
-        if(armour != null) { 
-            pStats.DodgeWindow = 0.4f / armour.dodgeSpeed;
-            pStats.MaxHealth = Mathf.RoundToInt(10 + (armour.health * 1.5f));
+        if (armour != null)
+        {
+            if (playerStats.MaxHealth != Mathf.RoundToInt(10 + armour.health))
+            {
+                var previousMaxHealth = playerStats.MaxHealth;
+                playerStats.MaxHealth = Mathf.RoundToInt(10 + armour.health);
+                playerStats.CurrentHealth = Mathf.Clamp(playerStats.CurrentHealth + (playerStats.MaxHealth - previousMaxHealth), 1, int.MaxValue);
+            }
 
-            pStats.DodgeRecovery = 0.4f/armour.blockAmount;
-            pStats.BlockRecovery = 0.4f/armour.blockAmount;
-            pStats.DamageResistance = armour.defence;//defence
+            playerStats.DodgeWindow = 0.4f * (1 + (armour.dodgeSpeed * 0.05f));
+            playerStats.DodgeRecovery = Mathf.Clamp(0.8f - playerStats.DodgeWindow, 0, 1f);
+
+            playerStats.DamageResistance = armour.defence;
+            playerStats.BlockRecovery = 0.4f / armour.blockAmount;
         }
     }
 
@@ -118,6 +125,6 @@ public class PlayerInventory : Singleton<PlayerInventory>
         weaponStatsText = FindObjectOfType<MenuManager>().weaponStatsText;
         armourStatsText = FindObjectOfType<MenuManager>().armourStatsText;
 
-        pStats = FindObjectOfType<PlayerStats>();
+        playerStats = GetComponent<PlayerStats>();
     }
 }

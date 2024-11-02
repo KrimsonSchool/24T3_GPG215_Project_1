@@ -69,7 +69,7 @@ public class PlayerStats : Singleton<PlayerStats>
         {
             var previousMaxHealth = maxHealth;
             maxHealth = Mathf.Clamp(value, 1, int.MaxValue);
-            //print($"Player's max health set to {maxHealth}");
+            print($"Player's max health set to {maxHealth}");
             HealthChanged?.Invoke(currentHealth, maxHealth);
         }
     }
@@ -81,7 +81,7 @@ public class PlayerStats : Singleton<PlayerStats>
         {
             var previousCurrentHealth = currentHealth;
             currentHealth = (Mathf.Clamp(value, 0, int.MaxValue));
-            //print($"{currentHealth - previousCurrentHealth} applied to player health. [HP: {currentHealth}/{maxHealth}]");
+            print($"{currentHealth - previousCurrentHealth} applied to player health. [HP: {currentHealth}/{maxHealth}]");
             HealthChanged?.Invoke(currentHealth, maxHealth);
             if (currentHealth <= 0)
             {

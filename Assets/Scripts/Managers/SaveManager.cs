@@ -77,6 +77,7 @@ public class SaveManager : PersistentSingleton<SaveManager>
     {
         print("Save data reset");
 
+        PlayerPrefs.DeleteKey("MaxHealth");
         PlayerPrefs.DeleteKey("Health");
         PlayerPrefs.DeleteKey("AttackDamage");
         PlayerPrefs.DeleteKey("Level");
@@ -103,6 +104,7 @@ public class SaveManager : PersistentSingleton<SaveManager>
     {
         print("Saving game...");
 
+        PlayerPrefs.SetInt("MaxHealth", playerStats.MaxHealth);
         PlayerPrefs.SetInt("Health", playerStats.CurrentHealth);
         PlayerPrefs.SetInt("AttackDamage", playerStats.AttackDamage);
         PlayerPrefs.SetInt("Level", gameManager.RoomLevel);
@@ -132,6 +134,7 @@ public class SaveManager : PersistentSingleton<SaveManager>
     public void Load()
     {
         print("Loading game...");
+        playerStats.MaxHealth = PlayerPrefs.GetInt("MaxHealth");
         playerStats.CurrentHealth = PlayerPrefs.GetInt("Health");
         playerStats.AttackDamage = PlayerPrefs.GetInt("AttackDamage");
         //gm.RoomLevel = PlayerPrefs.GetInt("Level");
