@@ -162,7 +162,8 @@ public class SaveManager : PersistentSingleton<SaveManager>
             FindObjectOfType<MenuManager>().openMenus++;
             //ip.gear.drop = false;
             gear.drop = false;
-            ip.Equip(gear);
+            ip.gear = gear;
+            ip.Equip();
         }
         if (PlayerPrefs.GetInt("HasArmour") == 1)
         {
@@ -185,7 +186,8 @@ public class SaveManager : PersistentSingleton<SaveManager>
             gear.gameObject.SetActive(false);
             FindObjectOfType<MenuManager>().openMenus++;
             gear.drop = false;
-            ip.Equip(gear);
+            ip.gear = gear;
+            ip.Equip();
         }
     }
 }
