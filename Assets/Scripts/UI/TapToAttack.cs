@@ -28,16 +28,19 @@ public class TapToAttack : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerCombatControls.PlayerTapInputEvent += DisableTapToAttack;
+        PlayerCombatControls.PlayerControlInput += DisableTapToAttack;
     }
 
     private void OnDisable()
     {
-        PlayerCombatControls.PlayerTapInputEvent -= DisableTapToAttack;
+        PlayerCombatControls.PlayerControlInput -= DisableTapToAttack;
     }
 
-    private void DisableTapToAttack()
+    private void DisableTapToAttack(CombatInputs input)
     {
-        gameObject.SetActive(false);
+        if (input == CombatInputs.Tap)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
