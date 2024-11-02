@@ -10,13 +10,34 @@ public enum PlayerCombatStates { Idle, Attacking, DodgingRight, DodgingLeft, Dod
 [RequireComponent(typeof(PlayerStats)), DisallowMultipleComponent]
 public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
 {
+    #region References
     private PlayerStats playerStats;
     [SerializeField] private GameObject floatingDamageNumberPrefab;
+    #endregion
 
+    #region Fields
+    private Coroutine dodgeRecovery;
     private PlayerCombatStates currentPlayerState = PlayerCombatStates.Idle;
-    public PlayerCombatStates CurrentPlayerState { get { return currentPlayerState; } }
+    private float attackPrevention = 0f;
+    private bool isDodging = false;
 
-    public static event Action<int> PlayerAttackEvent;
+    // Set these up for use in future to work with player stats/gear better
+    //private float baseAttackSpeed = 0.2f;
+    //private float baseAttackRecovery = 0.4f;
+    //private float baseDodgeWindow = 0.4f;
+    //private float baseDodgeRecovery = 0.4f;
+    //private float baseBlockRecovery = 0.4f;
+    #endregion
+
+    #region Properties
+    public PlayerCombatStates CurrentPlayerState { get { return currentPlayerState; } }
+    #endregion
+
+    #region Events
+    /// <summary>
+    /// 1. &lt;int&gt; : PlayerStats.AttackDamage
+    /// </summary>
+    public static event Action<int> PlayerAttacked;
 
     // could refactor these into params too
     public static event Action PlayerAttackStart;
@@ -25,23 +46,18 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
     public static event Action PlayerDodgeRight;
     public static event Action PlayerDodgeLeft;
     public static event Action PlayerDodgeUp;
+    #endregion
 
-    private float attackPrevention = 0f;
-    private bool isDodging = false;
-    private Coroutine dodgeRecovery;
-
+    #region Initialization & Decommission
     protected override void Awake()
     {
         base.Awake();
         FindReferneces();
     }
 
-    private void Update()
+    private void FindReferneces()
     {
-        if (attackPrevention > 0f)
-        {
-            attackPrevention -= Time.deltaTime;
-        }
+        playerStats = GetComponent<PlayerStats>();
     }
 
     private void OnEnable()
@@ -52,7 +68,7 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
         PlayerCombatControls.PlayerSwipeUpInputEvent += DodgeUp;
         PlayerCombatControls.PlayerSwipeDownInputEvent += Block;
         PlayerCombatControls.PlayerReleaseInputEvent += EndBlock;
-        EnemyCombatHandler.EnemyAttackEvent += DamagePlayer;
+        EnemyCombatHandler.EnemyAttacked += DamagePlayer;
     }
 
     private void OnDisable()
@@ -63,7 +79,16 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
         PlayerCombatControls.PlayerSwipeUpInputEvent -= DodgeUp;
         PlayerCombatControls.PlayerSwipeDownInputEvent -= Block;
         PlayerCombatControls.PlayerReleaseInputEvent -= EndBlock;
-        EnemyCombatHandler.EnemyAttackEvent -= DamagePlayer;
+        EnemyCombatHandler.EnemyAttacked -= DamagePlayer;
+    }
+    #endregion
+
+    private void Update()
+    {
+        if (attackPrevention > 0f)
+        {
+            attackPrevention -= Time.deltaTime;
+        }
     }
 
     private void Attack()
@@ -82,7 +107,7 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
     private IEnumerator StartAttackWindup()
     {
         yield return new WaitForSeconds(playerStats.AttackSpeed);
-        PlayerAttackEvent?.Invoke(playerStats.AttackDamage);
+        PlayerAttacked?.Invoke(playerStats.AttackDamage);
         StartCoroutine(Recovery(0f, playerStats.AttackRecovery));
     }
 
@@ -157,24 +182,24 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
     {
         if (currentPlayerState != combatStateToAvoid)
         {
-            // some arbitrary placeholder block calculations
+            bool hasBlocked = false;
             int damageAfterResistances;
             if (currentPlayerState == PlayerCombatStates.Blocking)
             {
-                // Every 10 armour/block/whatever we call it increases effective health by 100%, then reduces damage by a further 1
-                damageAfterResistances = Mathf.RoundToInt(Mathf.Clamp((damage * (10 / (10 + playerStats.DamageResistance))) - 1, 0, float.MaxValue));
+                hasBlocked = true;
+                damageAfterResistances = CalculateBlock(damage);
             }
             else
             {
                 damageAfterResistances = damage;
             }
             playerStats.CurrentHealth = Mathf.Clamp(playerStats.CurrentHealth - damageAfterResistances, 0, int.MaxValue);
-            SpawnFloatingNumber(damageAfterResistances);
-            //Debug.Log($"Player took {damageAfterResistances} damage. {damage - damageAfterResistances} was blocked. [HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}]");
+            SpawnFloatingNumber(damageAfterResistances, hasBlocked);
+            //print($"Player took {damageAfterResistances} damage. {damage - damageAfterResistances} was blocked. [HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}]");
         }
         else
         {
-            //Debug.Log("Damage avoided");
+            //print("Damage avoided");
         }
 
         // Dodge reset so the player isn't overwhelmed during combos
@@ -187,9 +212,19 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
         }
     }
 
-    private void SpawnFloatingNumber(int damageDone)
+    private int CalculateBlock(int damage)
     {
-        var prefab = Instantiate(floatingDamageNumberPrefab, transform.position, default);
+        // Every 10 damage resistance increases effective health by 100%, then reduces damage by a further 1
+        return Mathf.RoundToInt(Mathf.Clamp((damage * (10 / (10 + playerStats.DamageResistance))) - 1, 0, float.MaxValue));
+    }
+
+    private void SpawnFloatingNumber(int damageDone, bool hasBlocked)
+    {
+        var prefab = Instantiate(floatingDamageNumberPrefab, transform.position, transform.rotation);
+        if (hasBlocked)
+        {
+            prefab.GetComponentInChildren<TextMeshProUGUI>().color = Color.gray;
+        }
         if (damageDone == 0)
         {
             prefab.GetComponentInChildren<TextMeshProUGUI>().text = "Blocked";
@@ -198,10 +233,5 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
         {
             prefab.GetComponentInChildren<TextMeshProUGUI>().text = $"-{damageDone}HP";
         }
-    }
-
-    private void FindReferneces()
-    {
-        playerStats = GetComponent<PlayerStats>();
     }
 }

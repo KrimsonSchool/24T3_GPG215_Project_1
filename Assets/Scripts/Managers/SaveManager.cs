@@ -41,14 +41,14 @@ public class SaveManager : PersistentSingleton<SaveManager>
 
     private void OnEnable()
     {
-        GameManager.StartRoomTransition += Save;
-        PlayerStats.PlayerDiedEvent += PreventLoad;
+        GameManager.RoomTransitionStarting += Save;
+        PlayerStats.PlayerDied += PreventLoad;
     }
 
     private void OnDisable()
     {
-        GameManager.StartRoomTransition -= Save;
-        PlayerStats.PlayerDiedEvent -= PreventLoad;
+        GameManager.RoomTransitionStarting -= Save;
+        PlayerStats.PlayerDied -= PreventLoad;
     }
 
     private void Start()

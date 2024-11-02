@@ -6,11 +6,11 @@ public class EnemyFadeOutHPBar : FadeCanvasGroup
 {
     private void OnEnable()
     {
-        EnemyCombatHandler.EnemyDeadEvent += StartFade;
+        EnemyStats.EnemyDied += StartFade;
     }
 
     private void OnDisable()
     {
-        EnemyCombatHandler.EnemyDeadEvent -= StartFade;
+        EnemyStats.EnemyDied -= StartFade;
     }
 }

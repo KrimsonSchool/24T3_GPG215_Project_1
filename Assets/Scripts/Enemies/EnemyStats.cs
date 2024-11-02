@@ -7,9 +7,11 @@ public class EnemyStats : MonoBehaviour
 {
     private GameManager gameManager;
     /// <summary>
-    /// &lt;CurrentHealth, MaxHealth&gt;
+    /// 1. &lt;int&gt; : CurrentHealth <br></br>
+    /// 2. &lt;int&gt; : MaxHealth
     /// </summary>
-    public static event Action<int, int> HealthValueChangedEvent;
+    public static event Action<int, int> HealthChanged;
+    public static event Action EnemyDied;
 
     [Header("Health")]
     [SerializeField] private int maxHealth = 3;
@@ -33,14 +35,14 @@ public class EnemyStats : MonoBehaviour
     [Tooltip("The amount of time before triggering the attack warning between combo attacks (essentially the attack windup before combo attacks)")]
     [SerializeField] private float attackComboSpeed = 0f;
 
-    #region Health Getters & Setters
+    #region Properties
     public int MaxHealth
     {
         get { return maxHealth; }
         set
         {
             maxHealth = Mathf.Clamp(value, 1, int.MaxValue);
-            HealthValueChangedEvent?.Invoke(currentHealth, maxHealth);
+            HealthChanged?.Invoke(currentHealth, maxHealth);
         }
     }
 
@@ -50,12 +52,14 @@ public class EnemyStats : MonoBehaviour
         set
         {
             currentHealth = (Mathf.Clamp(value, 0, int.MaxValue));
-            HealthValueChangedEvent?.Invoke(currentHealth, maxHealth);
+            HealthChanged?.Invoke(currentHealth, maxHealth);
+            if (currentHealth <= 0)
+            {
+                EnemyDied?.Invoke();
+            }
         }
     }
-    #endregion
 
-    #region Offensive Stats Getters & Setters
     public int AttackDamage { get { return attackDamage; } set { attackDamage = value; } }
 
     /// <summary>

@@ -13,12 +13,12 @@ public class EnemyLootTable : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyCombatHandler.EnemyDeadEvent += DropLoot;
+        EnemyStats.EnemyDied += DropLoot;
     }
 
     private void OnDisable()
     {
-        EnemyCombatHandler.EnemyDeadEvent -= DropLoot;
+        EnemyStats.EnemyDied -= DropLoot;
     }
 
     private void DropLoot()

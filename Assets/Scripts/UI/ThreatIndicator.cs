@@ -15,16 +15,16 @@ public class ThreatIndicator : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyCombatHandler.EnemyAttackWarningEvent += TriggerThreatIndicator;
-        EnemyCombatHandler.EnemyAttackEvent += RemoveIndicator;
-        EnemyCombatHandler.EnemyDeadEvent += RemoveAllIndicators;
+        EnemyCombatHandler.StartingAttackWarning += TriggerThreatIndicator;
+        EnemyCombatHandler.EnemyAttacked += RemoveIndicator;
+        EnemyStats.EnemyDied += RemoveAllIndicators;
     }
 
     private void OnDisable()
     {
-        EnemyCombatHandler.EnemyAttackWarningEvent -= TriggerThreatIndicator;
-        EnemyCombatHandler.EnemyAttackEvent -= RemoveIndicator;
-        EnemyCombatHandler.EnemyDeadEvent -= RemoveAllIndicators;
+        EnemyCombatHandler.StartingAttackWarning -= TriggerThreatIndicator;
+        EnemyCombatHandler.EnemyAttacked -= RemoveIndicator;
+        EnemyStats.EnemyDied -= RemoveAllIndicators;
     }
 
     private void TriggerThreatIndicator(PlayerCombatStates requiredState)

@@ -22,12 +22,12 @@ public class EnemyHealthSlider : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyStats.HealthValueChangedEvent += UpdateHealthBar;
+        EnemyStats.HealthChanged += UpdateHealthBar;
     }
 
     private void OnDisable()
     {
-        EnemyStats.HealthValueChangedEvent -= UpdateHealthBar;
+        EnemyStats.HealthChanged -= UpdateHealthBar;
     }
 
     private void UpdateHealthBar(int currentHealth, int maxHealth)

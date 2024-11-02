@@ -15,21 +15,20 @@ public class EnemyCombatHandler : MonoBehaviour
     private static readonly PlayerCombatStates[] playerDodgeStates = { PlayerCombatStates.DodgingRight, PlayerCombatStates.DodgingLeft, PlayerCombatStates.DodgingUp };
 
     /// <summary>
-    /// &lt;Dodge state required avoid damage&gt;
+    /// 1. &lt;PlayerCombatStates&gt; : StateToDodge
     /// </summary>
-    public static event Action<PlayerCombatStates> EnemyWindupEvent;
+    public static event Action<PlayerCombatStates> AttackWindingUp;
 
     /// <summary>
-    /// &lt;Dodge state required avoid damage&gt;
+    /// 1. &lt;PlayerCombatStates&gt; : StateToDodge
     /// </summary>
-    public static event Action<PlayerCombatStates> EnemyAttackWarningEvent;
+    public static event Action<PlayerCombatStates> StartingAttackWarning;
 
     /// <summary>
-    /// &lt;Damage Dealt, Dodge state required avoid damage&gt;
+    /// 1. &lt;int&gt; : Damage <br></br>
+    /// 2. &lt;PlayerCombatStates&gt; : StateToDodge
     /// </summary>
-    public static event Action<int, PlayerCombatStates> EnemyAttackEvent;
-
-    public static event Action EnemyDeadEvent;
+    public static event Action<int, PlayerCombatStates> EnemyAttacked;
 
     private void Awake()
     {
@@ -43,12 +42,12 @@ public class EnemyCombatHandler : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        PlayerCombatHandler.PlayerAttackEvent += TakeDamage;
+        PlayerCombatHandler.PlayerAttacked += TakeDamage;
     }
 
     protected virtual void OnDisable()
     {
-        PlayerCombatHandler.PlayerAttackEvent -= TakeDamage;
+        PlayerCombatHandler.PlayerAttacked -= TakeDamage;
     }
 
     private void Update()
@@ -73,14 +72,14 @@ public class EnemyCombatHandler : MonoBehaviour
     protected virtual IEnumerator Attack()
     {
         PlayerCombatStates randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
-        EnemyWindupEvent?.Invoke(randomState);
+        AttackWindingUp?.Invoke(randomState);
         yield return new WaitForSeconds(enemyStats.AttackWindup);
         for (int i = 0; i < enemyStats.AttackCombos; i++)
         {
             //Debug.LogWarning($"Enemy about to attack. Requires: {randomState}");
-            EnemyAttackWarningEvent?.Invoke(randomState);
+            StartingAttackWarning?.Invoke(randomState);
             yield return new WaitForSeconds(enemyStats.AttackWarning);
-            EnemyAttackEvent?.Invoke(enemyStats.AttackDamage, randomState);
+            EnemyAttacked?.Invoke(enemyStats.AttackDamage, randomState);
             if (enemyStats.AttackCombos > 1)
             {
                 randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
@@ -105,7 +104,6 @@ public class EnemyCombatHandler : MonoBehaviour
                 isAlive = false;
                 StopAllCoroutines();
                 //Debug.Log($"{gameObject.name} died");
-                EnemyDeadEvent?.Invoke();
             }
         }
     }

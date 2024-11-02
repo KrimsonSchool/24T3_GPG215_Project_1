@@ -101,7 +101,6 @@ public class PlayerInventory : Singleton<PlayerInventory>
             pStats.MaxHealth = Mathf.RoundToInt(10 + (armour.health * 1.5f));
 
             pStats.DodgeRecovery = 0.4f/armour.blockAmount;
-            pStats.BlockWindow = 0.4f*armour.defence;
             pStats.BlockRecovery = 0.4f/armour.blockAmount;
             pStats.DamageResistance = armour.defence;//defence
         }

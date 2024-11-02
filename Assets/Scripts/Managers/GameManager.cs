@@ -6,35 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
+    #region Fields
     [SerializeField] private int roomLevel = 1;
+    #endregion
 
     #region Events
-    public static event Action StartRoomTransition;
+    public static event Action RoomTransitionStarting;
 
     /// <summary>
-    /// &lt;int GameManager.RoomLevel&gt;
+    /// 1. &lt;int&gt; : RoomLevel
     /// </summary>
     public static event Action<int> RoomLevelChanged;
     #endregion
 
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        EnemyLootTable.DroppedLoot += StartLootPhase;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        EnemyLootTable.DroppedLoot -= StartLootPhase;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        //print($"Started room {roomLevel}");
-        RoomLevelChanged?.Invoke(RoomLevel);
-    }
-
+    #region Properties
     public int RoomLevel
     {
         get
@@ -48,8 +33,29 @@ public class GameManager : PersistentSingleton<GameManager>
             print($"Room level set to {roomLevel}");
         }
     }
+    #endregion
 
-    private void StartMoveToNextRoom()
+    #region Initialization & Decommission
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        EnemyLootTable.DroppedLoot += StartLootPhase;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //print($"Started room {roomLevel}");
+        RoomLevelChanged?.Invoke(RoomLevel);
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        EnemyLootTable.DroppedLoot -= StartLootPhase;
+    }
+    #endregion
+
+    public void StartMoveToNextRoom()
     {
         StartCoroutine(MoveToNextRoom());
     }
@@ -69,7 +75,7 @@ public class GameManager : PersistentSingleton<GameManager>
     private IEnumerator MoveToNextRoom(float delayBeforeTransition = 0f)
     {
         yield return new WaitForSeconds(delayBeforeTransition);
-        StartRoomTransition?.Invoke();
+        RoomTransitionStarting?.Invoke();
         yield return new WaitForSeconds(1.5f);
         roomLevel++;
         if (RoomLevel % 10 == 0)

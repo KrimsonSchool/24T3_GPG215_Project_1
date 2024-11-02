@@ -67,12 +67,12 @@ public class MenuManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerStats.PlayerDiedEvent += CheckForPlayerDeath;
+        PlayerStats.PlayerDied += CheckForPlayerDeath;
     }
 
     private void OnDisable()
     {
-        PlayerStats.PlayerDiedEvent -= CheckForPlayerDeath;
+        PlayerStats.PlayerDied -= CheckForPlayerDeath;
     }
 
     private void CheckForPlayerDeath()

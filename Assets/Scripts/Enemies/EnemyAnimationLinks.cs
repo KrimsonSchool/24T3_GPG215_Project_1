@@ -14,16 +14,16 @@ public class EnemyAnimationLinks : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyCombatHandler.EnemyDeadEvent += EnemyDeadAnimation;
-        EnemyCombatHandler.EnemyAttackEvent += EnemyAttackAnimation;
-        EnemyCombatHandler.EnemyWindupEvent += WindupStart;
+        EnemyStats.EnemyDied += EnemyDeadAnimation;
+        EnemyCombatHandler.EnemyAttacked += EnemyAttackAnimation;
+        EnemyCombatHandler.AttackWindingUp += WindupStart;
     }
 
     private void OnDisable()
     {
-        EnemyCombatHandler.EnemyDeadEvent -= EnemyDeadAnimation;
-        EnemyCombatHandler.EnemyAttackEvent -= EnemyAttackAnimation;
-        EnemyCombatHandler.EnemyWindupEvent -= WindupStart;
+        EnemyStats.EnemyDied -= EnemyDeadAnimation;
+        EnemyCombatHandler.EnemyAttacked -= EnemyAttackAnimation;
+        EnemyCombatHandler.AttackWindingUp -= WindupStart;
     }
 
     private void EnemyAttackAnimation(int damage, PlayerCombatStates defenceRequirement)

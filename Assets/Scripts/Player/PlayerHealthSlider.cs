@@ -24,12 +24,12 @@ public class PlayerHealthSlider : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerStats.HealthValueChangedEvent += UpdateHealthBar;
+        PlayerStats.HealthChanged += UpdateHealthBar;
     }
 
     private void OnDisable()
     {
-        PlayerStats.HealthValueChangedEvent -= UpdateHealthBar;
+        PlayerStats.HealthChanged -= UpdateHealthBar;
     }
 
     private void UpdateHealthBar(int currentHealth, int maxHealth)

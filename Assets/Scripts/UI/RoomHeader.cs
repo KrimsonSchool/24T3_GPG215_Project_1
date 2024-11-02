@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class RoomNumber : MonoBehaviour
+public class RoomHeader : MonoBehaviour
 {
-    private TextMeshProUGUI roomNumberText;
+    private TextMeshProUGUI roomHeaderText;
     private GameManager gameManager;
 
     private void Awake()
     {
-        roomNumberText = GetComponent<TextMeshProUGUI>();
+        roomHeaderText = GetComponent<TextMeshProUGUI>();
         if (GameManager.Instance != null)
         {
             gameManager = GameManager.Instance;
@@ -40,11 +40,11 @@ public class RoomNumber : MonoBehaviour
         if (roomLevel % 10 == 0)
         {
             // This'll need refactoring with boss additions
-            roomNumberText.text = "The Angery Chicken";
+            roomHeaderText.text = "The Angery Chicken";
         }
         else
         {
-            roomNumberText.text = $"Room {roomLevel}";
+            roomHeaderText.text = $"Room {roomLevel}";
         }
     }
 }
