@@ -40,4 +40,9 @@ public class StartScene : MonoBehaviour
     {
         menu.SetActive(false);
     }
+
+    public void LoadOptionsMenu()
+    {
+        SceneManager.LoadScene("Options", LoadSceneMode.Additive);
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum CombatInputs { Tap, Release, SwipeUp, SwipeDown, SwipeLeft, SwipeRight }
 
-public class PlayerCombatControls : MonoBehaviour
+public class PlayerCombatControls : Singleton<PlayerCombatControls>
 {
     [SerializeField] private float tapDuration = 0.2f;
     [SerializeField, Range(0f, 1f), Tooltip("Size of deadzone in relation to percentage of screen width")] private float deadZone = 0.01f;
@@ -17,7 +17,18 @@ public class PlayerCombatControls : MonoBehaviour
     private bool tapAllowed = false;
     private bool swipeExecuted = false;
 
+    public float DeadZone {  get { return deadZone; } set { deadZone = value; } }
+
     public static event Action<CombatInputs> PlayerControlInput;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (PlayerPrefs.HasKey("DeadZone"))
+        {
+            deadZone = PlayerPrefs.GetFloat("DeadZone");
+        }
+    }
 
     private void Update()
     {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -103,5 +104,10 @@ public class MenuManager : MonoBehaviour
         //Destroy(FindObjectOfType<SaveManager>().gameObject);
         //SceneManager.LoadScene(scene);
         gameManager.LoadScene(scene);
+    }
+
+    public void LoadOptionsMenu()
+    {
+        SceneManager.LoadScene("Options", LoadSceneMode.Additive);
     }
 }
