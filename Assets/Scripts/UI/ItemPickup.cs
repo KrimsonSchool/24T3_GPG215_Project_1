@@ -95,7 +95,7 @@ public class ItemPickup : MonoBehaviour
         }
     }
 
-    public void Equip(Gear gear)
+    public void Equip()
     {
         print("Equipping [" + gear.name + "]");
         FindObjectOfType<FxPlayer>().PlaySound("Equip");
