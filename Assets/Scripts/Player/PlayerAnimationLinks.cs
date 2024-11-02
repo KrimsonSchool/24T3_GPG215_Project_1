@@ -14,9 +14,7 @@ public class PlayerAnimationLinks : MonoBehaviour
     private void OnEnable()
     {
         PlayerCombatHandler.PlayerAttackStart += PlayerAttackAnimation;
-        PlayerCombatHandler.PlayerDodgeRight += PlayerDodgeRightAnimation;
-        PlayerCombatHandler.PlayerDodgeLeft += PlayerDodgeLeftAnimation;
-        PlayerCombatHandler.PlayerDodgeUp += PlayerDodgeUpAnimation;
+        PlayerCombatHandler.PlayerDodging += PlayerDodgeAnimation;
         PlayerCombatHandler.PlayerBlockStart += PlayerBlockAnimation;
         PlayerCombatHandler.PlayerBlockEnd += PlayerBlockEndAnimation;
     }
@@ -24,9 +22,7 @@ public class PlayerAnimationLinks : MonoBehaviour
     private void OnDisable()
     {
         PlayerCombatHandler.PlayerAttackStart -= PlayerAttackAnimation;
-        PlayerCombatHandler.PlayerDodgeRight -= PlayerDodgeRightAnimation;
-        PlayerCombatHandler.PlayerDodgeLeft -= PlayerDodgeLeftAnimation;
-        PlayerCombatHandler.PlayerDodgeUp -= PlayerDodgeUpAnimation;
+        PlayerCombatHandler.PlayerDodging -= PlayerDodgeAnimation;
         PlayerCombatHandler.PlayerBlockStart -= PlayerBlockAnimation;
         PlayerCombatHandler.PlayerBlockEnd -= PlayerBlockEndAnimation;
     }
@@ -36,19 +32,20 @@ public class PlayerAnimationLinks : MonoBehaviour
         animator.Play("PlayerAttack");
     }
 
-    private void PlayerDodgeRightAnimation()
+    private void PlayerDodgeAnimation(PlayerCombatStates state)
     {
-        animator.Play("PlayerDodgeRight");
-    }
-
-    private void PlayerDodgeLeftAnimation()
-    {
-        animator.Play("PlayerDodgeLeft");
-    }
-
-    private void PlayerDodgeUpAnimation()
-    {
-        animator.Play("PlayerDodgeUp");
+        switch (state)
+        {
+            case PlayerCombatStates.DodgingRight:
+                animator.Play("PlayerDodgeRight");
+                break;
+            case PlayerCombatStates.DodgingLeft:
+                animator.Play("PlayerDodgeLeft");
+                break;
+            case PlayerCombatStates.DodgingUp:
+                animator.Play("PlayerDodgeUp");
+                break;
+        }
     }
 
     private void PlayerBlockAnimation()

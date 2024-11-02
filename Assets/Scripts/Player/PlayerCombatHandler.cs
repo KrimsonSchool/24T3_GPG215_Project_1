@@ -16,10 +16,14 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
     #endregion
 
     #region Fields
-    private Coroutine dodgeRecovery;
     private PlayerCombatStates currentPlayerState = PlayerCombatStates.Idle;
-    private float attackPrevention = 0f;
-    private bool isDodging = false;
+    private float recoveryTimer = 0f;
+    private float attackPreventionTimer = 0f;
+    private float inputQueueLeeway = 0.4f;
+    private float attackInputQueueLeeway = 0.1f;
+    private bool inputQueued = false;
+    private bool declineInput = false;
+    private bool inDodgeRecovery = false;
 
     // Set these up for use in future to work with player stats/gear better
     //private float baseAttackSpeed = 0.2f;
@@ -43,9 +47,8 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
     public static event Action PlayerAttackStart;
     public static event Action PlayerBlockStart;
     public static event Action PlayerBlockEnd;
-    public static event Action PlayerDodgeRight;
-    public static event Action PlayerDodgeLeft;
-    public static event Action PlayerDodgeUp;
+
+    public static event Action<PlayerCombatStates> PlayerDodging;
     #endregion
 
     #region Initialization & Decommission
@@ -62,99 +65,138 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
 
     private void OnEnable()
     {
-        PlayerCombatControls.PlayerTapInputEvent += Attack;
-        PlayerCombatControls.PlayerSwipeRightInputEvent += DodgeRight;
-        PlayerCombatControls.PlayerSwipeLeftInputEvent += DodgeLeft;
-        PlayerCombatControls.PlayerSwipeUpInputEvent += DodgeUp;
-        PlayerCombatControls.PlayerSwipeDownInputEvent += Block;
-        PlayerCombatControls.PlayerReleaseInputEvent += EndBlock;
+        PlayerCombatControls.PlayerControlInput += OnPlayerInput;
         EnemyCombatHandler.EnemyAttacked += DamagePlayer;
+        EnemyStats.EnemyDied += LockCombat;
+        GameManager.RoomLevelChanged += UnlockCombat;
     }
 
     private void OnDisable()
     {
-        PlayerCombatControls.PlayerTapInputEvent -= Attack;
-        PlayerCombatControls.PlayerSwipeRightInputEvent -= DodgeRight;
-        PlayerCombatControls.PlayerSwipeLeftInputEvent -= DodgeLeft;
-        PlayerCombatControls.PlayerSwipeUpInputEvent -= DodgeUp;
-        PlayerCombatControls.PlayerSwipeDownInputEvent -= Block;
-        PlayerCombatControls.PlayerReleaseInputEvent -= EndBlock;
+        PlayerCombatControls.PlayerControlInput -= OnPlayerInput;
         EnemyCombatHandler.EnemyAttacked -= DamagePlayer;
+        EnemyStats.EnemyDied -= LockCombat;
+        GameManager.RoomLevelChanged -= UnlockCombat;
     }
     #endregion
 
     private void Update()
     {
-        if (attackPrevention > 0f)
+        HandleTimers();
+    }
+
+    private void HandleTimers()
+    {
+        if (recoveryTimer > 0f)
         {
-            attackPrevention -= Time.deltaTime;
+            recoveryTimer -= Time.deltaTime;
+        }
+        else
+        {
+            inDodgeRecovery = false;
+            if (currentPlayerState == PlayerCombatStates.Recovering && !inputQueued)
+            {
+                currentPlayerState = PlayerCombatStates.Idle;
+            }
+        }
+
+        if (attackPreventionTimer > 0f)
+        {
+            attackPreventionTimer -= Time.deltaTime;
         }
     }
 
-    private void Attack()
+    private void OnPlayerInput(CombatInputs input)
     {
-        if (currentPlayerState == PlayerCombatStates.Idle && attackPrevention <= 0f)
+        if (!declineInput)
         {
-            FindObjectOfType<FxPlayer>().PlaySound("PlayerAttack");
-
-            currentPlayerState = PlayerCombatStates.Attacking;
-            PlayerAttackStart?.Invoke();
-            StartCoroutine(StartAttackWindup());
-            //Debug.Log("ATACKING!");
+            if (input == CombatInputs.Release)
+            {
+                EndBlock();
+            }
+            else if (!inputQueued && (currentPlayerState == PlayerCombatStates.Idle || (currentPlayerState == PlayerCombatStates.Recovering && recoveryTimer <= inputQueueLeeway)))
+            {
+                if (input == CombatInputs.Tap && attackPreventionTimer <= 0f && recoveryTimer <= attackInputQueueLeeway)
+                {
+                    inputQueued = true;
+                    StartCoroutine(Attack());
+                }
+                else if (input == CombatInputs.SwipeRight)
+                {
+                    inputQueued = true;
+                    StartCoroutine(Dodge(PlayerCombatStates.DodgingRight));
+                }
+                else if (input == CombatInputs.SwipeLeft)
+                {
+                    inputQueued = true;
+                    StartCoroutine(Dodge(PlayerCombatStates.DodgingLeft));
+                }
+                else if (input == CombatInputs.SwipeUp)
+                {
+                    inputQueued = true;
+                    StartCoroutine(Dodge(PlayerCombatStates.DodgingUp));
+                }
+                else if (input == CombatInputs.SwipeDown && recoveryTimer <= 0)
+                {
+                    StartCoroutine(Block());
+                }
+            }
         }
     }
 
-    private IEnumerator StartAttackWindup()
+    private void LockCombat()
     {
+        StopAllCoroutines();
+        declineInput = true;
+        inDodgeRecovery = false;
+        inputQueued = false;
+    }
+
+    private void UnlockCombat(int roomLevel)
+    {
+        declineInput = false;
+    }
+
+    private IEnumerator Attack()
+    {
+        while (recoveryTimer > 0f) { yield return null; }
+        inDodgeRecovery = false;
+        //Debug.Log("ATACKING!");
+        currentPlayerState = PlayerCombatStates.Attacking;
+        PlayerAttackStart?.Invoke();
+        recoveryTimer = playerStats.AttackRecovery + playerStats.AttackSpeed;
         yield return new WaitForSeconds(playerStats.AttackSpeed);
+        FindObjectOfType<FxPlayer>().PlaySound("PlayerAttack");
         PlayerAttacked?.Invoke(playerStats.AttackDamage);
-        StartCoroutine(Recovery(0f, playerStats.AttackRecovery));
+        currentPlayerState = PlayerCombatStates.Recovering;
+        inputQueued = false;
     }
 
-    private void DodgeRight()
+    private IEnumerator Dodge(PlayerCombatStates dodgeState)
     {
-        if (currentPlayerState == PlayerCombatStates.Idle)
-        {
-            currentPlayerState = PlayerCombatStates.DodgingRight;
-            PlayerDodgeRight?.Invoke();
-            isDodging = true;
-            dodgeRecovery = StartCoroutine(Recovery(playerStats.DodgeWindow, playerStats.DodgeRecovery));
-            //Debug.Log("DODGING RIGHT!");
-        }
+        while (recoveryTimer > 0f) { yield return null; }
+        //Debug.Log($"DODGING! {dodgeState}");
+        currentPlayerState = dodgeState;
+        PlayerDodging?.Invoke(dodgeState);
+        recoveryTimer = playerStats.DodgeRecovery + playerStats.DodgeWindow;
+        inDodgeRecovery = true;
+        yield return new WaitForSeconds(playerStats.DodgeWindow);
+        currentPlayerState = PlayerCombatStates.Recovering;
+        inputQueued = false;
     }
 
-    private void DodgeLeft()
+    private IEnumerator Block()
     {
-        if (currentPlayerState == PlayerCombatStates.Idle)
+        //Debug.Log("BLOCKING!");
+        currentPlayerState = PlayerCombatStates.Blocking;
+        PlayerBlockStart?.Invoke();
+        declineInput = true;
+        yield return new WaitForSeconds(0.4f);
+        if (!Input.GetMouseButton(0))
         {
-            currentPlayerState = PlayerCombatStates.DodgingLeft;
-            PlayerDodgeLeft?.Invoke();
-            isDodging = true;
-            dodgeRecovery = StartCoroutine(Recovery(playerStats.DodgeWindow, playerStats.DodgeRecovery));
-            //Debug.Log("DODGING LEFT!");
+            EndBlock();
         }
-    }
-
-    private void DodgeUp()
-    {
-        if (currentPlayerState == PlayerCombatStates.Idle)
-        {
-            currentPlayerState = PlayerCombatStates.DodgingUp;
-            PlayerDodgeUp?.Invoke();
-            isDodging = true;
-            dodgeRecovery = StartCoroutine(Recovery(playerStats.DodgeWindow, playerStats.DodgeRecovery));
-            //Debug.Log("JUMPING!");
-        }
-    }
-
-    private void Block()
-    {
-        if (currentPlayerState == PlayerCombatStates.Idle)
-        {
-            currentPlayerState = PlayerCombatStates.Blocking;
-            PlayerBlockStart?.Invoke();
-            //Debug.Log("BLOCKING!");
-        }
+        declineInput = false;
     }
 
     private void EndBlock()
@@ -162,20 +204,9 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
         if (currentPlayerState == PlayerCombatStates.Blocking)
         {
             PlayerBlockEnd?.Invoke();
-            StartCoroutine(Recovery(0f, playerStats.BlockRecovery));
+            recoveryTimer = playerStats.BlockRecovery;
+            currentPlayerState = PlayerCombatStates.Recovering;
         }
-    }
-
-    private IEnumerator Recovery(float stateDuration, float recoveryTime)
-    {
-        yield return new WaitForSeconds(stateDuration);
-        currentPlayerState = PlayerCombatStates.Recovering;
-        //Debug.Log("Recovering...");
-
-        yield return new WaitForSeconds(recoveryTime);
-        isDodging = false;
-        currentPlayerState = PlayerCombatStates.Idle;
-        //Debug.Log("Now idle");
     }
 
     public void DamagePlayer(int damage, PlayerCombatStates combatStateToAvoid)
@@ -196,19 +227,12 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
             playerStats.CurrentHealth = Mathf.Clamp(playerStats.CurrentHealth - damageAfterResistances, 0, int.MaxValue);
             SpawnFloatingNumber(damageAfterResistances, hasBlocked);
             //print($"Player took {damageAfterResistances} damage. {damage - damageAfterResistances} was blocked. [HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}]");
-        }
-        else
-        {
-            //print("Damage avoided");
-        }
 
-        // Dodge reset so the player isn't overwhelmed during combos
-        if (dodgeRecovery != null && isDodging)
-        {
-            StopCoroutine(dodgeRecovery);
-            isDodging = false;
-            attackPrevention = 0.5f;
-            currentPlayerState = PlayerCombatStates.Idle;
+            // Dodge reset so the player isn't overwhelmed during combos
+            if (inDodgeRecovery)
+            {
+                ResetToIdle();
+            }
         }
     }
 
@@ -216,6 +240,16 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
     {
         // Every 10 damage resistance increases effective health by 100%, then reduces damage by a further 1
         return Mathf.RoundToInt(Mathf.Clamp((damage * (10 / (10 + playerStats.DamageResistance))) - 1, 0, float.MaxValue));
+    }
+
+    private void ResetToIdle()
+    {
+        StopAllCoroutines();
+        inputQueued = false;
+        inDodgeRecovery = false;
+        attackPreventionTimer = recoveryTimer;
+        recoveryTimer = 0;
+        currentPlayerState = PlayerCombatStates.Idle;
     }
 
     private void SpawnFloatingNumber(int damageDone, bool hasBlocked)

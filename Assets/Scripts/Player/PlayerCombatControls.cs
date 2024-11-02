@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CombatInputs { Tap, Release, SwipeUp, SwipeDown, SwipeLeft, SwipeRight }
+
 public class PlayerCombatControls : MonoBehaviour
 {
     [SerializeField] private float tapDuration = 0.2f;
@@ -15,13 +17,7 @@ public class PlayerCombatControls : MonoBehaviour
     private bool tapAllowed = false;
     private bool swipeExecuted = false;
 
-    // Prob could refactor into a param of input enums instead
-    public static event Action PlayerTapInputEvent;
-    public static event Action PlayerSwipeRightInputEvent;
-    public static event Action PlayerSwipeLeftInputEvent;
-    public static event Action PlayerSwipeUpInputEvent;
-    public static event Action PlayerSwipeDownInputEvent;
-    public static event Action PlayerReleaseInputEvent;
+    public static event Action<CombatInputs> PlayerControlInput;
 
     private void Update()
     {
@@ -53,24 +49,24 @@ public class PlayerCombatControls : MonoBehaviour
             if (swipeVector.magnitude > adjustedDeadZone)
             {
                 swipeExecuted = true;
-                if (swipeVector.normalized.x > 0.7f) // 0.7f is just quick hillbilly shorthand to indicate passing the 45% normalized mark
+                if (swipeVector.normalized.x > 0.7f) // 0.7f is just quick hillbilly shorthand to indicate passing the 45 degree normalized mark
                 {
-                    PlayerSwipeRightInputEvent?.Invoke();
+                    PlayerControlInput?.Invoke(CombatInputs.SwipeRight);
                     //Debug.Log("Detected swipe right input");
                 }
                 else if (swipeVector.normalized.x < -0.7f)
                 {
-                    PlayerSwipeLeftInputEvent?.Invoke();
+                    PlayerControlInput?.Invoke(CombatInputs.SwipeLeft);
                     //Debug.Log("Detected swipe left input");
                 }
                 else if (swipeVector.normalized.y < -0.7f)
                 {
-                    PlayerSwipeDownInputEvent?.Invoke();
+                    PlayerControlInput?.Invoke(CombatInputs.SwipeDown);
                     //Debug.Log("Detected swipe down input");
                 }
                 else if (swipeVector.normalized.y > 0.7f)
                 {
-                    PlayerSwipeUpInputEvent?.Invoke();
+                    PlayerControlInput?.Invoke(CombatInputs.SwipeUp);
                     //Debug.Log("Detected swipe up input");
                 }
             }
@@ -81,10 +77,10 @@ public class PlayerCombatControls : MonoBehaviour
     {
         if (tapAllowed && !swipeExecuted && swipeVector.magnitude < adjustedDeadZone)
         {
-            PlayerTapInputEvent?.Invoke();
+            PlayerControlInput?.Invoke(CombatInputs.Tap);
             //Debug.Log("Detected tap input");
         }
-        PlayerReleaseInputEvent?.Invoke();
+        PlayerControlInput?.Invoke(CombatInputs.Release);
         swipeExecuted = false;
         detectingInput = false;
     }
