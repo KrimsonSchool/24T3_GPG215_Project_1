@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2513059390930456444}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -44,15 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a82ee6daca60c4bbe9263bee113f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allEnemies:
-  - {fileID: 3214645606131860641, guid: 790fba6ed7780c646a6d872c4f1c6226, type: 3}
-  - {fileID: 3214645606131860641, guid: 4761fd23d5b0cbe4290f9c6053886cfc, type: 3}
-  - {fileID: 3214645606131860641, guid: 98029763d3b728348beca3627ef3630b, type: 3}
-  - {fileID: 3214645606131860641, guid: 5a57e3b8f982fb04083c718ed1305e14, type: 3}
-  enemiesToSpawn:
-  - {fileID: 3214645606131860641, guid: 790fba6ed7780c646a6d872c4f1c6226, type: 3}
-  - {fileID: 3214645606131860641, guid: 98029763d3b728348beca3627ef3630b, type: 3}
-  enemySpawnWeighting:
-  - 2
-  - 1
   tutorialEnemy: {fileID: 3214645606131860641, guid: 4761fd23d5b0cbe4290f9c6053886cfc, type: 3}
+  Enemies:
+  - GameObject: {fileID: 3214645606131860641, guid: 790fba6ed7780c646a6d872c4f1c6226, type: 3}
+    Weight: 2
+  - GameObject: {fileID: 3214645606131860641, guid: 98029763d3b728348beca3627ef3630b, type: 3}
+    Weight: 1
+  - GameObject: {fileID: 3214645606131860641, guid: 5a57e3b8f982fb04083c718ed1305e14, type: 3}
+    Weight: 0

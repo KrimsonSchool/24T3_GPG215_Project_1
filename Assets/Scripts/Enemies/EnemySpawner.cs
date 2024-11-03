@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] allEnemies;
-    [SerializeField] private GameObject[] enemiesToSpawn;
-    [SerializeField] private float[] enemySpawnWeighting;
-    [SerializeField] private GameObject tutorialEnemy;
     private GameManager gameManager;
+
+    [SerializeField] private GameObject tutorialEnemy;
+    [SerializeField] private List<WeightedGameObject> Enemies;
 
     public static event Action<EnemyTypes> EnemySpawned;
 
     private void Awake()
+    {
+        FindReferences();
+    }
+
+    private void FindReferences()
     {
         if (GameManager.Instance != null)
         {
@@ -27,6 +31,11 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        SpawnEnemy();
+    }
+
+    private void SpawnEnemy()
+    {
         if (gameManager.RoomLevel == 1)
         {
             Instantiate(tutorialEnemy, transform.position, transform.rotation);
@@ -34,40 +43,41 @@ public class EnemySpawner : MonoBehaviour
         else if (PlayerPrefs.HasKey("EnemyType"))
         {
             EnemyTypes loadedEnemy = (EnemyTypes)Enum.Parse(typeof(EnemyTypes), PlayerPrefs.GetString("EnemyType"));
-            for (int i = 0; i < allEnemies.Length; i++)
+            for (int i = 0; i < Enemies.Count; i++)
             {
-                if (allEnemies[i].GetComponent<EnemyStats>().EnemyType == loadedEnemy)
+                if (Enemies[i].GameObject.GetComponent<EnemyStats>().EnemyType == loadedEnemy)
                 {
                     print("Spawning saved enemy");
-                    Instantiate(allEnemies[i], transform.position, transform.rotation);
+                    Instantiate(Enemies[i].GameObject, transform.position, transform.rotation);
                     break;
                 }
             }
         }
         else
         {
-            float weightSum = 0f;
-            for (int i = 0; i < enemySpawnWeighting.Length; i++)
-            {
-                weightSum += enemySpawnWeighting[i];
-            }
-            float randomNum = UnityEngine.Random.Range(0, weightSum);
-            int enemyIteration = 0;
-            weightSum = 0f;
-            for (int i = 0; i < enemySpawnWeighting.Length; i++)
-            {
-                weightSum += enemySpawnWeighting[i];
-                if (randomNum > weightSum)
-                {
-                    enemyIteration++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            var spawnedEnemy = Instantiate(enemiesToSpawn[enemyIteration], transform.position, transform.rotation);
+            var spawnedEnemy = Instantiate(GetRandomEnemy(Enemies), transform.position, transform.rotation);
             EnemySpawned?.Invoke(spawnedEnemy.GetComponent<EnemyStats>().EnemyType);
         }
+    }
+
+    private GameObject GetRandomEnemy(List<WeightedGameObject> weightedList)
+    {
+        var totalWeight = 0f;
+        foreach (var item in weightedList)
+        {
+            totalWeight += item.Weight;
+        }
+        var randomWeight = UnityEngine.Random.Range(0, totalWeight);
+        var processedWeight = 0f;
+        foreach (var item in weightedList)
+        {
+            processedWeight += item.Weight;
+            if (processedWeight >= randomWeight)
+            {
+                return item.GameObject;
+            }
+        }
+        print("Random weight was higher than total weight");
+        return null;
     }
 }
