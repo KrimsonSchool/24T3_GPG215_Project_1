@@ -77,20 +77,26 @@ public class PlayerInventory : Singleton<PlayerInventory>
         if (weaponInv.gameObject.activeSelf && weapon != null)
         {
             weaponInv.sprite = weapon.icon;
-            weaponStatsText.text = "Attack: " + weapon.damage + "\nAttack Speed: " + weapon.attackSpeed;
+            weaponStatsText.text = 
+                $"Attack: {weapon.damage}\n" +
+                $"Speed: {weapon.attackSpeed}";
             //"\nCrit Chance: " + weapon.critChance + "%\nCrit Amount: " + weapon.critAmount + 
         }
 
         if (armourInv.gameObject.activeSelf && armour != null)
         {
             armourInv.sprite = armour.icon;
-            armourStatsText.text = "Defence: " + armour.defence + "\nHealth: " + armour.health + "\nBlock Amount: " + armour.blockAmount + "\nDodge Speed: " + armour.dodgeSpeed;
+            armourStatsText.text =
+                $"Health: {armour.health}\n" +
+                $"Defence: {armour.defence}\n" +
+                $"Block: {armour.blockRecovery}\n" +
+                $"Dodge {armour.dodgeSpeed}";
             //"\nAbility Cooldown: " + armour.abilityCooldown +
         }
 
         if (weapon != null)
         {
-            playerStats.AttackDamage = 1 + weapon.damage;
+            playerStats.AttackDamage = weapon.damage;
 
             playerStats.AttackSpeed = 0.2f - (weapon.attackSpeed * 0.01f);
             playerStats.AttackRecovery = 0.4f - (weapon.attackSpeed * 0.01f);
@@ -109,7 +115,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
             playerStats.DodgeRecovery = Mathf.Clamp(0.8f - playerStats.DodgeWindow, 0, 1f);
 
             playerStats.DamageResistance = armour.defence;
-            playerStats.BlockRecovery = 0.4f / armour.blockAmount;
+            playerStats.BlockRecovery = 0.4f / armour.blockRecovery;
         }
     }
 

@@ -28,7 +28,7 @@ public class Gear : MonoBehaviour
     [HideInInspector] public int defence;
     [HideInInspector] public int health;
     //[HideInInspector] public int abilityCooldown;
-    [HideInInspector] public int blockAmount;
+    [HideInInspector] public int blockRecovery;
     [HideInInspector] public int dodgeSpeed;
 
 
@@ -59,19 +59,19 @@ public class Gear : MonoBehaviour
         {
             name = "Armour Tier " + teir;
             icon = player.armourSprite;
-            defence = Random.Range(teir, teir + 3);
-            health = Random.Range(teir, teir + 3);
+            defence = Random.Range(teir * 2, teir * 3 + 1);
+            health = Random.Range(teir * 3, teir * 4 + 1);
             //abilityCooldown = Random.Range(teir, teir + 3);
-            blockAmount = Random.Range(teir, teir + 3);
-            dodgeSpeed = Random.Range(teir, teir + 3);
+            blockRecovery = Mathf.RoundToInt(Random.Range(teir, Mathf.Log(teir, 1.5f) + 2));
+            dodgeSpeed = Mathf.RoundToInt(Random.Range(teir, Mathf.Log(teir, 1.5f) + 2));
         }
 
         if(type == GearType.Weapon)
         {
             name = "Weapon Tier " + teir;
             icon = player.weaponSprite;
-            damage = Random.Range(teir, teir * 2);
-            attackSpeed = Random.Range(teir, teir + (5/teir));
+            damage = Random.Range(teir * 2, teir * 3 + 1);
+            attackSpeed = Mathf.RoundToInt(Random.Range(0, Mathf.Log(teir, 1.5f) + 2));
             //critChance = Random.Range(teir, teir*20);
             //critAmount = damage * teir;
         }

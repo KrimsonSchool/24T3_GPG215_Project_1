@@ -30,7 +30,7 @@ public class ItemPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FindObjectOfType<MenuManager>().openMenus ++;
+        FindObjectOfType<MenuManager>().openMenus++;
         inventory = FindObjectOfType<PlayerInventory>();
 
         if (inventory.weapon != null)
@@ -47,7 +47,7 @@ public class ItemPickup : MonoBehaviour
             defenceOffset = gear.defence - inventory.armour.defence;
             healthOffset = gear.health - inventory.armour.health;
             //abilityCooldownOffset = gear.abilityCooldown - inventory.armour.abilityCooldown;
-            blockAmountOffset = gear.blockAmount - inventory.armour.blockAmount;
+            blockAmountOffset = gear.blockRecovery - inventory.armour.blockRecovery;
             dodgeSpeedOffset = gear.dodgeSpeed - inventory.armour.dodgeSpeed;
 
             apm = (defenceOffset + healthOffset + abilityCooldownOffset + blockAmountOffset + dodgeSpeedOffset) / 5;
@@ -58,15 +58,17 @@ public class ItemPickup : MonoBehaviour
     void Update()
     {
         itemImage.sprite = gear.icon;
-        itemText.text = "Congrats!\nYou picked up [" + gear.name + "]";
+        itemText.text = "Congrats! You found\n[" + gear.name + "]";
 
         if (gear.type == Gear.GearType.Weapon)
         {
             DEBUG_dmg = gear.damage;
             if (inventory.weapon == null)
             {
-                statsText.text = "+ [" + gear.damage + "] Attack\n+ ["  + gear.attackSpeed+"] Attack Speed";
-                //+ gear.critChance + "] Crit Chance\n+ [" + gear.critAmount + "] Crit Amount\n+ ["
+                statsText.text =
+                    $"{gear.damage} Attack Damage\n" +
+                    $"{gear.attackSpeed} Attack Speed";
+                //+ gear.critChance + "] Crit Chance\n+ " + gear.critAmount + "] Crit Amount\n+ ["
             }
             else
             {
@@ -74,14 +76,21 @@ public class ItemPickup : MonoBehaviour
                 {
                     statsText.color = Color.red;
                 }
-                statsText.text = "+ [" + (damageOffset) + "] Attack\n+ [" + (critOffset) + "] Crit Chance\n+ [" + (critAOffset) + "] Crit Amount\n+ ["+attackSpeedOffset+"] Attack Speed";
+                statsText.text =
+                    $"{damageOffset} Attack Damage\n" +
+                    $"{attackSpeedOffset} Attack Speed";
+                //\n+ [" + (critOffset) + "] Crit Chance\n+ [" + (critAOffset) + "] Crit Amount
             }
         }
         if (gear.type == Gear.GearType.Armour)
         {
             if (inventory.armour == null)
             {
-                statsText.text = "+ [" + gear.defence + "] Defence\n+ ["+gear.health+"] Health\n+ ["+ gear.blockAmount+"] Block Amount\n+ ["+gear.dodgeSpeed+"] Dodge Speed";
+                statsText.text =
+                    $"{gear.health} Health\n" +
+                    $"{gear.defence} Defence\n" +
+                    $"{gear.blockRecovery} Block Recovery\n" +
+                    $"{gear.dodgeSpeed} Dodge Speed";
                 //gear.abilityCooldown+"] Ability Cooldown\n+ [" +
             }
             else
@@ -90,7 +99,12 @@ public class ItemPickup : MonoBehaviour
                 {
                     statsText.color = Color.red;
                 }
-                statsText.text = "+ [" + defenceOffset + "] Defence\n+ [" + healthOffset + "] Health\n+ [" + abilityCooldownOffset + "] Ability Cooldown\n+ [" + blockAmountOffset + "] Block Amount\n+ [" + dodgeSpeedOffset + "] Dodge Speed";
+                statsText.text =
+                    $"{healthOffset} Health\n" +
+                    $"{defenceOffset} Defence\n" +
+                    $"{blockAmountOffset} Block Recovery\n" +
+                    $"{dodgeSpeedOffset} Dodge Speed";
+                //\n+ [" + abilityCooldownOffset + "] Ability Cooldown
             }
         }
     }
@@ -102,7 +116,7 @@ public class ItemPickup : MonoBehaviour
 
         gear.gameObject.SetActive(true);
         gear.gameObject.transform.parent = inventory.gameObject.transform;
-        if(gear.type == Gear.GearType.Weapon)
+        if (gear.type == Gear.GearType.Weapon)
         {
             //print("Equipping [" + gear + "] to [" + inventory + "]");
             inventory.weapon = gear;

@@ -517,8 +517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f744ba01cee4b604ba451c1d4a0cb47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  currentHealth: 5
+  maxHealth: 6
+  currentHealth: 6
   attackDamage: 1
   attackWindup: 0.5
   attackWarning: 0.8

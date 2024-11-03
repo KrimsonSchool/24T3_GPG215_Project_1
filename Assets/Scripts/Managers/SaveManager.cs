@@ -126,7 +126,7 @@ public class SaveManager : PersistentSingleton<SaveManager>
             PlayerPrefs.SetInt("ArmourDefence", playerInventory.armour.defence);
             PlayerPrefs.SetInt("ArmourHealth", playerInventory.armour.health);
             //PlayerPrefs.SetInt("ArmourAbilityCooldown", playerInventory.armour.abilityCooldown);
-            PlayerPrefs.SetInt("ArmourBlockAmount", playerInventory.armour.blockAmount);
+            PlayerPrefs.SetInt("ArmourBlockAmount", playerInventory.armour.blockRecovery);
             PlayerPrefs.SetInt("ArmourDodgeSpeed", playerInventory.armour.dodgeSpeed);
         }
     }
@@ -180,7 +180,7 @@ public class SaveManager : PersistentSingleton<SaveManager>
             gear.defence = PlayerPrefs.GetInt("ArmourDefence");
             gear.health = PlayerPrefs.GetInt("ArmourHealth");
             //gear.abilityCooldown = PlayerPrefs.GetInt("ArmourAbilityCooldown");
-            gear.blockAmount = PlayerPrefs.GetInt("ArmourBlockAmount");
+            gear.blockRecovery = PlayerPrefs.GetInt("ArmourBlockAmount");
             gear.dodgeSpeed = PlayerPrefs.GetInt("ArmourDodgeSpeed");
             gear.name = "Armour";
 
