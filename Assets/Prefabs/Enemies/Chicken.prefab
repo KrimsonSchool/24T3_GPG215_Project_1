@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f744ba01cee4b604ba451c1d4a0cb47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 3
   maxHealth: 5
   currentHealth: 5
   attackDamage: 1

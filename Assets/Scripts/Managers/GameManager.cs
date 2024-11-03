@@ -45,7 +45,10 @@ public class GameManager : PersistentSingleton<GameManager>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         //print($"Started room {roomLevel}");
-        RoomLevelChanged?.Invoke(RoomLevel);
+        if (scene.name == "DefaultRoom" || scene.name == "BossRoom")
+        {
+            RoomLevelChanged?.Invoke(RoomLevel);
+        }
     }
 
     private void OnDisable()

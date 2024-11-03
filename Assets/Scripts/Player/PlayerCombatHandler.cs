@@ -39,6 +39,10 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
 
     #region Events
     /// <summary>
+    /// 1. &lt;int&gt; : damageAfterResistances
+    /// </summary>
+    public static event Action<int> PlayerDamaged;
+    /// <summary>
     /// 1. &lt;int&gt; : PlayerStats.AttackDamage
     /// </summary>
     public static event Action<int> PlayerAttacked;
@@ -225,6 +229,7 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
                 damageAfterResistances = damage;
             }
             playerStats.CurrentHealth = Mathf.Clamp(playerStats.CurrentHealth - damageAfterResistances, 0, int.MaxValue);
+            PlayerDamaged?.Invoke(damageAfterResistances);
             SpawnFloatingNumber(damageAfterResistances, hasBlocked);
             //print($"Player took {damageAfterResistances} damage. {damage - damageAfterResistances} was blocked. [HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}]");
 

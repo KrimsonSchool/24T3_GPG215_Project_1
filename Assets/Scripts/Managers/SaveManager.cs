@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,9 @@ public class SaveManager : PersistentSingleton<SaveManager>
     GameManager gameManager;
     PlayerStats playerStats;
     PlayerInventory playerInventory;
+    public bool HasLoaded = false;
 
-    #region Initialization
+    #region Initialization & Decommission
     protected override void Awake()
     {
         base.Awake();
@@ -41,37 +43,72 @@ public class SaveManager : PersistentSingleton<SaveManager>
 
     private void OnEnable()
     {
-        GameManager.RoomTransitionStarting += Save;
+        GameManager.RoomLevelChanged += SceneLoaded;
         PlayerStats.PlayerDied += PreventLoad;
+        PlayerCombatHandler.PlayerDamaged += SaveHealthAfterDamage;
+        EnemySpawner.EnemySpawned += SaveSpawnedEnemy;
+        EnemyStats.EnemyDied += RemoveSpawnedEnemy;
     }
 
     private void OnDisable()
     {
-        GameManager.RoomTransitionStarting -= Save;
+        GameManager.RoomLevelChanged -= SceneLoaded;
         PlayerStats.PlayerDied -= PreventLoad;
+        PlayerCombatHandler.PlayerDamaged -= SaveHealthAfterDamage;
+        EnemySpawner.EnemySpawned -= SaveSpawnedEnemy;
+        EnemyStats.EnemyDied -= RemoveSpawnedEnemy;
     }
 
-    private void Start()
+    private void SceneLoaded(int roomLevel)
     {
-        if (PlayerPrefs.GetInt("CanLoad") == 1)
+        if (!HasLoaded)
         {
-            Load();
+            if (PlayerPrefs.GetInt("CanLoad") == 1)
+            {
+                Load();
+            }
+            else
+            {
+                ResetSaveData();
+            }
+            //print("Loading now allowed...");
+            PlayerPrefs.SetInt("CanLoad", 1);
+            HasLoaded = true;
         }
         else
         {
-            ResetSaveData();
+            Save();
         }
-        print("Loading now allowed...");
-        PlayerPrefs.SetInt("CanLoad", 1);
     }
     #endregion
 
+    #region Event Subsciptions
     private void PreventLoad()
     {
         print("Loading now prevented. Deleting save manager...");
         PlayerPrefs.SetInt("CanLoad", 0);
         Destroy(gameObject);
     }
+
+    private void SaveHealthAfterDamage(int damage)
+    {
+        //print("Saving health after change");
+        PlayerPrefs.SetInt("MaxHealth", playerStats.MaxHealth);
+        PlayerPrefs.SetInt("Health", playerStats.CurrentHealth);
+    }
+
+    private void SaveSpawnedEnemy(EnemyTypes type)
+    {
+        //print("Saving enemy type");
+        PlayerPrefs.SetString("EnemyType", type.ToString()); // Loading handled in EnemySpawner.cs
+    }
+
+    private void RemoveSpawnedEnemy()
+    {
+        //print("Deleting enemy type save");
+        PlayerPrefs.DeleteKey("EnemyType");
+    }
+    #endregion
 
     public void ResetSaveData()
     {
@@ -98,6 +135,8 @@ public class SaveManager : PersistentSingleton<SaveManager>
         PlayerPrefs.DeleteKey("ArmourAbilityCooldown");
         PlayerPrefs.DeleteKey("ArmourBlockAmount");
         PlayerPrefs.DeleteKey("ArmourDodgeSpeed");
+
+        PlayerPrefs.DeleteKey("EnemyType");
     }
 
     public void Save()
@@ -157,7 +196,7 @@ public class SaveManager : PersistentSingleton<SaveManager>
             //gear.critAmount = PlayerPrefs.GetInt("WeaponCritAmount");
             gear.name = "Weapon";
             //equip
-            
+
             //print("Setting ip's gear");
             //ip.gear = gear;
             //print("ip's gear: " + ip.gear);

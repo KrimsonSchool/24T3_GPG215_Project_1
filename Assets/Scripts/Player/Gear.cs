@@ -43,39 +43,41 @@ public class Gear : MonoBehaviour
 
         player = FindObjectOfType<PlayerInventory>();
 
-        if (!ForceGearType && drop)
+        if (drop)
         {
-            if (Random.Range(0, 2) == 0)
+            if (!ForceGearType)
             {
-                type = Gear.GearType.Weapon;
+                if (Random.Range(0, 2) == 0)
+                {
+                    type = Gear.GearType.Weapon;
+                }
+                else
+                {
+                    type = Gear.GearType.Armour;
+                }
             }
-            else
+
+            if (type == GearType.Armour)
             {
-                type = Gear.GearType.Armour;
+                name = "Armour Tier " + teir;
+                icon = player.armourSprite;
+                defence = Random.Range(teir * 2, teir * 3 + 1);
+                health = Random.Range(teir * 3, teir * 4 + 1);
+                //abilityCooldown = Random.Range(teir, teir + 3);
+                blockRecovery = Mathf.RoundToInt(Random.Range(teir, Mathf.Log(teir, 1.5f) + 2));
+                dodgeSpeed = Mathf.RoundToInt(Random.Range(teir, Mathf.Log(teir, 1.5f) + 2));
+            }
+
+            if (type == GearType.Weapon)
+            {
+                name = "Weapon Tier " + teir;
+                icon = player.weaponSprite;
+                damage = Random.Range(teir * 2, teir * 3 + 1);
+                attackSpeed = Mathf.RoundToInt(Random.Range(0, Mathf.Log(teir, 1.5f) + 2));
+                //critChance = Random.Range(teir, teir*20);
+                //critAmount = damage * teir;
             }
         }
-
-        if (type == GearType.Armour)
-        {
-            name = "Armour Tier " + teir;
-            icon = player.armourSprite;
-            defence = Random.Range(teir * 2, teir * 3 + 1);
-            health = Random.Range(teir * 3, teir * 4 + 1);
-            //abilityCooldown = Random.Range(teir, teir + 3);
-            blockRecovery = Mathf.RoundToInt(Random.Range(teir, Mathf.Log(teir, 1.5f) + 2));
-            dodgeSpeed = Mathf.RoundToInt(Random.Range(teir, Mathf.Log(teir, 1.5f) + 2));
-        }
-
-        if(type == GearType.Weapon)
-        {
-            name = "Weapon Tier " + teir;
-            icon = player.weaponSprite;
-            damage = Random.Range(teir * 2, teir * 3 + 1);
-            attackSpeed = Mathf.RoundToInt(Random.Range(0, Mathf.Log(teir, 1.5f) + 2));
-            //critChance = Random.Range(teir, teir*20);
-            //critAmount = damage * teir;
-        }
-
         GetComponent<SpriteRenderer>().sprite = icon;
     }
 
