@@ -9,6 +9,8 @@ using UnityEngine.Audio;
 public class AudioManager : PersistentSingleton<AudioManager>
 {
     [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private AudioSource soundEffect2DPrefab;
+    [SerializeField] private AudioSource soundEffect3DPrefab;
 
     private AudioSource musicSource;
     private AudioSource ambienceSource;
@@ -94,6 +96,42 @@ public class AudioManager : PersistentSingleton<AudioManager>
     #endregion
 
     #region Public Methods
+    #region Sound Effects
+    public void PlaySoundEffect2D(AudioClip clip, float volume = 1, float pitch = 1)
+    {
+        AudioSource audioSource = Instantiate(soundEffect2DPrefab);
+        audioSource.clip = clip;
+        audioSource.volume = volume;
+        audioSource.pitch = pitch;
+        audioSource.Play();
+        Destroy(audioSource.gameObject, audioSource.clip.length);
+    }
+
+    public void PlaySoundEffect3D(AudioClip clip, Vector3 spawnPosition, float minDistance = 1, float maxDistance = 500, float volume = 1, float pitch = 1)
+    {
+        AudioSource audioSource = Instantiate(soundEffect3DPrefab, spawnPosition, Quaternion.identity);
+        audioSource.clip = clip;
+        audioSource.minDistance = minDistance;
+        audioSource.maxDistance = maxDistance;
+        audioSource.volume = volume;
+        audioSource.pitch = pitch;
+        audioSource.Play();
+        Destroy(audioSource.gameObject, audioSource.clip.length);
+    }
+
+    public void PlaySoundEffect3D(AudioClip clip, Transform originalTransform, float minDistance = 1, float maxDistance = 500, float volume = 1, float pitch = 1)
+    {
+        AudioSource audioSource = Instantiate(soundEffect3DPrefab, originalTransform.position, Quaternion.identity);
+        audioSource.clip = clip;
+        audioSource.minDistance = minDistance;
+        audioSource.maxDistance = maxDistance;
+        audioSource.volume = volume;
+        audioSource.pitch = pitch;
+        audioSource.Play();
+        Destroy(audioSource.gameObject, audioSource.clip.length);
+    }
+    #endregion
+
     #region Music
     public void PlayMusic(float fadeInTime = 0)
     {

@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyStats)), DisallowMultipleComponent]
 public class EnemyCombatHandler : MonoBehaviour
 {
-    [SerializeField] private GameObject floatingDamageNumberPrefab;
+    [SerializeField] private AudioClip attackClip;
     private EnemyStats enemyStats;
     private float attackTimer = 0f;
     private bool isAttacking = false;
@@ -82,6 +82,10 @@ public class EnemyCombatHandler : MonoBehaviour
             StartingAttackWarning?.Invoke(randomState);
             yield return new WaitForSeconds(enemyStats.AttackWarning);
             EnemyAttacked?.Invoke(enemyStats.AttackDamage, randomState);
+            if (attackClip != null)
+            {
+                AudioManager.Instance.PlaySoundEffect2D(attackClip, 1, UnityEngine.Random.Range(0.9f, 1.1f));
+            }
             if (enemyStats.AttackCombos > 1)
             {
                 randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
@@ -108,11 +112,5 @@ public class EnemyCombatHandler : MonoBehaviour
                 //Debug.Log($"{gameObject.name} died");
             }
         }
-    }
-
-    private void SpawnFloatingNumber(int damageDone)
-    {
-        var prefab = Instantiate(floatingDamageNumberPrefab, transform.position, default);
-        prefab.GetComponentInChildren<TextMeshProUGUI>().text = $"-{damageDone}HP";
     }
 }

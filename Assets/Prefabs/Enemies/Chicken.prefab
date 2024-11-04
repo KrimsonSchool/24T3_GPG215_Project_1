@@ -473,7 +473,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c441c8f96d55c5748908bf64ca1ed657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatingDamageNumberPrefab: {fileID: 4013153568204750465, guid: 32bd381a4dd44104ab0b0519cc43851f, type: 3}
+  attackClip: {fileID: 8300000, guid: 8fdcd374ed860ad4182670302c939c46, type: 3}
+  featherClip: {fileID: 8300000, guid: 47d081a8a3e1a7a4695420af50f14044, type: 3}
+  cluckingClip: {fileID: 8300000, guid: 7d6ecce23da49af439da9cc8718443b8, type: 3}
 --- !u!1 &3231822491873715011
 GameObject:
   m_ObjectHideFlags: 0

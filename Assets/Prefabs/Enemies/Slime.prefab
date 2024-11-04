@@ -501,7 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9830b8203bebd4a8f2d0aecff7c4d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatingDamageNumberPrefab: {fileID: 4013153568204750465, guid: 32bd381a4dd44104ab0b0519cc43851f, type: 3}
+  attackClip: {fileID: 8300000, guid: 69468bcb16c32c1418d9e9ade60c3e41, type: 3}
 --- !u!1 &3231822491873715011
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,7 +947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 584af8d4131e31e4ba239299c48585d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constantSize: 0
 --- !u!1 &8919436418003818169
 GameObject:
   m_ObjectHideFlags: 0

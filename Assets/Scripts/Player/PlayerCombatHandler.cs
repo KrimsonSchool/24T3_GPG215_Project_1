@@ -12,7 +12,11 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
 {
     #region References
     private PlayerStats playerStats;
-    [SerializeField] private GameObject floatingDamageNumberPrefab;
+    [SerializeField] AudioClip playerHitClip;
+    [SerializeField] AudioClip attackingClip;
+    [SerializeField] AudioClip dodgingClip;
+    [SerializeField] AudioClip startBlockClip;
+    [SerializeField] AudioClip blockedClip;
     #endregion
 
     #region Fields
@@ -171,7 +175,7 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
         PlayerAttackStart?.Invoke();
         recoveryTimer = playerStats.AttackRecovery + playerStats.AttackSpeed;
         yield return new WaitForSeconds(playerStats.AttackSpeed);
-        FindObjectOfType<FxPlayer>().PlaySound("PlayerAttack");
+        AudioManager.Instance.PlaySoundEffect2D(attackingClip, 1, UnityEngine.Random.Range(0.9f, 1.1f));
         PlayerAttacked?.Invoke(playerStats.AttackDamage);
         currentPlayerState = PlayerCombatStates.Recovering;
         inputQueued = false;
@@ -182,6 +186,7 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
         while (recoveryTimer > 0f) { yield return null; }
         //Debug.Log($"DODGING! {dodgeState}");
         currentPlayerState = dodgeState;
+        AudioManager.Instance.PlaySoundEffect2D(dodgingClip, 1, UnityEngine.Random.Range(0.8f, 1.1f));
         PlayerDodging?.Invoke(dodgeState);
         recoveryTimer = playerStats.DodgeRecovery + playerStats.DodgeWindow;
         inDodgeRecovery = true;
@@ -194,6 +199,7 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
     {
         //Debug.Log("BLOCKING!");
         currentPlayerState = PlayerCombatStates.Blocking;
+        AudioManager.Instance.PlaySoundEffect2D(startBlockClip, 1, UnityEngine.Random.Range(0.9f, 1));
         PlayerBlockStart?.Invoke();
         declineInput = true;
         yield return new WaitForSeconds(0.4f);
@@ -224,10 +230,12 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
             {
                 hasBlocked = true;
                 damageAfterResistances = CalculateBlock(damage);
+                AudioManager.Instance.PlaySoundEffect2D(blockedClip, 1, UnityEngine.Random.Range(0.9f, 1.1f));
             }
             else
             {
                 damageAfterResistances = damage;
+                AudioManager.Instance.PlaySoundEffect2D(playerHitClip, 1, UnityEngine.Random.Range(0.9f, 1.1f));
             }
             playerStats.CurrentHealth = Mathf.Clamp(playerStats.CurrentHealth - damageAfterResistances, 0, int.MaxValue);
             PlayerDamaged?.Invoke(damageAfterResistances, hasBlocked);
