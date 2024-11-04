@@ -44,7 +44,8 @@ public class SpriteStreamer : MonoBehaviour
         else
         {
             Debug.LogWarning("Could not find streamed asset, loading backup...");
-            filePath =  Path.Combine("Sprites", spriteName); if (File.Exists(filePath))
+            filePath =  Path.Combine("Sprites", spriteName); 
+            if (File.Exists(filePath))
             {
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(filePath);
             }
