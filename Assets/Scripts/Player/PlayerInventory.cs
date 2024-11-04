@@ -47,6 +47,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         LoadDependecies();
+        LoadStats();
     }
 
     void Update()
@@ -74,10 +75,30 @@ public class PlayerInventory : Singleton<PlayerInventory>
 
 
 
+        
+    }
+
+    public void LoadDependecies()
+    {
+        //!!! CHECK IF ALL EXIST PLS!!!
+        //The true in the below find obejcts means it will find disabled objects
+        itemPickupUi = FindObjectOfType<ItemPickup>(true).gameObject;
+
+        weaponInv = FindObjectOfType<MenuManager>().weaponInv.GetComponent<Image>();
+        armourInv = FindObjectOfType<MenuManager>().armourInv.GetComponent<Image>();
+
+        weaponStatsText = FindObjectOfType<MenuManager>().weaponStatsText;
+        armourStatsText = FindObjectOfType<MenuManager>().armourStatsText;
+
+        playerStats = GetComponent<PlayerStats>();
+    }
+
+    public void LoadStats()
+    {
         if (weaponInv.gameObject.activeSelf && weapon != null)
         {
             weaponInv.sprite = weapon.icon;
-            weaponStatsText.text = 
+            weaponStatsText.text =
                 $"Attack: {weapon.damage}\n" +
                 $"Speed: {weapon.attackSpeed}";
             //"\nCrit Chance: " + weapon.critChance + "%\nCrit Amount: " + weapon.critAmount + 
@@ -117,20 +138,5 @@ public class PlayerInventory : Singleton<PlayerInventory>
             playerStats.DamageResistance = armour.defence;
             playerStats.BlockRecovery = 0.4f / armour.blockRecovery;
         }
-    }
-
-    public void LoadDependecies()
-    {
-        //!!! CHECK IF ALL EXIST PLS!!!
-        //The true in the below find obejcts means it will find disabled objects
-        itemPickupUi = FindObjectOfType<ItemPickup>(true).gameObject;
-
-        weaponInv = FindObjectOfType<MenuManager>().weaponInv.GetComponent<Image>();
-        armourInv = FindObjectOfType<MenuManager>().armourInv.GetComponent<Image>();
-
-        weaponStatsText = FindObjectOfType<MenuManager>().weaponStatsText;
-        armourStatsText = FindObjectOfType<MenuManager>().armourStatsText;
-
-        playerStats = GetComponent<PlayerStats>();
     }
 }

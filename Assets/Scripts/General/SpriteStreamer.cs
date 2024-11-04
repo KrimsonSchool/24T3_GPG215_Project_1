@@ -51,7 +51,7 @@ public class SpriteStreamer : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Backup sprite not found!");
+                Debug.LogError("Backup sprite not found at Resources/" + filePath);
             }
         }
     }
