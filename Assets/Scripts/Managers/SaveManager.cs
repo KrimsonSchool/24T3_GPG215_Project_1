@@ -90,7 +90,7 @@ public class SaveManager : PersistentSingleton<SaveManager>
         Destroy(gameObject);
     }
 
-    private void SaveHealthAfterDamage(int damage)
+    private void SaveHealthAfterDamage(int damage, bool hasBlocked)
     {
         //print("Saving health after change");
         PlayerPrefs.SetInt("MaxHealth", playerStats.MaxHealth);

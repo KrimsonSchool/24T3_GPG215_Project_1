@@ -7,6 +7,8 @@ public class DestroyAfterLifetime : MonoBehaviour
     [SerializeField] private float lifetimeInSeconds = 1f;
     [SerializeField] private bool countdownOnStart = true;
 
+    public float Lifetime { get { return lifetimeInSeconds; } }
+
     private void Start()
     {
         if (countdownOnStart)

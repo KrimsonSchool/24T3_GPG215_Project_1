@@ -30,6 +30,8 @@ public class EnemyCombatHandler : MonoBehaviour
     /// </summary>
     public static event Action<int, PlayerCombatStates> EnemyAttacked;
 
+    public static event Action<int> EnemyDamaged;
+
     private void Awake()
     {
         FindReferences();
@@ -94,7 +96,7 @@ public class EnemyCombatHandler : MonoBehaviour
         if (isAlive)
         {
             enemyStats.CurrentHealth = Mathf.Clamp(enemyStats.CurrentHealth - damage, 0, int.MaxValue);
-            SpawnFloatingNumber(damage);
+            EnemyDamaged?.Invoke(damage);
             if (enemyStats.CurrentHealth > 0)
             {
                 //Debug.Log($"{gameObject.name} took {damage} damage. [HP: {enemyStats.CurrentHealth}/{enemyStats.MaxHealth}]");

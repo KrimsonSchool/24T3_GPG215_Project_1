@@ -39,9 +39,10 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
 
     #region Events
     /// <summary>
-    /// 1. &lt;int&gt; : damageAfterResistances
+    /// 1. &lt;int&gt; : damageAfterResistances <br></br>
+    /// 2. &lt;bool&gt; : hasBlocked
     /// </summary>
-    public static event Action<int> PlayerDamaged;
+    public static event Action<int, bool> PlayerDamaged;
     /// <summary>
     /// 1. &lt;int&gt; : PlayerStats.AttackDamage
     /// </summary>
@@ -215,9 +216,9 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
 
     public void DamagePlayer(int damage, PlayerCombatStates combatStateToAvoid)
     {
+        bool hasBlocked = false;
         if (currentPlayerState != combatStateToAvoid)
         {
-            bool hasBlocked = false;
             int damageAfterResistances;
             if (currentPlayerState == PlayerCombatStates.Blocking)
             {
@@ -229,8 +230,7 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
                 damageAfterResistances = damage;
             }
             playerStats.CurrentHealth = Mathf.Clamp(playerStats.CurrentHealth - damageAfterResistances, 0, int.MaxValue);
-            PlayerDamaged?.Invoke(damageAfterResistances);
-            SpawnFloatingNumber(damageAfterResistances, hasBlocked);
+            PlayerDamaged?.Invoke(damageAfterResistances, hasBlocked);
             //print($"Player took {damageAfterResistances} damage. {damage - damageAfterResistances} was blocked. [HP: {playerStats.CurrentHealth}/{playerStats.MaxHealth}]");
 
             // Dodge reset so the player isn't overwhelmed during combos
@@ -255,22 +255,5 @@ public class PlayerCombatHandler : Singleton<PlayerCombatHandler>
         attackPreventionTimer = recoveryTimer;
         recoveryTimer = 0;
         currentPlayerState = PlayerCombatStates.Idle;
-    }
-
-    private void SpawnFloatingNumber(int damageDone, bool hasBlocked)
-    {
-        var prefab = Instantiate(floatingDamageNumberPrefab, transform.position, transform.rotation);
-        if (hasBlocked)
-        {
-            prefab.GetComponentInChildren<TextMeshProUGUI>().color = Color.gray;
-        }
-        if (damageDone == 0)
-        {
-            prefab.GetComponentInChildren<TextMeshProUGUI>().text = "Blocked";
-        }
-        else
-        {
-            prefab.GetComponentInChildren<TextMeshProUGUI>().text = $"-{damageDone}HP";
-        }
     }
 }
