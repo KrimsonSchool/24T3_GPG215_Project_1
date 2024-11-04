@@ -123,6 +123,7 @@ public class ItemPickup : MonoBehaviour
 
             gear.gameObject.transform.position = inventory.weaponSlot.transform.position;
             gear.gameObject.transform.rotation = inventory.weaponSlot.transform.rotation;
+            gear.gameObject.transform.localScale = inventory.weaponSlot.transform.localScale;
         }
         else if (gear.type == Gear.GearType.Armour)
         {
@@ -130,6 +131,7 @@ public class ItemPickup : MonoBehaviour
 
             gear.gameObject.transform.position = inventory.armourSlot.transform.position;
             gear.gameObject.transform.rotation = inventory.armourSlot.transform.rotation;
+            gear.gameObject.transform.localScale = inventory.armourSlot.transform.localScale;
         }
         else
         {
