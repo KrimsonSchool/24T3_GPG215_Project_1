@@ -72,10 +72,6 @@ public class PlayerInventory : Singleton<PlayerInventory>
           abilityCooldown;
           blockAmount;
           dodgeSpeed;*/
-
-
-
-        
     }
 
     public void LoadDependecies()

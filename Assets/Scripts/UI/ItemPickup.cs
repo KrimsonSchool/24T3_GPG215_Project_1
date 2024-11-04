@@ -140,6 +140,8 @@ public class ItemPickup : MonoBehaviour
 
         FindObjectOfType<MenuManager>().openMenus--;
         gameObject.SetActive(false);
+
+        FindObjectOfType<PlayerInventory>().LoadStats();
     }
 
     public void Discard()
