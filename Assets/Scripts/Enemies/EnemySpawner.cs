@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject tutorialEnemy;
     [SerializeField] private List<WeightedGameObject> Enemies;
 
-    public static event Action<EnemyTypes> EnemySpawned;
+    public static event Action<string> EnemySpawned;
 
     private void Awake()
     {
@@ -40,12 +40,12 @@ public class EnemySpawner : MonoBehaviour
         {
             Instantiate(tutorialEnemy, transform.position, transform.rotation);
         }
-        else if (PlayerPrefs.HasKey("EnemyType"))
+        else if (PlayerPrefs.HasKey("EnemyName"))
         {
-            EnemyTypes loadedEnemy = (EnemyTypes)Enum.Parse(typeof(EnemyTypes), PlayerPrefs.GetString("EnemyType"));
+            string loadedEnemy = PlayerPrefs.GetString("EnemyName");
             for (int i = 0; i < Enemies.Count; i++)
             {
-                if (Enemies[i].GameObject.GetComponent<EnemyStats>().EnemyType == loadedEnemy)
+                if (Enemies[i].GameObject.GetComponent<EnemyStats>().EnemyName == loadedEnemy)
                 {
                     print("Spawning saved enemy");
                     Instantiate(Enemies[i].GameObject, transform.position, transform.rotation);
@@ -56,7 +56,7 @@ public class EnemySpawner : MonoBehaviour
         else
         {
             var spawnedEnemy = Instantiate(GetRandomEnemy(Enemies), transform.position, transform.rotation);
-            EnemySpawned?.Invoke(spawnedEnemy.GetComponent<EnemyStats>().EnemyType);
+            EnemySpawned?.Invoke(spawnedEnemy.GetComponent<EnemyStats>().EnemyName);
         }
     }
 

@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f744ba01cee4b604ba451c1d4a0cb47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 1
+  enemyName: TutorialSlime
   maxHealth: 6
   currentHealth: 6
   attackDamage: 1
@@ -556,6 +556,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackClip: {fileID: 8300000, guid: 69468bcb16c32c1418d9e9ade60c3e41, type: 3}
+  minAttackSpeedMultiplier: 1
+  firstAttackDelay: 3
 --- !u!1 &3231822491873715011
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,7 +935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeType: 1
-  fadeSpeed: 0.3
+  fadeTime: 1
   delayBeforeFade: 0
   fadeOnStart: 0
 --- !u!114 &5758654781271179126

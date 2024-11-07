@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyStats)), DisallowMultipleComponent]
@@ -10,6 +9,8 @@ public class EnemyCombatHandler : MonoBehaviour
     [SerializeField] private AudioClip attackClip;
     private EnemyStats enemyStats;
     private float attackTimer = 0f;
+    [SerializeField] private float minAttackSpeedMultiplier = 0.7f;
+    [SerializeField] private float firstAttackDelay = 1f;
     private bool isAttacking = false;
     private bool isAlive = true;
     private static readonly PlayerCombatStates[] playerDodgeStates = { PlayerCombatStates.DodgingRight, PlayerCombatStates.DodgingLeft, PlayerCombatStates.DodgingUp };
@@ -37,6 +38,11 @@ public class EnemyCombatHandler : MonoBehaviour
         FindReferences();
     }
 
+    private void Start()
+    {
+        attackTimer = firstAttackDelay;
+    }
+
     protected virtual void FindReferences()
     {
         enemyStats = GetComponent<EnemyStats>();
@@ -61,18 +67,19 @@ public class EnemyCombatHandler : MonoBehaviour
     {
         if (!isAttacking && isAlive)
         {
-            attackTimer += Time.deltaTime;
+            attackTimer -= Time.deltaTime;
         }
-        if (attackTimer >= enemyStats.AttackSpeed)
+
+        if (attackTimer <= 0f)
         {
-            isAttacking = true;
-            attackTimer = UnityEngine.Random.Range(0f, enemyStats.AttackSpeed * 0.25f);
             StartCoroutine(Attack());
         }
     }
 
     protected virtual IEnumerator Attack()
     {
+        isAttacking = true;
+        attackTimer = UnityEngine.Random.Range(enemyStats.AttackSpeed * minAttackSpeedMultiplier, enemyStats.AttackSpeed);
         PlayerCombatStates randomState = playerDodgeStates[UnityEngine.Random.Range(0, playerDodgeStates.Length)];
         AttackWindingUp?.Invoke(randomState);
         yield return new WaitForSeconds(enemyStats.AttackWindup);

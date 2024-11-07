@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DamangeNumber : MonoBehaviour
+public class DamageNumber : MonoBehaviour
 {
     [SerializeField] private float maxHorizontalDistance = 100.0f;
     private GameObject horizontalMovePointAnimationReplacementCuzImDumbSadFace;
@@ -11,7 +11,7 @@ public class DamangeNumber : MonoBehaviour
     private float horizontalSpeed;
     private Vector3 destination;
 
-    public Vector3 WorldSpawnPont { get; set; }
+    public Vector3 WorldSpawnPoint { get; set; }
     public bool WasBlocking { get; set; } = false;
     public int Damage { get; set; } = 420;
 
@@ -44,7 +44,7 @@ public class DamangeNumber : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Camera.main.WorldToScreenPoint(WorldSpawnPont);
+        transform.position = Camera.main.WorldToScreenPoint(WorldSpawnPoint);
 
         // Same as previous comment :(
         horizontalMovePointAnimationReplacementCuzImDumbSadFace.transform.position = Vector3.MoveTowards(horizontalMovePointAnimationReplacementCuzImDumbSadFace.transform.position, destination, Time.deltaTime * horizontalSpeed);

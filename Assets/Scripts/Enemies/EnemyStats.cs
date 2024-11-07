@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyTypes { Slime, TutorialSlime, Spider, Chicken }
-
 public class EnemyStats : MonoBehaviour
 {
     private GameManager gameManager;
@@ -15,7 +13,7 @@ public class EnemyStats : MonoBehaviour
     public static event Action<int, int> HealthChanged;
     public static event Action EnemyDied;
 
-    [SerializeField] private EnemyTypes enemyType = EnemyTypes.Slime;
+    [SerializeField] private string enemyName;
 
     [Header("Health")]
     [SerializeField] private int maxHealth = 3;
@@ -40,10 +38,10 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] private float attackComboSpeed = 0f;
 
     #region Properties
-    public EnemyTypes EnemyType
+    public string EnemyName
     {
-        get { return enemyType; }
-        set { enemyType = value; }
+        get { return enemyName; }
+        set { enemyName = value; }
     }
 
     public int MaxHealth

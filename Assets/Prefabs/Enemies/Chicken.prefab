@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f744ba01cee4b604ba451c1d4a0cb47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 3
+  enemyName: Chicken
   maxHealth: 5
   currentHealth: 5
   attackDamage: 1
@@ -474,6 +474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackClip: {fileID: 8300000, guid: 8fdcd374ed860ad4182670302c939c46, type: 3}
+  minAttackSpeedMultiplier: 0.7
+  firstAttackDelay: 3
   featherClip: {fileID: 8300000, guid: 47d081a8a3e1a7a4695420af50f14044, type: 3}
   cluckingClip: {fileID: 8300000, guid: 7d6ecce23da49af439da9cc8718443b8, type: 3}
 --- !u!1 &3231822491873715011
@@ -5832,7 +5834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeType: 1
-  fadeSpeed: 0.3
+  fadeTime: 1
   delayBeforeFade: 0
   fadeOnStart: 0
 --- !u!114 &5758654781271179126

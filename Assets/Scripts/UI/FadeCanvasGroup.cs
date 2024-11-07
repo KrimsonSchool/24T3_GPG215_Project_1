@@ -10,7 +10,7 @@ public class FadeCanvasGroup : MonoBehaviour
     public enum FadeOptions { FadeIn, FadeOut }
 
     [SerializeField] protected FadeOptions fadeType = FadeOptions.FadeOut;
-    [SerializeField, Range(0.01f, 10f)] protected float fadeSpeed = 1f;
+    [SerializeField, Range(0.01f, 10f)] protected float fadeTime = 1f;
     [SerializeField] protected float delayBeforeFade = 0f;
     [SerializeField] protected bool fadeOnStart = false;
 
@@ -39,26 +39,26 @@ public class FadeCanvasGroup : MonoBehaviour
     {
         if (canvasGroup != null)
         {
-            StartCoroutine(FadeCanvas(fadeType, fadeSpeed, delayBeforeFade));
+            StartCoroutine(FadeCanvas(fadeType, fadeTime, delayBeforeFade));
         }
     }
 
-    public virtual void StartFade(FadeOptions type, float speed, float delay = 0f)
+    public virtual void StartFade(FadeOptions type, float time, float delay = 0f)
     {
         if (canvasGroup != null)
         {
-            StartCoroutine(FadeCanvas(type, speed, delay));
+            StartCoroutine(FadeCanvas(type, time, delay));
         }
     }
 
-    protected virtual IEnumerator FadeCanvas(FadeOptions type, float speed, float delay)
+    protected virtual IEnumerator FadeCanvas(FadeOptions type, float time, float delay)
     {
         yield return new WaitForSecondsRealtime(delay);
         if (type == FadeOptions.FadeOut)
         {
             while (canvasGroup.alpha > 0f)
             {
-                canvasGroup.alpha -= Time.unscaledDeltaTime / speed;
+                canvasGroup.alpha -= Time.unscaledDeltaTime / time;
                 yield return null;
             }
         }
@@ -66,7 +66,7 @@ public class FadeCanvasGroup : MonoBehaviour
         {
             while (canvasGroup.alpha < 1f)
             {
-                canvasGroup.alpha += Time.unscaledDeltaTime / speed;
+                canvasGroup.alpha += Time.unscaledDeltaTime / time;
                 yield return null;
             }
         }

@@ -7,7 +7,7 @@ public class SpriteStreamer : MonoBehaviour
 {
     public string spriteName;
     string filePath;
-    // Start is called before the first frame update
+
     void Start()
     {
         //check if file exists in StreamingAssets
@@ -22,13 +22,6 @@ public class SpriteStreamer : MonoBehaviour
 
         ReadFile();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ReadFile()
     {
         if (File.Exists(filePath))
@@ -51,7 +44,7 @@ public class SpriteStreamer : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Backup sprite not found at Resources/" + filePath);
+                Debug.LogWarning("Backup sprite not found at Resources/" + filePath);
             }
         }
     }

@@ -67,7 +67,6 @@ public class PlayerStats : Singleton<PlayerStats>
         get { return maxHealth; }
         set
         {
-            var previousMaxHealth = maxHealth;
             maxHealth = Mathf.Clamp(value, 1, int.MaxValue);
             print($"Player's max health set to {maxHealth}");
             HealthChanged?.Invoke(currentHealth, maxHealth);

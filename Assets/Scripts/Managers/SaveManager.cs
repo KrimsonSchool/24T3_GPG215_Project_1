@@ -97,16 +97,16 @@ public class SaveManager : PersistentSingleton<SaveManager>
         PlayerPrefs.SetInt("Health", playerStats.CurrentHealth);
     }
 
-    private void SaveSpawnedEnemy(EnemyTypes type)
+    private void SaveSpawnedEnemy(string enemyName)
     {
         //print("Saving enemy type");
-        PlayerPrefs.SetString("EnemyType", type.ToString()); // Loading handled in EnemySpawner.cs
+        PlayerPrefs.SetString("EnemyName", enemyName.ToString()); // Loading handled in EnemySpawner.cs
     }
 
     private void RemoveSpawnedEnemy()
     {
         //print("Deleting enemy type save");
-        PlayerPrefs.DeleteKey("EnemyType");
+        PlayerPrefs.DeleteKey("EnemyName");
     }
     #endregion
 
