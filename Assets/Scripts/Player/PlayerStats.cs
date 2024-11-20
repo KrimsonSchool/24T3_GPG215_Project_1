@@ -85,6 +85,10 @@ public class PlayerStats : Singleton<PlayerStats>
             if (currentHealth <= 0)
             {
                 //print("Player died...");
+
+                //push score to leaderboard + Load leaderboard
+                StartCoroutine(SetAndLoadLeaderboard());
+
                 PlayerDied?.Invoke();
             }
         }
@@ -195,4 +199,10 @@ public class PlayerStats : Singleton<PlayerStats>
     //    }
     //}
     #endregion
+
+    public IEnumerator SetAndLoadLeaderboard()
+    {
+        yield return FindObjectOfType<Leaderboard>().SubmitScoreRoutine(FindObjectOfType<GameManager>().RoomLevel);
+        yield return FindObjectOfType<Leaderboard>().FetchTopHighScoresRoutine();
+    }
 }

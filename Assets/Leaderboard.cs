@@ -32,10 +32,14 @@ public class Leaderboard : MonoBehaviour
                 done = true;
             }
         });
-        yield return new WaitWhile(() => done == false);
+        while (!done)
+        {
+            yield return null;
+        }
+        yield return true;
     }
 
-    public IEnumerator FetchTopHighScoresRountine()
+    public IEnumerator FetchTopHighScoresRoutine()
     {
         bool done = false;
         LootLockerSDKManager.GetScoreList(leaderboardKey, 5, 0, (response) =>
@@ -73,6 +77,10 @@ public class Leaderboard : MonoBehaviour
                 done= true;
             }
         });
-        yield return new WaitWhile(()=>done == false);
+        while (!done)
+        {
+            yield return null;
+        }
+        yield return true;
     }
 }
