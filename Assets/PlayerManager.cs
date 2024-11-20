@@ -9,9 +9,12 @@ public class PlayerManager : MonoBehaviour
 {
     public string startScene;
     public TMP_InputField username;
+    public GameObject loadingScreen;
     // Start is called before the first frame update
     void Start()
     {
+        loadingScreen.SetActive(false);
+
         if (PlayerPrefs.GetString("PlayerName") != "")
         {
             username.text = PlayerPrefs.GetString("PlayerName");
@@ -20,13 +23,15 @@ public class PlayerManager : MonoBehaviour
 
     public void LoginGuest()
     {
+        loadingScreen.SetActive(true);
         StartCoroutine(LoginRoutine());
     }
 
     IEnumerator LoginRoutine()
     {
         yield return LoginRoutineGuest();
-        yield return SetPlayerNameRoutine(); 
+        yield return SetPlayerNameRoutine();
+        loadingScreen.SetActive(false);
         SceneManager.LoadSceneAsync(startScene);
     }
 
