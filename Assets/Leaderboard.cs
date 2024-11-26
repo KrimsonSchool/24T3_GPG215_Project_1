@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LootLocker.Requests;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Leaderboard : MonoBehaviour
 {
@@ -74,6 +75,7 @@ public class Leaderboard : MonoBehaviour
             else
             {
                 Debug.LogError("Failed to get scores! "+response.errorData);
+                SceneManager.LoadSceneAsync("Login");
                 done= true;
             }
         });
