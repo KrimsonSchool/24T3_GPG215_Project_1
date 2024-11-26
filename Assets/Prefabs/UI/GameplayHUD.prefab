@@ -1137,8 +1137,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 222.5, y: 7.2687}
-  m_SizeDelta: {x: 445, y: 709.4626}
+  m_AnchoredPosition: {x: 222.5, y: 5.3638}
+  m_SizeDelta: {x: 445, y: 573.0338}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8188305461438295914
 CanvasRenderer:
@@ -2277,8 +2277,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 707fd29f6210e5d49b23ea201e3d7f34, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2813,10 +2813,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1435216055806319475}
+  - {fileID: 4170472255796932621}
   - {fileID: 8716872109200966031}
   - {fileID: 496467760362324437}
   - {fileID: 2322474020807973696}
-  - {fileID: 4170472255796932621}
   m_Father: {fileID: 5807295906379109243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6466,8 +6466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -222.5, y: 7.2687}
-  m_SizeDelta: {x: 445, y: 709.4626}
+  m_AnchoredPosition: {x: -222.5, y: 5.3638}
+  m_SizeDelta: {x: 445, y: 573.0338}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8170453791087613609
 CanvasRenderer:
@@ -11048,6 +11048,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2140474, guid: ef333dc2b01c26e4e8e425a8304ea5b9, type: 2}
+    - target: {fileID: 2396435813426309723, guid: 81882c05470b1204caef2cc2267c3c6f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4304445514570749049, guid: 81882c05470b1204caef2cc2267c3c6f, type: 3}
       propertyPath: m_Name
       value: FPS Counter
