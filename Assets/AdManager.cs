@@ -7,8 +7,6 @@ public class AdManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
     [SerializeField] string _iOsAdUnitId = "Interstitial_iOS";
     string _adUnitId;
 
-    bool hasAd;
-    int rng;
     float timer;
     void Awake()
     {
@@ -16,8 +14,6 @@ public class AdManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
         _adUnitId = (Application.platform == RuntimePlatform.IPhonePlayer)
             ? _iOsAdUnitId
             : _androidAdUnitId;
-
-        rng = Random.Range(10, (60 * 5));
     }
 
     private void OnEnable()
