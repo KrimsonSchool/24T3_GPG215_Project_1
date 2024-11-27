@@ -15,29 +15,22 @@ public class AdManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
         // Get the Ad Unit ID for the current platform:
         _adUnitId = (Application.platform == RuntimePlatform.IPhonePlayer)
             ? _iOsAdUnitId
-            : _androidAdUnitId; 
-        
+            : _androidAdUnitId;
+
         rng = Random.Range(10, (60 * 5));
     }
 
+    private void OnEnable()
+    {
+        PlayerStats.PlayerDied += PlayAd;
+    }
+    private void OnDisable()
+    {
+        PlayerStats.PlayerDied -= PlayAd;
+    }
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            LoadAd();
-        }
-
-        if (hasAd)
-        {
-            timer += Time.deltaTime;
-            if(timer >= rng)
-            {
-                ShowAd();
-                hasAd = false;
-                rng = Random.Range(10, (60 * 5));
-                timer = 0;
-            }
-        }
+        
     }
 
     // Load content to the Ad Unit:
@@ -61,7 +54,8 @@ public class AdManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
     {
         // Optionally execute code if the Ad Unit successfully loads content.
         print("Ad loaded success!");
-        hasAd = true;
+
+        ShowAd();
     }
 
     public void OnUnityAdsFailedToLoad(string _adUnitId, UnityAdsLoadError error, string message)
@@ -74,6 +68,14 @@ public class AdManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
     {
         Debug.Log($"Error showing Ad Unit {_adUnitId}: {error.ToString()} - {message}");
         // Optionally execute code if the Ad Unit fails to show, such as loading another ad.
+    }
+
+    void PlayAd()
+    {
+        if (Random.Range(0, 5) == 0)
+        {
+            LoadAd();
+        }
     }
 
     public void OnUnityAdsShowStart(string _adUnitId) { }
