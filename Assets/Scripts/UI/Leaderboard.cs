@@ -16,6 +16,16 @@ public class Leaderboard : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        PlayerStats.PlayerDied += LeaderboardSet;
+    }
+
+    private void OnDisable()
+    {
+        PlayerStats.PlayerDied -= LeaderboardSet;
+    }
+
     public IEnumerator SubmitScoreRoutine(int scoreToUpload)
     {
         bool done = false;
@@ -84,5 +94,16 @@ public class Leaderboard : MonoBehaviour
             yield return null;
         }
         yield return true;
+    }
+
+    void LeaderboardSet()
+    {
+        StartCoroutine(SetAndLoadLeaderboard());
+    }
+
+    public IEnumerator SetAndLoadLeaderboard()
+    {
+        yield return SubmitScoreRoutine(FindObjectOfType<GameManager>().RoomLevel);
+        yield return FetchTopHighScoresRoutine();
     }
 }

@@ -7,16 +7,18 @@ public class ChickenCombatHandler : EnemyCombatHandler
     private ParticleSystem _particleSystem;
     [SerializeField] private AudioClip featherClip;
     [SerializeField] private AudioClip cluckingClip;
+    public int percentHealthRewarded;
 
     private void OnEnable()
     {
+        base.OnEnable();
         EnemyStats.EnemyDied += RewardPlayer;
     }
     private void OnDisable()
     {
+        base.OnDisable();
         EnemyStats.EnemyDied -= RewardPlayer;
     }
-
     protected override void FindReferences()
     {
         base.FindReferences();
@@ -34,6 +36,6 @@ public class ChickenCombatHandler : EnemyCombatHandler
     public void RewardPlayer()
     {
         print("Rewarding boss kill");
-        FindObjectOfType<PlayerStats>().CurrentHealth += (FindObjectOfType<PlayerStats>().CurrentHealth / 100) * 30;
+        FindObjectOfType<PlayerStats>().CurrentHealth += (FindObjectOfType<PlayerStats>().MaxHealth / 100) * percentHealthRewarded; //issue #54
     }
 }
