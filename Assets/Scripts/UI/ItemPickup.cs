@@ -66,8 +66,8 @@ public class ItemPickup : MonoBehaviour
             if (inventory.weapon == null)
             {
                 statsText.text =
-                    $"{gear.damage} Attack Damage\n" +
-                    $"{gear.attackSpeed} Attack Speed";
+                    $"+{gear.damage} Attack Damage\n" +
+                    $"+{gear.attackSpeed} Attack Speed";
                 //+ gear.critChance + "] Crit Chance\n+ " + gear.critAmount + "] Crit Amount\n+ ["
             }
             else
@@ -77,8 +77,8 @@ public class ItemPickup : MonoBehaviour
                     statsText.color = Color.red;
                 }
                 statsText.text =
-                    $"{damageOffset} Attack Damage\n" +
-                    $"{attackSpeedOffset} Attack Speed";
+                    $"+{damageOffset} Attack Damage\n" +
+                    $"+{attackSpeedOffset} Attack Speed";
                 //\n+ [" + (critOffset) + "] Crit Chance\n+ [" + (critAOffset) + "] Crit Amount
             }
         }
@@ -87,10 +87,10 @@ public class ItemPickup : MonoBehaviour
             if (inventory.armour == null)
             {
                 statsText.text =
-                    $"{gear.health} Health\n" +
-                    $"{gear.defence} Defence\n" +
-                    $"{gear.blockRecovery} Block Recovery\n" +
-                    $"{gear.dodgeSpeed} Dodge Speed";
+                    $"+{gear.health} Health\n" +
+                    $"+{gear.defence} Defence\n" +
+                    $"+{gear.blockRecovery} Block Recovery\n" +
+                    $"+{gear.dodgeSpeed} Dodge Speed";
                 //gear.abilityCooldown+"] Ability Cooldown\n+ [" +
             }
             else
@@ -100,10 +100,10 @@ public class ItemPickup : MonoBehaviour
                     statsText.color = Color.red;
                 }
                 statsText.text =
-                    $"{healthOffset} Health\n" +
-                    $"{defenceOffset} Defence\n" +
-                    $"{blockAmountOffset} Block Recovery\n" +
-                    $"{dodgeSpeedOffset} Dodge Speed";
+                    $"+{healthOffset} Health\n" +
+                    $"+{defenceOffset} Defence\n" +
+                    $"+{blockAmountOffset} Block Recovery\n" +
+                    $"+{dodgeSpeedOffset} Dodge Speed";
                 //\n+ [" + abilityCooldownOffset + "] Ability Cooldown
             }
         }
