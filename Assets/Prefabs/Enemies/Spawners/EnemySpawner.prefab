@@ -46,9 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialEnemy: {fileID: 3214645606131860641, guid: 4761fd23d5b0cbe4290f9c6053886cfc, type: 3}
   Enemies:
-  - GameObject: {fileID: 3214645606131860641, guid: 790fba6ed7780c646a6d872c4f1c6226, type: 3}
+  - Item: {fileID: 3214645606131860641, guid: 790fba6ed7780c646a6d872c4f1c6226, type: 3}
     Weight: 2
-  - GameObject: {fileID: 3214645606131860641, guid: 98029763d3b728348beca3627ef3630b, type: 3}
+  - Item: {fileID: 3214645606131860641, guid: 98029763d3b728348beca3627ef3630b, type: 3}
     Weight: 1
-  - GameObject: {fileID: 3214645606131860641, guid: 5a57e3b8f982fb04083c718ed1305e14, type: 3}
+  - Item: {fileID: 3214645606131860641, guid: 5a57e3b8f982fb04083c718ed1305e14, type: 3}
     Weight: 0

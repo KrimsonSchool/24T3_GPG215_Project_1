@@ -356,9 +356,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1449902088485598246}
+  - component: {fileID: 6197270530822183060}
   - component: {fileID: 3903285471651867804}
   - component: {fileID: 3627285457424134738}
-  - component: {fileID: 6197270530822183060}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -383,6 +383,26 @@ Transform:
   - {fileID: 8311291828662331633}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6197270530822183060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214645606131860641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9830b8203bebd4a8f2d0aecff7c4d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackClip: {fileID: 8300000, guid: d3159d3c32f321c4caf2af4fdae5370f, type: 3}
+  attackPool:
+  - Item: {fileID: 11400000, guid: 4e2989a91c97b6a4c8f96ce16b4b160a, type: 2}
+    Weight: 1
+  - Item: {fileID: 11400000, guid: 2d332136bcd63c8408066a716beec86d, type: 2}
+    Weight: 1
+  minAttackSpeedMultiplier: 0.7
+  firstAttackDelay: 1
 --- !u!114 &3903285471651867804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,21 +441,6 @@ MonoBehaviour:
   gearType: 0
   lootTable:
   - {fileID: 7545032774175372164, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
---- !u!114 &6197270530822183060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3214645606131860641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b9830b8203bebd4a8f2d0aecff7c4d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackClip: {fileID: 8300000, guid: d3159d3c32f321c4caf2af4fdae5370f, type: 3}
-  minAttackSpeedMultiplier: 0.7
-  firstAttackDelay: 3
 --- !u!1 &3231822491873715011
 GameObject:
   m_ObjectHideFlags: 0

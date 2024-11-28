@@ -395,9 +395,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1449902088485598246}
+  - component: {fileID: 1073717881116461116}
   - component: {fileID: 3903285471651867804}
   - component: {fileID: 3627285457424134738}
-  - component: {fileID: 1073717881116461116}
   m_Layer: 0
   m_Name: Chicken
   m_TagString: Untagged
@@ -423,6 +423,33 @@ Transform:
   - {fileID: 3982593715688391232}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1073717881116461116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214645606131860641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c441c8f96d55c5748908bf64ca1ed657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackClip: {fileID: 8300000, guid: 8fdcd374ed860ad4182670302c939c46, type: 3}
+  attackPool:
+  - Item: {fileID: 11400000, guid: 4e2989a91c97b6a4c8f96ce16b4b160a, type: 2}
+    Weight: 1
+  - Item: {fileID: 11400000, guid: 2d332136bcd63c8408066a716beec86d, type: 2}
+    Weight: 2
+  - Item: {fileID: 11400000, guid: aa5a92b3de14d95478f6c4bd730dc238, type: 2}
+    Weight: 2
+  - Item: {fileID: 11400000, guid: fdb1f70e9f3f5564faf8b6e132b661a6, type: 2}
+    Weight: 1
+  minAttackSpeedMultiplier: 0.7
+  firstAttackDelay: 1.5
+  featherClip: {fileID: 8300000, guid: 47d081a8a3e1a7a4695420af50f14044, type: 3}
+  cluckingClip: {fileID: 8300000, guid: 7d6ecce23da49af439da9cc8718443b8, type: 3}
+  percentHealthRewarded: 0
 --- !u!114 &3903285471651867804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,23 +488,6 @@ MonoBehaviour:
   gearType: 0
   lootTable:
   - {fileID: 7545032774175372164, guid: dab2b9c5c4ba3884bb0aa633210d5bb0, type: 3}
---- !u!114 &1073717881116461116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3214645606131860641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c441c8f96d55c5748908bf64ca1ed657, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackClip: {fileID: 8300000, guid: 8fdcd374ed860ad4182670302c939c46, type: 3}
-  minAttackSpeedMultiplier: 0.7
-  firstAttackDelay: 3
-  featherClip: {fileID: 8300000, guid: 47d081a8a3e1a7a4695420af50f14044, type: 3}
-  cluckingClip: {fileID: 8300000, guid: 7d6ecce23da49af439da9cc8718443b8, type: 3}
 --- !u!1 &3231822491873715011
 GameObject:
   m_ObjectHideFlags: 0
