@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour
     private GameManager gameManager;
 
     [SerializeField] private GameObject tutorialEnemy;
-    [SerializeField] private List<WeightedGameObject> Enemies;
+    [SerializeField] private List<WeightedItem<GameObject>> Enemies;
 
     public static event Action<string> EnemySpawned;
 
@@ -45,10 +45,10 @@ public class EnemySpawner : MonoBehaviour
             string loadedEnemy = PlayerPrefs.GetString("EnemyName");
             for (int i = 0; i < Enemies.Count; i++)
             {
-                if (Enemies[i].GameObject.GetComponent<EnemyStats>().EnemyName == loadedEnemy)
+                if (Enemies[i].Item.GetComponent<EnemyStats>().EnemyName == loadedEnemy)
                 {
                     print("Spawning saved enemy");
-                    Instantiate(Enemies[i].GameObject, transform.position, transform.rotation);
+                    Instantiate(Enemies[i].Item, transform.position, transform.rotation);
                     break;
                 }
             }
@@ -60,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private GameObject GetRandomEnemy(List<WeightedGameObject> weightedList)
+    private GameObject GetRandomEnemy(List<WeightedItem<GameObject>> weightedList)
     {
         var totalWeight = 0f;
         foreach (var item in weightedList)
@@ -74,7 +74,7 @@ public class EnemySpawner : MonoBehaviour
             processedWeight += item.Weight;
             if (processedWeight >= randomWeight)
             {
-                return item.GameObject;
+                return item.Item;
             }
         }
         print("Random weight was higher than total weight");

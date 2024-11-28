@@ -9,12 +9,12 @@ public class ChickenCombatHandler : EnemyCombatHandler
     [SerializeField] private AudioClip cluckingClip;
     public int percentHealthRewarded;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
         EnemyStats.EnemyDied += RewardPlayer;
     }
-    private void OnDisable()
+    protected override void OnDisable()
     {
         base.OnDisable();
         EnemyStats.EnemyDied -= RewardPlayer;
