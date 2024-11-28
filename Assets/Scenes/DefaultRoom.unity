@@ -434,20 +434,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1137153169932266599, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      propertyPath: m_text
-      value: Loading Scores...
-      objectReference: {fileID: 0}
-    - target: {fileID: 1137153169932266599, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_fontSize
       value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 1137153169932266599, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      propertyPath: m_fontSizeMax
-      value: 999
-      objectReference: {fileID: 0}
-    - target: {fileID: 1137153169932266599, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      propertyPath: m_fontSizeMin
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1137153169932266599, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_enableAutoSizing
@@ -461,17 +449,9 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2228054903654024439, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3221409164998617861, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_Name
       value: GameplayHUD
-      objectReference: {fileID: 0}
-    - target: {fileID: 3710957820883370197, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3710957820883370197, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -614,38 +594,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049953929066136328, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      propertyPath: m_text
-      value: Loading Scores...
-      objectReference: {fileID: 0}
-    - target: {fileID: 6049953929066136328, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_fontSize
-      value: 124.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6049953929066136328, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      propertyPath: m_fontSizeMax
-      value: 999
-      objectReference: {fileID: 0}
-    - target: {fileID: 6049953929066136328, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      propertyPath: m_fontSizeMin
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6049953929066136328, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 1
+      value: 124.65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 773598212513161369, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1281594376}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
---- !u!1 &174536081 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 773598212513161369, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
-  m_PrefabInstance: {fileID: 174536080}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &227095839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1883,25 +1839,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1137153169932266599, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
   m_PrefabInstance: {fileID: 174536080}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 174536081}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1281594376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 174536081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f0b77d31c4ccc8468e699682cd75f8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textToFollow: {fileID: 400469057}
 --- !u!1 &1418453536
 GameObject:
   m_ObjectHideFlags: 0
