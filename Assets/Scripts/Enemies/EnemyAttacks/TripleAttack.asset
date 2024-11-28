@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ee48ddeea675e54c96ec5004dd66dd0, type: 3}
   m_Name: TripleAttack
   m_EditorClassIdentifier: 
-  amountOfAttacks: 2
-  minDelayBetweenSuccessiveAttacks: 0.5
-  maxDelayBetweenSuccessiveAttacks: 0.5
+  amountOfAttacks: 3
+  delayBetweenSuccessiveAttacks: 0.4

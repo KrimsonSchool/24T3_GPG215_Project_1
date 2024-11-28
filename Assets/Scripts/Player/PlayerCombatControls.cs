@@ -8,7 +8,8 @@ public enum CombatInputs { Tap, Release, SwipeUp, SwipeDown, SwipeLeft, SwipeRig
 public class PlayerCombatControls : Singleton<PlayerCombatControls>
 {
     [SerializeField] private float tapDuration = 0.2f;
-    [SerializeField, Range(0.001f, 1f), Tooltip("Size of deadzone in relation to percentage of screen width")] private float deadZone = 0.01f;
+    [HideInInspector] public static readonly float defaultDeadZone = 0.05f;
+    private float deadZone = 0.05f;
     private float adjustedDeadZone;
     private Vector2 startPoint;
     private Vector2 endPoint;
@@ -27,6 +28,10 @@ public class PlayerCombatControls : Singleton<PlayerCombatControls>
         if (PlayerPrefs.HasKey("DeadZone"))
         {
             deadZone = PlayerPrefs.GetFloat("DeadZone");
+        }
+        else
+        {
+            deadZone = defaultDeadZone;
         }
     }
 

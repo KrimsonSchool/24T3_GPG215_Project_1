@@ -5,6 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class StartScene : MonoBehaviour
 {
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("FrameRate"))
+        {
+            Application.targetFrameRate = (int)PlayerPrefs.GetFloat("FrameRate");
+        }
+        else
+        {
+            Application.targetFrameRate = 60;
+            PlayerPrefs.SetFloat("FrameRate", 60);
+        }
+    }
+
     public void OpenScene(string scene)
     {
         if (PlayerPrefs.GetInt("CanLoad") == 1 && PlayerPrefs.GetInt("Level") >= 2)

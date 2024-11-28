@@ -25,10 +25,14 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private Slider deadZoneSlider;
     [SerializeField] private TextMeshProUGUI deadZoneNumber;
 
+    [SerializeField] private Slider fpsSlider;
+    [SerializeField] private TextMeshProUGUI fpsNumber;
+
     private void Awake()
     {
         SetupVolumeOptions();
         SetupDeadZoneOptions();
+        SetupFPSOptions();
     }
 
     private void SetupVolumeOptions()
@@ -75,9 +79,47 @@ public class OptionsMenu : MonoBehaviour
         }
         else
         {
-            deadZoneSlider.value = 0.01f;
+            deadZoneSlider.value = PlayerCombatControls.defaultDeadZone;
         }
-        deadZoneNumber.text = $"{(float)(int)(deadZoneSlider.value * 1000) / 10}%";
+        deadZoneNumber.text = $"{(deadZoneSlider.value * 100).ToString("F1")}%";
+    }
+
+    private void SetupFPSOptions()
+    {
+        if (PlayerPrefs.HasKey("FrameRate"))
+        {
+            Application.targetFrameRate = (int)PlayerPrefs.GetFloat("FrameRate");
+            switch (PlayerPrefs.GetFloat("FrameRate"))
+            {
+                case 15:
+                    fpsSlider.value = 0;
+                    fpsNumber.text = "15.0";
+                    break;
+                case 30:
+                    fpsSlider.value = 1;
+                    fpsNumber.text = "30.0";
+                    break;
+                case 60:
+                    fpsSlider.value = 2;
+                    fpsNumber.text = "60.0";
+                    break;
+                case 75:
+                    fpsSlider.value = 3;
+                    fpsNumber.text = "75.0";
+                    break;
+                case 120:
+                    fpsSlider.value = 4;
+                    fpsNumber.text = "120.0";
+                    break;
+            }
+        }
+        else
+        {
+            Application.targetFrameRate = 60;
+            PlayerPrefs.SetFloat("FrameRate", 60);
+            fpsSlider.value = 2;
+            fpsNumber.text = "60.0";
+        }
     }
 
     public void ChangeMasterVolume(float volume)
@@ -115,7 +157,39 @@ public class OptionsMenu : MonoBehaviour
             PlayerCombatControls.Instance.DeadZone = value;
         }
         PlayerPrefs.SetFloat("DeadZone", value);
-        deadZoneNumber.text = $"{(float)(int)(value * 1000) / 10}%";
+        deadZoneNumber.text = $"{(value * 100).ToString("F1")}%";
+    }
+
+    public void ChangeFrameRate(float sliderStep)
+    {
+        switch (sliderStep)
+        {
+            case 0:
+                Application.targetFrameRate = 15;
+                PlayerPrefs.SetFloat("FrameRate", 15);
+                fpsNumber.text = "15.0";
+                break;
+            case 1:
+                Application.targetFrameRate = 30;
+                PlayerPrefs.SetFloat("FrameRate", 30);
+                fpsNumber.text = "30.0";
+                break;
+            case 2:
+                Application.targetFrameRate = 60;
+                PlayerPrefs.SetFloat("FrameRate", 60);
+                fpsNumber.text = "60.0";
+                break;
+            case 3:
+                Application.targetFrameRate = 75;
+                PlayerPrefs.SetFloat("FrameRate", 75);
+                fpsNumber.text = "75.0";
+                break;
+            case 4:
+                Application.targetFrameRate = 120;
+                PlayerPrefs.SetFloat("FrameRate", 120);
+                fpsNumber.text = "120.0";
+                break;
+        }
     }
 
     public void CloseOptions()
