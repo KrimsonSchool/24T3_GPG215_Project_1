@@ -7,6 +7,7 @@ public class StartScene : MonoBehaviour
 {
     private void Start()
     {
+        Time.timeScale = 1.0f; // Reset timescale
         if (PlayerPrefs.HasKey("FrameRate"))
         {
             Application.targetFrameRate = (int)PlayerPrefs.GetFloat("FrameRate");

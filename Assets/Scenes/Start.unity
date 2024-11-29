@@ -1121,6 +1121,10 @@ PrefabInstance:
       propertyPath: musicFadeOut
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4758694785479180313, guid: 4f5894cb83cd30a488ef8e4e7b550de5, type: 3}
+      propertyPath: musicFadeOutTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5973744327849486388, guid: 4f5894cb83cd30a488ef8e4e7b550de5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1384,7 +1388,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 131.1
+  m_fontSize: 123.45
   m_fontSizeBase: 107.13
   m_fontWeight: 400
   m_enableAutoSizing: 1
