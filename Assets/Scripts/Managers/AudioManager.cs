@@ -11,9 +11,14 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioSource soundEffect2DPrefab;
     [SerializeField] private AudioSource soundEffect3DPrefab;
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource ambienceSource;
 
-    private AudioSource musicSource;
-    private AudioSource ambienceSource;
+    [Header("Scene Change Fade Options")]
+    [SerializeField] private float musicFadeInTime = 0;
+    [SerializeField] private float musicFadeOutTime = 0;
+    [SerializeField] private float ambienceFadeInTime = 0;
+    [SerializeField] private float ambienceFadeOutTime = 0;
 
     private Coroutine adjustingMusic;
     private Coroutine adjustingAmbience;
@@ -47,20 +52,20 @@ public class AudioManager : PersistentSingleton<AudioManager>
         {
             if (CurrentMusicClip == null)
             {
-                Instance.StopMusic();
+                Instance.StopMusic(musicFadeOutTime, true);
             }
             else if (Instance.CurrentMusicClip == null || Instance.CurrentMusicClip.name != CurrentMusicClip.name)
             {
-                Instance.PlayMusic(CurrentMusicClip);
+                Instance.PlayMusic(CurrentMusicClip, musicFadeInTime, musicFadeOutTime);
             }
 
             if (CurrentAmbienceClip == null)
             {
-                Instance.StopAmbience();
+                Instance.StopAmbience(ambienceFadeOutTime, true);
             }
             else if (Instance.CurrentAmbienceClip == null || Instance.CurrentAmbienceClip.name != CurrentAmbienceClip.name)
             {
-                Instance.PlayAmbience(CurrentAmbienceClip);
+                Instance.PlayAmbience(CurrentAmbienceClip, ambienceFadeInTime);
             }
         }
     }
@@ -137,12 +142,13 @@ public class AudioManager : PersistentSingleton<AudioManager>
     {
         if (fadeInTime <= 0)
         {
+            musicSource.volume = 1;
             musicSource.Play();
         }
         else
         {
             CheckAndStopCoroutine(adjustingMusic);
-            adjustingMusic = StartCoroutine(StartAudioSource(musicSource, fadeInTime));
+            adjustingMusic = Instance.StartCoroutine(StartAudioSource(musicSource, fadeInTime));
         }
     }
 
@@ -151,23 +157,29 @@ public class AudioManager : PersistentSingleton<AudioManager>
         if (fadeInTime <= 0 && fadeOutTime <= 0)
         {
             musicSource.clip = clip;
+            musicSource.volume = 1;
             musicSource.Play();
         }
         else
         {
             CheckAndStopCoroutine(adjustingMusic);
-            adjustingMusic = StartCoroutine(SwapAudioClip(musicSource, clip, fadeInTime, fadeOutTime));
+            adjustingMusic = Instance.StartCoroutine(SwapAudioClip(musicSource, clip, fadeInTime, fadeOutTime));
         }
     }
 
-    public void StopMusic(float fadeOutTime = 0)
+    public void StopMusic(float fadeOutTime = 0, bool setNull = false)
     {
         if (fadeOutTime <= 0)
         {
             musicSource.Stop();
+            musicSource.volume = 0;
+            if (setNull)
+            {
+                musicSource.clip = null;
+            }
         }
         CheckAndStopCoroutine(adjustingMusic);
-        adjustingMusic = StartCoroutine(StopAudioSource(musicSource, fadeOutTime));
+        adjustingMusic = Instance.StartCoroutine(StopAudioSource(musicSource, fadeOutTime, setNull));
     }
 
     public void ChangeMusicVolume(float volume)
@@ -181,12 +193,13 @@ public class AudioManager : PersistentSingleton<AudioManager>
     {
         if (fadeInTime <= 0)
         {
+            ambienceSource.volume = 1;
             ambienceSource.Play();
         }
         else
         {
             CheckAndStopCoroutine(adjustingAmbience);
-            adjustingAmbience = StartCoroutine(StartAudioSource(ambienceSource, fadeInTime));
+            adjustingAmbience = Instance.StartCoroutine(StartAudioSource(ambienceSource, fadeInTime));
         }
     }
 
@@ -195,23 +208,29 @@ public class AudioManager : PersistentSingleton<AudioManager>
         if (fadeInTime <= 0 && fadeOutTime <= 0)
         {
             ambienceSource.clip = clip;
+            ambienceSource.volume = 1;
             ambienceSource.Play();
         }
         else
         {
             CheckAndStopCoroutine(adjustingAmbience);
-            adjustingAmbience = StartCoroutine(SwapAudioClip(ambienceSource, clip, fadeInTime, fadeOutTime));
+            adjustingAmbience = Instance.StartCoroutine(SwapAudioClip(ambienceSource, clip, fadeInTime, fadeOutTime));
         }
     }
 
-    public void StopAmbience(float fadeOutTime = 0)
+    public void StopAmbience(float fadeOutTime = 0, bool setNull = false)
     {
         if (fadeOutTime <= 0)
         {
             ambienceSource.Stop();
+            ambienceSource.volume = 0;
+            if (setNull)
+            {
+                ambienceSource.clip = null;
+            }
         }
         CheckAndStopCoroutine(adjustingAmbience);
-        adjustingAmbience = StartCoroutine(StopAudioSource(ambienceSource, fadeOutTime));
+        adjustingAmbience = Instance.StartCoroutine(StopAudioSource(ambienceSource, fadeOutTime, setNull));
     }
 
     public void ChangeAmbienceVolume(float volume)
@@ -237,29 +256,44 @@ public class AudioManager : PersistentSingleton<AudioManager>
         {
             while (source.volume < 1)
             {
-                source.volume += Time.deltaTime / fadeInTime;
+                source.volume += Time.unscaledDeltaTime / fadeInTime;
                 yield return null;
             }
         }
+        else
+        {
+            source.volume = 1;
+        }
     }
 
-    private IEnumerator StopAudioSource(AudioSource source, float fadeOutTime)
+    private IEnumerator StopAudioSource(AudioSource source, float fadeOutTime, bool setNull = false)
     {
         if (fadeOutTime > 0 && source.isPlaying)
         {
             while (source.volume > 0)
             {
-                source.volume -= Time.deltaTime / fadeOutTime;
+                source.volume -= Time.unscaledDeltaTime / fadeOutTime;
                 yield return null;
             }
+            source.Stop();
+        }
+        else
+        {
+            source.Stop();
+            source.volume = 0;
+        }
+
+        if (setNull)
+        {
+            source.clip = null;
         }
     }
 
-    private IEnumerator SwapAudioClip(AudioSource source, AudioClip clip, float fadeOutTime, float fadeInTime)
+    private IEnumerator SwapAudioClip(AudioSource source, AudioClip clip, float fadeInTime, float fadeOutTime)
     {
-        yield return StartCoroutine(StopAudioSource(source, fadeOutTime));
+        yield return Instance.StartCoroutine(StopAudioSource(source, fadeOutTime));
         source.clip = clip;
-        yield return StartCoroutine(StartAudioSource(source, fadeInTime));
+        yield return Instance.StartCoroutine(StartAudioSource(source, fadeInTime));
     }
     #endregion
 }

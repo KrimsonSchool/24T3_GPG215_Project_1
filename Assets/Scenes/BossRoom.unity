@@ -250,6 +250,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 02c32ca8d4a617e469782da7e91041d1, type: 3}
+    - target: {fileID: 4758694785479180313, guid: 4f5894cb83cd30a488ef8e4e7b550de5, type: 3}
+      propertyPath: musicFadeOutTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5973744327849486388, guid: 4f5894cb83cd30a488ef8e4e7b550de5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
