@@ -60,7 +60,11 @@ public class Gear : MonoBehaviour
             if (type == GearType.Armour)
             {
                 name = "Armour Tier " + teir;
-                icon = player.armourSprite;
+                //icon = player.armourSprite;
+
+                Sprite[] hats = Resources.LoadAll<Sprite>("Sprites/Hats");
+                icon = hats[Random.Range(0, hats.Length)];
+
                 defence = Random.Range(teir * 2, teir * 3 + 1);
                 health = Random.Range(teir * 3, teir * 4 + 1);
                 //abilityCooldown = Random.Range(teir, teir + 3);
@@ -71,7 +75,11 @@ public class Gear : MonoBehaviour
             if (type == GearType.Weapon)
             {
                 name = "Weapon Tier " + teir;
-                icon = player.weaponSprite;
+                //icon = player.weaponSprite;
+
+                Sprite[] weps = Resources.LoadAll<Sprite>("Sprites/Weapons");
+                icon = weps[Random.Range(0, weps.Length)];
+
                 damage = Random.Range(teir * 2, teir * 3 + 1);
                 attackSpeed = Mathf.RoundToInt(Random.Range(0, Mathf.Log(teir, 1.5f) + 2));
                 //critChance = Random.Range(teir, teir*20);
