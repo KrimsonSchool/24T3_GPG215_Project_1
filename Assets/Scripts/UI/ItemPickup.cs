@@ -72,12 +72,22 @@ public class ItemPickup : MonoBehaviour
             }
             else
             {
-                if (wpm <= 0)
+                string dO;
+                if (damageOffset > 0)
                 {
-                    statsText.color = Color.red;
+                    dO = "< color = green > " + damageOffset + " </ color >";
                 }
+                else if(damageOffset < 0)
+                {
+                    dO = "< color = red > " + damageOffset + " </ color >";
+                }
+                else
+                {
+                    dO = ""+damageOffset;
+                }
+
                 statsText.text =
-                    $"+{damageOffset} Attack Damage\n" +
+                    $"+{dO} Attack Damage\n" +
                     $"+{attackSpeedOffset} Attack Speed";
                 //\n+ [" + (critOffset) + "] Crit Chance\n+ [" + (critAOffset) + "] Crit Amount
             }
