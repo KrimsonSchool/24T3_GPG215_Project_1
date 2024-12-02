@@ -441,6 +441,10 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1495470735429159717, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1752624686600397403, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -600,6 +604,22 @@ PrefabInstance:
     - target: {fileID: 6049953929066136328, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
       propertyPath: m_fontSize
       value: 124.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698605900043708177, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698605900043708177, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698605900043708177, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698605900043708177, guid: 5cf1eec7e4dfb6247a92570e050a2ecb, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
