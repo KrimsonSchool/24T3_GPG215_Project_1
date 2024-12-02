@@ -1813,6 +1813,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1073717881116461116, guid: 5a57e3b8f982fb04083c718ed1305e14, type: 3}
+      propertyPath: percentHealthRewarded
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1449902088485598246, guid: 5a57e3b8f982fb04083c718ed1305e14, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
