@@ -97,14 +97,14 @@ public class ItemPickup : MonoBehaviour
                 statsText.text = ColourStatString(0, gear.health, "Health") + "\n" +
                     ColourStatString(0, gear.defence, "Defence") + "\n" +
                     ColourStatString(0, gear.blockRecovery, "Block Recovery") + "\n" +
-                    ColourStatString(0, gear.dodgeSpeed, "Dodge Speed") + "\n";
+                    ColourStatString(0, gear.dodgeSpeed, "Dodge Speed");
             }
             else
             {
                 statsText.text = ColourStatString(inventory.armour.health, gear.health, "Health") + "\n" +
                     ColourStatString(inventory.armour.defence, gear.defence, "Defence") + "\n" +
                     ColourStatString(inventory.armour.blockRecovery, gear.blockRecovery, "Block Recovery") + "\n" +
-                    ColourStatString(inventory.armour.dodgeSpeed, gear.dodgeSpeed, "Dodge Speed") + "\n";
+                    ColourStatString(inventory.armour.dodgeSpeed, gear.dodgeSpeed, "Dodge Speed");
             }
         }
     }
