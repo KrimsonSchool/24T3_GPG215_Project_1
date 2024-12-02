@@ -104,8 +104,10 @@ public class PlayerInventory : Singleton<PlayerInventory>
             //"\nCrit Chance: " + weapon.critChance + "%\nCrit Amount: " + weapon.critAmount + 
 
             Sprite[] weps = Resources.LoadAll<Sprite>("Sprites/Weapons");
+            print("Setting skin based on loaded " + weps[weaponSkin]);
 
             weaponInv.sprite = weps[weaponSkin];
+            weapon.icon = weps[weaponSkin];
         }
 
         if (armourInv.gameObject.activeSelf && armour != null)
@@ -120,6 +122,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
             Sprite[] hats = Resources.LoadAll<Sprite>("Sprites/Hats");
             
             armourInv.sprite = hats[armourSkin];
+            armour.icon = hats[armourSkin];
         }
 
         if (weapon != null)
