@@ -28,6 +28,9 @@ public class PlayerInventory : Singleton<PlayerInventory>
 
     PlayerStats playerStats;
 
+    public GameObject equippedWeapon;
+    public GameObject equippedArmour;
+
     protected override void Awake()
     {
         base.Awake();
