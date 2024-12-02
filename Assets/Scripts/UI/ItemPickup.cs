@@ -54,6 +54,22 @@ public class ItemPickup : MonoBehaviour
         }
     }
 
+    private string ColourStatString(float equipped, float pickup, string stat)
+    {
+        if (equipped < pickup)
+        {
+            return $"<color=green>+{pickup - equipped} {stat}</color>";
+        }
+        else if (equipped > pickup)
+        {
+            return $"<color=red>-{equipped - pickup} {stat}</color>";
+        }
+        else
+        {
+            return $"<color=white>+{equipped - pickup} {stat}</color>";
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -65,56 +81,30 @@ public class ItemPickup : MonoBehaviour
             DEBUG_dmg = gear.damage;
             if (inventory.weapon == null)
             {
-                statsText.text =
-                    $"+{gear.damage} Attack Damage\n" +
-                    $"+{gear.attackSpeed} Attack Speed";
-                //+ gear.critChance + "] Crit Chance\n+ " + gear.critAmount + "] Crit Amount\n+ ["
+                statsText.text = ColourStatString(1, gear.damage, "Attack Damage") + "\n" +
+                    ColourStatString(0, gear.attackSpeed, "Attack Speed");
             }
             else
             {
-                string dO;
-                if (damageOffset > 0)
-                {
-                    dO = "< color = green > " + damageOffset + " </ color >";
-                }
-                else if(damageOffset < 0)
-                {
-                    dO = "< color = red > " + damageOffset + " </ color >";
-                }
-                else
-                {
-                    dO = ""+damageOffset;
-                }
-
-                statsText.text =
-                    $"+{dO} Attack Damage\n" +
-                    $"+{attackSpeedOffset} Attack Speed";
-                //\n+ [" + (critOffset) + "] Crit Chance\n+ [" + (critAOffset) + "] Crit Amount
+                statsText.text = ColourStatString(inventory.weapon.damage, gear.damage, "Attack Damage") + "\n" +
+                    ColourStatString(inventory.weapon.attackSpeed, gear.attackSpeed, "Attack Speed");
             }
         }
         if (gear.type == Gear.GearType.Armour)
         {
             if (inventory.armour == null)
             {
-                statsText.text =
-                    $"+{gear.health} Health\n" +
-                    $"+{gear.defence} Defence\n" +
-                    $"+{gear.blockRecovery} Block Recovery\n" +
-                    $"+{gear.dodgeSpeed} Dodge Speed";
-                //gear.abilityCooldown+"] Ability Cooldown\n+ [" +
+                statsText.text = ColourStatString(0, gear.health, "Health") + "\n" +
+                    ColourStatString(0, gear.defence, "Defence") + "\n" +
+                    ColourStatString(0, gear.blockRecovery, "Block Recovery") + "\n" +
+                    ColourStatString(0, gear.dodgeSpeed, "Dodge Speed") + "\n";
             }
             else
             {
-                if (defenceOffset <= 0)
-                {
-                    statsText.color = Color.red;
-                }
-                statsText.text =
-                    $"+{healthOffset} Health\n" +
-                    $"+{defenceOffset} Defence\n" +
-                    $"+{blockAmountOffset} Block Recovery\n" +
-                    $"+{dodgeSpeedOffset} Dodge Speed";
-                //\n+ [" + abilityCooldownOffset + "] Ability Cooldown
+                statsText.text = ColourStatString(inventory.armour.health, gear.health, "Health") + "\n" +
+                    ColourStatString(inventory.armour.defence, gear.defence, "Defence") + "\n" +
+                    ColourStatString(inventory.armour.blockRecovery, gear.blockRecovery, "Block Recovery") + "\n" +
+                    ColourStatString(inventory.armour.dodgeSpeed, gear.dodgeSpeed, "Dodge Speed") + "\n";
             }
         }
     }
