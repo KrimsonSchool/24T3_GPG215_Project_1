@@ -36,6 +36,8 @@ public class Gear : MonoBehaviour
     //[HideInInspector] public int critChance;
     //[HideInInspector] public int critAmount;
     [HideInInspector] public int attackSpeed;
+
+     public int skinID;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +65,8 @@ public class Gear : MonoBehaviour
                 //icon = player.armourSprite;
 
                 Sprite[] hats = Resources.LoadAll<Sprite>("Sprites/Hats");
-                icon = hats[Random.Range(0, hats.Length)];
+                skinID = Random.Range(0, hats.Length);
+                icon = hats[skinID];
 
                 defence = Random.Range(teir * 2, teir * 3 + 1);
                 health = Random.Range(teir * 3, teir * 4 + 1);
@@ -77,8 +80,9 @@ public class Gear : MonoBehaviour
                 name = "Weapon Tier " + teir;
                 //icon = player.weaponSprite;
 
-                Sprite[] weps = Resources.LoadAll<Sprite>("Sprites/Weapons");
-                icon = weps[Random.Range(0, weps.Length)];
+                Sprite[] weps = Resources.LoadAll<Sprite>("Sprites/Weapons"); 
+                skinID = Random.Range(0, weps.Length);
+                icon = weps[skinID];
 
                 damage = Random.Range(teir * 2, teir * 3 + 1);
                 attackSpeed = Mathf.RoundToInt(Random.Range(0, Mathf.Log(teir, 1.5f) + 2));

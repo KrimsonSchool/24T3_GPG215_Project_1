@@ -156,6 +156,8 @@ public class SaveManager : PersistentSingleton<SaveManager>
             PlayerPrefs.SetInt("WeaponAttackSpeed", playerInventory.weapon.attackSpeed);
             //PlayerPrefs.SetInt("WeaponCritChance", playerInventory.weapon.critChance);
             //PlayerPrefs.SetInt("WeaponCritAmount", playerInventory.weapon.critAmount);
+
+            PlayerPrefs.SetInt("WeaponSkin", playerInventory.weaponSkin);
         }
 
         if (playerInventory.armour != null)
@@ -167,6 +169,8 @@ public class SaveManager : PersistentSingleton<SaveManager>
             //PlayerPrefs.SetInt("ArmourAbilityCooldown", playerInventory.armour.abilityCooldown);
             PlayerPrefs.SetInt("ArmourBlockAmount", playerInventory.armour.blockRecovery);
             PlayerPrefs.SetInt("ArmourDodgeSpeed", playerInventory.armour.dodgeSpeed);
+
+            PlayerPrefs.SetInt("WeaponSkin", playerInventory.armourSkin);
         }
     }
 
@@ -206,6 +210,9 @@ public class SaveManager : PersistentSingleton<SaveManager>
             gear.drop = false;
             ip.gear = gear;
             ip.Equip();
+
+            playerInventory.weaponSkin = PlayerPrefs.GetInt("WeaponSkin");
+            print("recived skin " +  playerInventory.weaponSkin);
         }
         if (PlayerPrefs.GetInt("HasArmour") == 1)
         {
@@ -230,6 +237,8 @@ public class SaveManager : PersistentSingleton<SaveManager>
             gear.drop = false;
             ip.gear = gear;
             ip.Equip();
+            
+            playerInventory.armourSkin = PlayerPrefs.GetInt("ArmourSkin");
         }
     }
 }

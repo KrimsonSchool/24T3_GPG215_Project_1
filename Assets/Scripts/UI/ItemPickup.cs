@@ -121,23 +121,27 @@ public class ItemPickup : MonoBehaviour
             //print("Equipping [" + gear + "] to [" + inventory + "]");
             inventory.weapon = gear;
 
-            Destroy(inventory.equippedArmour);
+            Destroy(inventory.equippedWeapon);
 
-            inventory.equippedArmour = gear.gameObject;
+            inventory.equippedWeapon = gear.gameObject;
             gear.gameObject.transform.position = inventory.weaponSlot.transform.position;
             gear.gameObject.transform.rotation = inventory.weaponSlot.transform.rotation;
             gear.gameObject.transform.localScale = inventory.weaponSlot.transform.localScale;
+
+            inventory.weaponSkin = gear.skinID;
         }
         else if (gear.type == Gear.GearType.Armour)
         {
             inventory.armour = gear;
 
-            Destroy(inventory.equippedWeapon);
+            Destroy(inventory.equippedArmour);
 
-            inventory.equippedWeapon = gear.gameObject;
+            inventory.equippedArmour = gear.gameObject;
             gear.gameObject.transform.position = inventory.armourSlot.transform.position;
             gear.gameObject.transform.rotation = inventory.armourSlot.transform.rotation;
             gear.gameObject.transform.localScale = inventory.armourSlot.transform.localScale;
+
+            inventory.armourSkin = gear.skinID;
         }
         else
         {

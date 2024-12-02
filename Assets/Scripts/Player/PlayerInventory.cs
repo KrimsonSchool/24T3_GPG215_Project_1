@@ -31,6 +31,8 @@ public class PlayerInventory : Singleton<PlayerInventory>
     public GameObject equippedWeapon;
     public GameObject equippedArmour;
 
+    public int weaponSkin;
+    public int armourSkin;
     protected override void Awake()
     {
         base.Awake();
@@ -96,22 +98,28 @@ public class PlayerInventory : Singleton<PlayerInventory>
     {
         if (weaponInv.gameObject.activeSelf && weapon != null)
         {
-            weaponInv.sprite = weapon.icon;
             weaponStatsText.text =
                 $"Attack: {weapon.damage}\n" +
                 $"Speed: {weapon.attackSpeed}";
             //"\nCrit Chance: " + weapon.critChance + "%\nCrit Amount: " + weapon.critAmount + 
+
+            Sprite[] weps = Resources.LoadAll<Sprite>("Sprites/Weapons");
+
+            weaponInv.sprite = weps[weaponSkin];
         }
 
         if (armourInv.gameObject.activeSelf && armour != null)
         {
-            armourInv.sprite = armour.icon;
             armourStatsText.text =
                 $"Health: {armour.health}\n" +
                 $"Defence: {armour.defence}\n" +
                 $"Block: {armour.blockRecovery}\n" +
                 $"Dodge {armour.dodgeSpeed}";
             //"\nAbility Cooldown: " + armour.abilityCooldown +
+
+            Sprite[] hats = Resources.LoadAll<Sprite>("Sprites/Hats");
+            
+            armourInv.sprite = hats[armourSkin];
         }
 
         if (weapon != null)
