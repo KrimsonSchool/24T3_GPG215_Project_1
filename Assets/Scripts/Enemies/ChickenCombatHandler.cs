@@ -36,6 +36,6 @@ public class ChickenCombatHandler : EnemyCombatHandler
     public void RewardPlayer()
     {
         print("Rewarding boss kill");
-        FindObjectOfType<PlayerStats>().CurrentHealth += (FindObjectOfType<PlayerStats>().MaxHealth / 100) * percentHealthRewarded; //issue #54
+        FindObjectOfType<PlayerStats>().CurrentHealth += (int)(FindObjectOfType<PlayerStats>().MaxHealth / 100f * percentHealthRewarded); //issue #54
     }
 }
