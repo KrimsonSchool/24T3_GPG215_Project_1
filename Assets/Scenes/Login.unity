@@ -139,6 +139,10 @@ PrefabInstance:
       value: Start
       objectReference: {fileID: 0}
     - target: {fileID: 4766409862729637308, guid: 1a7ee98940d86984290ccb246568c36b, type: 3}
+      propertyPath: welcomeText
+      value: 
+      objectReference: {fileID: 100715485}
+    - target: {fileID: 4766409862729637308, guid: 1a7ee98940d86984290ccb246568c36b, type: 3}
       propertyPath: loadingScreen
       value: 
       objectReference: {fileID: 1664707859}
@@ -234,10 +238,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 312059381}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000024796, y: 748.5049}
-  m_SizeDelta: {x: 917.2256, y: 185.3947}
+  m_AnchorMin: {x: 0.07870371, y: 0.84127086}
+  m_AnchorMax: {x: 0.93144447, y: 0.9406042}
+  m_AnchoredPosition: {x: -5.5, y: -1.9951172}
+  m_SizeDelta: {x: -3.774414, y: -5.6052246}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &100715485
 MonoBehaviour:
@@ -286,7 +290,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 165.9
+  m_fontSize: 165.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

@@ -10,6 +10,7 @@ public class ProfileManager : MonoBehaviour
     public string startScene;
     public TMP_InputField username;
     public GameObject loadingScreen;
+    public TextMeshProUGUI welcomeText;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,8 @@ public class ProfileManager : MonoBehaviour
         {
             username.text = PlayerPrefs.GetString("PlayerName");
         }
+
+        
     }
 
     public void LoginGuest()
@@ -51,7 +54,9 @@ public class ProfileManager : MonoBehaviour
                 else
                 {
                     Debug.LogError("Failed to set player name! " + response.errorData);
-                    done = true;
+                    welcomeText.text = "User Login Failed, "+response.errorData;
+                    loadingScreen.SetActive(false);
+                    done = false;
                 }
             });
             while (!done)
@@ -79,8 +84,10 @@ public class ProfileManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Player Login Failed! " + response.errorData);
-                done = true;
+                Debug.LogError("Player Login Failed! " + response.errorData); 
+                welcomeText.text = "User Login Failed, " + response.errorData;
+                loadingScreen.SetActive(false);
+                done = false;
             }
         });
 
