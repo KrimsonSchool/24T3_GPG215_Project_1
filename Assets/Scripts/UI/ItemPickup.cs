@@ -31,6 +31,7 @@ public class ItemPickup : MonoBehaviour
     void Start()
     {
         FindObjectOfType<MenuManager>().openMenus++;
+        Time.timeScale = 0;
         inventory = FindObjectOfType<PlayerInventory>();
 
         if (inventory.weapon != null)
